@@ -55,3 +55,6 @@ npm start
 ```
 
 # Resources
+
+- [Django Rest Framework](https://www.django-rest-framework.org/)
+- [React](https://reactjs.org/tutorial/tutorial.html)
