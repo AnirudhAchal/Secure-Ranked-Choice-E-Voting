@@ -39,7 +39,7 @@ class LoginContainerView extends Component {
   }
 
   render() {
-    const { password, email } = this.state;
+    const { email, password } = this.state;
     return (
       <LoginView
         email={email}
