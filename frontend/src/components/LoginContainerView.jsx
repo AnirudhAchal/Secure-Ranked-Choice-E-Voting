@@ -35,7 +35,7 @@ class LoginContainerView extends Component {
   handleSubmit() {
     // Do backend api
     const { email, password } = this.state;
-    console.log(email + " " + password);
+    alert(`Email: ${email}\nPassword: ${password}\n`);
   }
 
   render() {
