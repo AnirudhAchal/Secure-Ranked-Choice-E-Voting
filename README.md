@@ -33,14 +33,19 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-## 4. Setup Django Database
+## 4. Setup environment variables
+
+- Create a .env file at the root directoy of the backend (at the same level as `manage.py`)
+- Add secret keys using the .env.example file as reference
+
+## 5. Setup Django Database
 
 ```
 cd backend
 python manage.py migrate
 ```
 
-## 5. Start Django Restful API
+## 6. Start Django Restful API
 
 ```
 python manage.py runserver
