@@ -59,6 +59,11 @@ npm ci
 npm start
 ```
 
+# Local Database Setup
+
+- Create a new local PostgreSQL database using PgAdmin
+- Add all required environment variables in the .env file using the .env.example file as reference
+
 # Resources
 
 - [Django Rest Framework](https://www.django-rest-framework.org/)
