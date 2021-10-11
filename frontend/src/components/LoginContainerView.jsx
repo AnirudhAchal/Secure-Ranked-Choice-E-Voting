@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LoginView from "./LoginView";
+import axiosInstance from "../axios";
 
 class LoginContainerView extends Component {
   constructor(props) {
@@ -32,10 +33,25 @@ class LoginContainerView extends Component {
     });
   }
 
-  handleSubmit() {
-    // Do backend api
+  handleSubmit(event) {
     const { email, password } = this.state;
-    alert(`Email: ${email}\nPassword: ${password}\n`);
+    event.preventDefault();
+
+    axiosInstance
+      .post("token/", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        localStorage.setItem("access_token", res.data.access);
+        localStorage.setItem("refresh_token", res.data.refresh);
+        axiosInstance.defaults.headers["Authorization"] =
+          "JWT " + localStorage.getItem("access_token");
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   }
 
   render() {

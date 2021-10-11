@@ -17,7 +17,7 @@ class LoginView extends Component {
 
     return (
       <div className="Login">
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={(e) => onSubmit(e)}>
           <Form.Group size="lg" controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -40,7 +40,7 @@ class LoginView extends Component {
               Login
             </Button>
           </Form.Group>
-          <Form.Group size="lg" controlId="register" center>
+          <Form.Group size="lg" controlId="register">
             <Form.Label>Don't have an account?&nbsp;</Form.Label>
             <Link to="/register">Register</Link>
           </Form.Group>

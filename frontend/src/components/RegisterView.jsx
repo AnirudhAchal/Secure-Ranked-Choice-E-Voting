@@ -6,12 +6,14 @@ import "./styles/Register.css";
 class RegisterView extends Component {
   render() {
     const {
+      username,
       firstname,
       lastname,
       email,
       password,
       confirmPassword,
       onSubmit,
+      onUserNameChange,
       onFirstNameChange,
       onLastNameChange,
       onEmailChange,
@@ -22,7 +24,25 @@ class RegisterView extends Component {
 
     return (
       <div className="Register">
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={(e) => onSubmit(e)}>
+          <Form.Group size="lg" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              autoFocus
+              type="email"
+              value={email}
+              onChange={(e) => onEmailChange(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group size="lg" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              autoFocus
+              type="text"
+              value={username}
+              onChange={(e) => onUserNameChange(e.target.value)}
+            />
+          </Form.Group>
           <Form.Group size="lg" controlId="firstname">
             <Form.Label>First Name</Form.Label>
             <Form.Control
@@ -41,15 +61,7 @@ class RegisterView extends Component {
               onChange={(e) => onLastNameChange(e.target.value)}
             />
           </Form.Group>
-          <Form.Group size="lg" controlId="email">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              autoFocus
-              type="email"
-              value={email}
-              onChange={(e) => onEmailChange(e.target.value)}
-            />
-          </Form.Group>
+
           <Form.Group size="lg" controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
