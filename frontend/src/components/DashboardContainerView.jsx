@@ -16,7 +16,7 @@ class DashboardContainerView extends Component {
   async componentDidMount() {
     if (!isAuthenticated()) {
       this.setState({
-        redirectToDashboard: true,
+        redirectToLogin: true,
       });
     }
   }
