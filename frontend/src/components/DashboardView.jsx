@@ -5,8 +5,12 @@ class DashboardView extends Component {
     const { onLogout } = this.props;
     return (
       <div>
-        <h1>Dashboard</h1>
-        <button onClick={onLogout}>Logout</button>
+        <nav className="navbar navbar-light bg-light">
+          <a className="navbar-brand">Dashboard</a>
+          <button className="btn btn-light my-2 my-sm-0" onClick={onLogout}>
+            Logout
+          </button>
+        </nav>
       </div>
     );
   }
