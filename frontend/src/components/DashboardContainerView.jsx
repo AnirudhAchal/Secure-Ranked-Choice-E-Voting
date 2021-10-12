@@ -14,12 +14,9 @@ class DashboardContainerView extends Component {
   }
 
   async componentDidMount() {
-    // Temporary check
-    // Will be automatically redirected to login page
-    // if the user is not autheticated while doing get election api call
-    if (localStorage.getItem("refresh_token") === null) {
+    if (!isAuthenticated()) {
       this.setState({
-        redirectToLogin: true,
+        redirectToDashboard: true,
       });
     }
   }
