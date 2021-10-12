@@ -39,11 +39,11 @@ axiosInstance.interceptors.response.use(
     }
 
     if (
-      error.response.data.code === "token_not_valid" &&
       error.response.status === 401 &&
       error.response.statusText === "Unauthorized"
     ) {
       const refreshToken = localStorage.getItem("refresh_token");
+      console.log(refreshToken);
 
       if (refreshToken) {
         const tokenParts = JSON.parse(atob(refreshToken.split(".")[1]));
@@ -56,14 +56,16 @@ axiosInstance.interceptors.response.use(
           return axiosInstance
             .post("/token/refresh/", { refresh: refreshToken })
             .then((response) => {
-              localStorage.setItem("access_token", response.data.access);
-              localStorage.setItem("refresh_token", response.data.refresh);
-
-              axiosInstance.defaults.headers["Authorization"] =
-                "JWT " + response.data.access;
-              originalRequest.headers["Authorization"] =
-                "JWT " + response.data.access;
-
+              if (response.data.access) {
+                localStorage.setItem("access_token", response.data.access);
+                axiosInstance.defaults.headers["Authorization"] =
+                  "JWT " + response.data.access;
+                originalRequest.headers["Authorization"] =
+                  "JWT " + response.data.access;
+              }
+              if (response.data.refresh) {
+                localStorage.setItem("refresh_token", response.data.refresh);
+              }
               return axiosInstance(originalRequest);
             })
             .catch((err) => {
