@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LoginView from "./LoginView";
 import axiosInstance from "../axios";
+import { Redirect } from "react-router";
 
 class LoginContainerView extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class LoginContainerView extends Component {
     this.state = {
       email: "",
       password: "",
+      redirectToDashboard: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -48,6 +50,9 @@ class LoginContainerView extends Component {
         axiosInstance.defaults.headers["Authorization"] =
           "JWT " + localStorage.getItem("access_token");
         console.log(res);
+        this.setState({
+          redirectToDashboard: true,
+        });
       })
       .catch((res) => {
         console.log(res);
@@ -55,7 +60,12 @@ class LoginContainerView extends Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, redirectToDashboard } = this.state;
+
+    if (redirectToDashboard) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <LoginView
         email={email}

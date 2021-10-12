@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RegisterView from "./RegisterView";
 import axiosInstance from "../axios";
+import { Redirect } from "react-router";
 
 class RegisterContainerView extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class RegisterContainerView extends Component {
       email: "",
       password: "",
       confirmPassword: "",
+      redirectToLogin: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -87,6 +89,9 @@ class RegisterContainerView extends Component {
       })
       .then((res) => {
         console.log(res);
+        this.setState({
+          redirectToLogin: true,
+        });
       })
       .catch((res) => {
         console.log(res);
@@ -94,8 +99,20 @@ class RegisterContainerView extends Component {
   }
 
   render() {
-    const { username, firstname, lastname, email, password, confirmPassword } =
-      this.state;
+    const {
+      username,
+      firstname,
+      lastname,
+      email,
+      password,
+      confirmPassword,
+      redirectToLogin,
+    } = this.state;
+
+    if (redirectToLogin) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <RegisterView
         username={username}
