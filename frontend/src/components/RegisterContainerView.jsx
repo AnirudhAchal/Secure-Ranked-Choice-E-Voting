@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import RegisterView from "./RegisterView";
 import axiosInstance from "../axios";
 import { Redirect } from "react-router";
+import isAuthenticated from "./utils/authentication";
 
 class RegisterContainerView extends Component {
   constructor(props) {
@@ -25,6 +26,14 @@ class RegisterContainerView extends Component {
     this.handleConfirmPasswordChange =
       this.handleConfirmPasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  async componentDidMount() {
+    if (isAuthenticated()) {
+      this.setState({
+        redirectToDashboard: true,
+      });
+    }
   }
 
   validateForm() {

@@ -25,13 +25,21 @@ class DashboardContainerView extends Component {
   }
 
   handleLogout() {
-    const response = axiosInstance.post("authentication/logout/blacklist/", {
-      refresh_token: localStorage.getItem("refresh_token"),
-    });
+    axiosInstance
+      .post("authentication/logout/blacklist/", {
+        refresh_token: localStorage.getItem("refresh_token"),
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     axiosInstance.defaults.headers["Authorization"] = null;
-    console.log(response);
+
     this.setState({
       redirectToLogin: true,
     });
