@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class DashboardView extends Component {
   render() {
@@ -6,7 +7,9 @@ class DashboardView extends Component {
     return (
       <div>
         <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand">Dashboard</a>
+          <Link className="navbar-brand" to="/">
+            Dashboard
+          </Link>
           <button className="btn btn-light my-2 my-sm-0" onClick={onLogout}>
             Logout
           </button>
