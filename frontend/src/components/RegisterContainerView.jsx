@@ -3,6 +3,7 @@ import RegisterView from "./RegisterView";
 import axiosInstance from "../axios";
 import { Redirect } from "react-router";
 import isAuthenticated from "./utils/authentication";
+import { NotificationManager } from "react-notifications";
 
 class RegisterContainerView extends Component {
   constructor(props) {
@@ -102,8 +103,12 @@ class RegisterContainerView extends Component {
           redirectToLogin: true,
         });
       })
-      .catch((res) => {
-        console.log(res);
+      .catch((err) => {
+        NotificationManager.error(
+          err.response.data.detail,
+          "Registration Failed",
+          5000
+        );
       });
   }
 

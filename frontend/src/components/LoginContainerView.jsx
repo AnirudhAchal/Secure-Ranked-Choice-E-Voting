@@ -3,6 +3,7 @@ import LoginView from "./LoginView";
 import axiosInstance from "../axios";
 import { Redirect } from "react-router";
 import isAuthenticated from "./utils/authentication";
+import { NotificationManager } from "react-notifications";
 
 class LoginContainerView extends Component {
   constructor(props) {
@@ -63,8 +64,13 @@ class LoginContainerView extends Component {
           redirectToDashboard: true,
         });
       })
-      .catch((res) => {
-        console.log(res);
+      .catch((err) => {
+        console.log(err);
+        NotificationManager.error(
+          err.response.data.detail,
+          "Login Failed",
+          5000
+        );
       });
   }
 

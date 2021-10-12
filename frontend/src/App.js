@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardContainerView from "./components/DashboardContainerView";
 import LoginContainerView from "./components/LoginContainerView";
 import RegisterContainerView from "./components/RegisterContainerView";
+import "react-notifications/lib/notifications.css";
 
 function App() {
   return (

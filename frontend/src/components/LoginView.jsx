@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./styles/Login.css";
 import { Link } from "react-router-dom";
+import { NotificationContainer } from "react-notifications";
 
 class LoginView extends Component {
   render() {
@@ -45,6 +46,7 @@ class LoginView extends Component {
             <Link to="/register">Register</Link>
           </Form.Group>
         </Form>
+        <NotificationContainer />
       </div>
     );
   }

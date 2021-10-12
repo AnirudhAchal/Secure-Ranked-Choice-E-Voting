@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./styles/Register.css";
+import { NotificationContainer } from "react-notifications";
 
 class RegisterView extends Component {
   render() {
@@ -82,6 +83,7 @@ class RegisterView extends Component {
             Register
           </Button>
         </Form>
+        <NotificationContainer />
       </div>
     );
   }
