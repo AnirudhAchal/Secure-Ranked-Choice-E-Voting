@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import DashboardView from "./DashboardView";
 import axiosInstance from "../axios";
 import { Redirect } from "react-router";
@@ -38,7 +38,7 @@ class DashboardContainerView extends Component {
   }
 
   render() {
-    const { leads, redirectToLogin } = this.state;
+    const { redirectToLogin } = this.state;
     if (redirectToLogin) {
       return <Redirect to="/login" />;
     }
