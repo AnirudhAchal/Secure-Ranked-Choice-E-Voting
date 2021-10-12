@@ -23,11 +23,7 @@ const isAuthenticated = () => {
           console.log(err);
         });
       return true;
-    } else {
-      console.log("Refresh token is expired", tokenParts.exp, now);
     }
-  } else {
-    console.log("Refresh token not available.");
   }
 
   return false;
