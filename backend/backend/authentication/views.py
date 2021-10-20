@@ -9,6 +9,8 @@ from rest_framework import generics
 from django.urls import reverse
 from .models import User
 from .utils import Util
+import jwt
+from django.conf import settings
 
 
 class UserCreate(APIView):
@@ -53,5 +55,18 @@ class BlacklistTokenUpdateView(APIView):
 
 
 class VerifyEmail(generics.GenericAPIView):
-    def get(self):
-        pass
+    def get(self, request):
+        token = request.GET.get('token')
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=settings.SIMPLE_JWT['ALGORITHM'])
+            user = User.objects.get(id=payload['user_id'])
+
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+
+            return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
+        except jwt.ExpiredSignatureError:
+            return Response({'error': 'Activation link expired'}, status=status.HTTP_400_BAD_REQUEST)
+        except jwt.exceptions.DecodeError:
+            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
