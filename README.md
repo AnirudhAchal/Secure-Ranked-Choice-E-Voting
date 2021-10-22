@@ -29,6 +29,14 @@ source env/bin/activate
 
 ## 3. Install python packages
 
+On Linux
+```
+sudo apt install libpq-dev python3-dev
+pip install wheel
+pip install -r requirements.txt
+```
+
+On Windows
 ```
 pip install -r requirements.txt
 ```
