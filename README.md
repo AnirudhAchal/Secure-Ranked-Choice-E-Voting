@@ -29,6 +29,14 @@ source env/bin/activate
 
 ## 3. Install python packages
 
+On Linux
+```
+sudo apt install libpq-dev python3-dev
+pip install wheel
+pip install -r requirements.txt
+```
+
+On Windows
 ```
 pip install -r requirements.txt
 ```
@@ -58,6 +66,11 @@ cd frontend
 npm ci
 npm start
 ```
+
+# Local Database Setup
+
+- Create a new local PostgreSQL database using PgAdmin
+- Add all required environment variables in the .env file using the .env.example file as reference
 
 # Resources
 
