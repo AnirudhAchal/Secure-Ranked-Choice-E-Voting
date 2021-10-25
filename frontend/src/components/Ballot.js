@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import "./styles/Ballot.css";
+import isAuthenticated from "./utils/authentication";
 
 class Ballot extends Component {
   constructor() {
@@ -12,9 +14,18 @@ class Ballot extends Component {
         { id: 4, name: 'Maher'},
         { id: 5, name: 'Baghdadi'}
       ],
-      tracker: new Array(5).fill(null)
+      tracker: new Array(5).fill(null),
+      redirectToLogin: false
     };
     this.onChangeValue = this.onChangeValue.bind(this);
+  }
+
+  async componentDidMount() {
+    if (!isAuthenticated()) {
+      this.setState({
+        redirectToLogin: true,
+      });
+    }
   }
 
   onChangeValue(e) {
@@ -82,22 +93,26 @@ class Ballot extends Component {
   }
 
   render() {
-      return (
-        <div onChange={this.onChangeValue}>
-          <h1 id='title'>Ranked Choice Ballot</h1>
-          <table id='candidates'>
-            <tbody>
-              <tr>{this.renderTableHeader()}</tr>
-                {this.renderTableData()}
-            </tbody>
-          </table>
-          <div className="submission">
-            <button className="submit" onClick = {() => this.handleSubmit()}>
-              {'SUBMIT'}
-            </button>
-          </div>
+    if(this.state.redirectToLogin) {
+      return <Redirect to="/login" />;
+    }
+
+    return (
+      <div onChange={this.onChangeValue}>
+        <h1 id='title'>Ranked Choice Ballot</h1>
+        <table id='candidates'>
+          <tbody>
+            <tr>{this.renderTableHeader()}</tr>
+              {this.renderTableData()}
+          </tbody>
+        </table>
+        <div className="submission">
+          <button className="submit" onClick = {() => this.handleSubmit()}>
+            {'SUBMIT'}
+          </button>
         </div>
-      )
+      </div>
+    )
   }
 
 }
