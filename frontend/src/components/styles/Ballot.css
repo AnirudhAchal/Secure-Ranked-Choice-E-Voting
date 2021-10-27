@@ -1,0 +1,48 @@
+#title {
+  text-align: center;
+  font-family: arial, sans-serif;
+}
+
+#candidates {
+  text-align: center;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  border: 3px solid #ddd;
+  width: 100%;
+}
+
+#candidates td, #candidates th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#candidates tr:nth-child(even){background-color: #f2f2f2;}
+
+#candidates tr:hover {background-color: #ddd;}
+
+#candidates th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.submission {
+  text-align: center;
+}
+.submit {
+  background-color: white;
+  color: black;
+  font-size: 24px;
+  font-family: sans-serif;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 4px solid #4CAF50;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: black;
+  color: white;
+}
