@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 class DashboardView extends Component {
   renderUpcoming() {
     const { upcomingElections } = this.props;
+
     return upcomingElections.map((election) => {
       return (
         <div className="col-lg-4" key={election.id}>
