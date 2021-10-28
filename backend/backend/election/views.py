@@ -19,7 +19,5 @@ class CompletedElectionList(generics.ListAPIView):
 
 
 class ElectionDetail(generics.RetrieveAPIView):
-    pass
-
-
-
+    queryset = Election.objects.all()
+    serializer_class = ElectionSerializer
