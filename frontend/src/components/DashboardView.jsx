@@ -2,114 +2,68 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class DashboardView extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      upcomingElection: {
-        elections: [
-          {
-            electionName: "Student Elections",
-            electionDesc: "CSE CR Elections",
-          },
-          {
-            electionName: "Hostel Committee",
-            electionDesc: "General Secretary Elections",
-          },
-        ],
-      },
-      currentElection: {
-        elections: [
-          {
-            electionName: "Hostel 1 Mess Counsellor",
-            electionDesc: "CSE CR Elections",
-            votesYet: 120,
-            votesTotal: 240,
-          },
-          {
-            electionName: "Sports Co-ordinator",
-            electionDesc: "General Secretary Elections",
-            votesYet: 500,
-            votesTotal: 740,
-          },
-        ],
-      },
-      pastElection: {
-        elections: [
-          {
-            electionName: "Communist House",
-            electionDesc: "House Committee President Elections",
-            votesCast: 400,
-            votesTotal: 840,
-          },
-        ],
-      },
-    };
-  }
-
   renderUpcoming() {
-    return this.state.upcomingElection.elections.map((elections) => {
+    const { upcomingElections } = this.props;
+    return upcomingElections.map((election) => {
       return (
-        <>
-          <div className="col-lg-4">
-            <div className="mx-3 card">
-              <div className="card-body">
-                <h5 className="card-title">{elections.electionName}</h5>
-                <p className="card-text">{elections.electionDesc}</p>
-                <button type="button" className="btn btn-primary">
-                  Stand as a Candidate
-                </button>
-              </div>
+        <div className="col-lg-4" key={election.id}>
+          <div className="mx-3 card">
+            <div className="card-body">
+              <h5 className="card-title">{election.name}</h5>
+              <p className="card-text">
+                {election.election_details &&
+                  election.election_details.description}
+              </p>
+              <button type="button" className="btn btn-primary">
+                Stand as a Candidate
+              </button>
             </div>
           </div>
-        </>
+        </div>
       );
     });
   }
 
-  renderOngoing() {
-    return this.state.currentElection.elections.map((elections) => {
+  renderCurrent() {
+    const { currentElections } = this.props;
+    return currentElections.map((election) => {
       return (
-        <>
-          <div className="col-lg-4">
-            <div className="mx-3 card">
-              <div className="card-body">
-                <h5 className="card-title">{elections.electionName}</h5>
-                <p className="card-text">
-                  Votes Recieved yet: {elections.votesYet}/
-                  {elections.votesTotal}
-                </p>
-                <Link to="/ballot" className="btn btn-primary">
-                  Vote
-                </Link>
-              </div>
+        <div className="col-lg-4" key={election.id}>
+          <div className="mx-3 card">
+            <div className="card-body">
+              <h5 className="card-title">{election.name}</h5>
+              <p className="card-text">
+                Registered Voters: {election.voters.length}
+              </p>
+              <Link to="/ballot" className="btn btn-primary">
+                Vote
+              </Link>
             </div>
           </div>
-        </>
+        </div>
       );
     });
   }
 
-  renderPast() {
-    return this.state.pastElection.elections.map((elections) => {
+  renderCompleted() {
+    const { completedElections } = this.props;
+    return completedElections.map((election) => {
       return (
-        <>
-          <div className="col-lg-4">
-            <div className="mx-3 card">
-              <div className="card-body">
-                <h5 className="card-title">{elections.electionName}</h5>
-                <p className="card-text">{elections.electionDesc}</p>
-                <p className="card-text">
-                  Total Votes Recieved: {elections.votesCast}/
-                  {elections.votesTotal}
-                </p>
-                <button type="button" className="btn btn-primary">
-                  Result
-                </button>
-              </div>
+        <div className="col-lg-4" key={election.id}>
+          <div className="mx-3 card">
+            <div className="card-body">
+              <h5 className="card-title">{election.name}</h5>
+              <p className="card-text">
+                {election.election_details &&
+                  election.election_details.description}
+              </p>
+              <p className="card-text">Winner: {election.winner}</p>
+              <button type="button" className="btn btn-primary">
+                Full Results
+              </button>
             </div>
           </div>
-        </>
+        </div>
       );
     });
   }
@@ -131,7 +85,7 @@ class DashboardView extends Component {
             Ongoing Elections
           </h3>
           <hr />
-          <div className="row">{this.renderOngoing()}</div>
+          <div className="row">{this.renderCurrent()}</div>
         </div>
         <hr />
         <div className="container">
@@ -147,7 +101,7 @@ class DashboardView extends Component {
             Completed Elections
           </h3>
           <hr />
-          <div className="row">{this.renderPast()}</div>
+          <div className="row">{this.renderCompleted()}</div>
         </div>
       </div>
     );
