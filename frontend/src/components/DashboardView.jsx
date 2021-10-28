@@ -26,6 +26,7 @@ class DashboardView extends Component {
 
   renderCurrent() {
     const { currentElections } = this.props;
+
     return currentElections.map((election) => {
       return (
         <div className="col-lg-4" key={election.id}>
@@ -47,6 +48,7 @@ class DashboardView extends Component {
 
   renderCompleted() {
     const { completedElections } = this.props;
+
     return completedElections.map((election) => {
       return (
         <div className="col-lg-4" key={election.id}>
@@ -70,6 +72,7 @@ class DashboardView extends Component {
 
   render() {
     const { onLogout } = this.props;
+
     return (
       <div>
         <nav className="navbar navbar-light bg-light">
