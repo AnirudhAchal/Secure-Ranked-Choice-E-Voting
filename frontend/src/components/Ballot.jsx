@@ -1,130 +1,116 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router";
 import "./styles/Ballot.css";
-import axiosInstance from "../axios";
-import isAuthenticated from "./utils/authentication";
-import { curElection } from "../const.js";
 
 class Ballot extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const { election } = this.props;
+
     this.state = {
-      candidates: [],
-      totalPreferences: 3,
-      tracker: new Array(100).fill(null),
-      redirectToLogin: false
+      election: election,
+      totalPreferences: election.candidates.length,
+      tracker: new Array(election.candidates.length).fill(null),
     };
+
     this.onChangeValue = this.onChangeValue.bind(this);
-  }
-
-  async componentDidMount() {
-    if (!isAuthenticated()) {
-      this.setState({
-        redirectToLogin: true,
-      });
-    }
-
-    axiosInstance
-      .get(`/election/${curElection.id}/`)
-      .then((res) => {
-        //console.log(res);
-        this.setState({ candidates: res.data.candidates });
-        //console.log(this.state.candidates);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   onChangeValue(e) {
     console.log(e.target.value);
     console.log(e.target.name);
-    const idx = Number(e.target.name) - 1
-    const pref = Number(e.target.value)
-    const val = this.state.tracker.slice()
+    const idx = Number(e.target.name) - 1;
+    const pref = Number(e.target.value);
 
-    if (pref === this.state.totalPreferences + 1)
-      val[idx] = null
-    else
-      val[idx] = pref
-    console.log(val)
+    const { tracker } = this.state;
+
+    // if (pref === totalPreferences + 1) tracker[idx] = null;
+    tracker[idx] = pref;
+    console.log(tracker);
     this.setState({
-      tracker: val,
+      tracker: tracker,
     });
   }
 
   renderTableHeader() {
     return (
       <>
-      <th key={1}>ID</th>
-      <th key={2}>Name</th>
+        <th key={1}>ID</th>
+        <th key={2}>Name</th>
       </>
-    )
+    );
   }
 
   renderTableData() {
-    var id = 0;
-    console.log(this.state.candidates);
-    return this.state.candidates.map((candidate) => {
-      //const { id, name } = candidate //destructuring
+    const { election, totalPreferences } = this.state;
+
+    return election.candidates.map((candidate, index) => {
+      const { user_name } = candidate; //destructuring
       var cols = [];
-      for (let i = 1; i <= this.state.totalPreferences; i++) {
-        cols.push(<td><input type="radio" value={i} name={id} />{i}</td>)
+      for (let i = 1; i <= totalPreferences; i++) {
+        cols.push(
+          <td>
+            <input type="radio" key={i * 100} value={i} name={index + 1} />
+            {i}
+          </td>
+        );
       }
-      
-      cols.push(<td><input type="radio" value={this.state.totalPreferences + 1} name={id} /> clear</td>)
-      id++;
-      console.log(id);
+
+      /*cols.push(
+          <td>
+            <input type="radio" value={totalPreferences + 1} name={index + 1} />{" "}
+            clear
+          </td>
+        );*/
+      console.log(index + 1);
       return (
-        <tr key={id}>
-          <td>{id}</td>
-          <td>{candidate}</td>
+        <tr key={index + 1}>
+          <td>{index + 1}</td>
+          <td>{user_name}</td>
           {cols}
         </tr>
-      )
-    })
+      );
+    });
   }
 
   handleSubmit() {
-    var val = new Array(100).fill(null);
-    for (let i = 0; i < 100; i++) {
-      if (this.state.tracker[i] !== null)
-        val[this.state.tracker[i]-1] += 1
+    const { totalPreferences, tracker } = this.state;
+
+    var val = new Array(tracker.length).fill(null);
+    for (let i = 0; i < val.length; i++) {
+      if (tracker[i] !== null) val[tracker[i] - 1] += 1;
     }
 
-    for (let i = 0; i < this.state.totalPreferences; i++) {
-      if (val[i] !== 1 ) {
-        console.log('Submission Failed'); 
+    for (let i = 0; i < totalPreferences; i++) {
+      if (val[i] !== 1) {
+        console.log("Submission Failed");
         return;
       }
     }
 
-    console.log('Submission Accepted');
+    console.log("Submission Accepted");
   }
 
   render() {
-    if(this.state.redirectToLogin) {
-      return <Redirect to="/login" />;
-    }
+    const { election } = this.state;
 
     return (
       <div onChange={this.onChangeValue}>
-        <h1 id='title'>Ranked Choice Ballot - {curElection.id} </h1>
-        <table id='candidates'>
+        <h1 id="title">Ranked Choice Ballot - {election.name} </h1>
+        <table id="candidates">
           <tbody>
             <tr>{this.renderTableHeader()}</tr>
-              {this.renderTableData()}
+            {this.renderTableData()}
           </tbody>
         </table>
         <div className="submission">
-          <button className="submit" onClick = {() => this.handleSubmit()}>
-            {'SUBMIT'}
+          <button className="submit" onClick={() => this.handleSubmit()}>
+            {"SUBMIT"}
           </button>
         </div>
       </div>
-    )
+    );
   }
-
 }
 
 export default Ballot;
