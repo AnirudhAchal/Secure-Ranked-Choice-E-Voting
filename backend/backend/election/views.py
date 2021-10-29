@@ -1,6 +1,7 @@
 from rest_framework import generics, permissions
 from .models import Election
 from .serializers import ElectionSerializer
+from django.utils import timezone
 
 
 class ElectionDetailViewPermission(permissions.BasePermission):
@@ -13,7 +14,7 @@ class CurrentElectionList(generics.ListAPIView):
     serializer_class = ElectionSerializer
 
     def get_queryset(self):
-        return Election.objects.filter(has_started=True, has_ended=False, voters=self.request.user)
+        return Election.currentElectionObjects.filter(voters=self.request.user)
 
 
 class UpcomingElectionList(generics.ListAPIView):
@@ -21,7 +22,7 @@ class UpcomingElectionList(generics.ListAPIView):
     serializer_class = ElectionSerializer
 
     def get_queryset(self):
-        return Election.objects.filter(has_started=False, has_ended=False, voters=self.request.user)
+        return Election.upcomingElectionObjects.filter(voters=self.request.user)
 
 
 class CompletedElectionList(generics.ListAPIView):
@@ -29,7 +30,7 @@ class CompletedElectionList(generics.ListAPIView):
     serializer_class = ElectionSerializer
 
     def get_queryset(self):
-        return Election.objects.filter(has_started=True, has_ended=True, voters=self.request.user)
+        return Election.completedElectionObjects.filter(voters=self.request.user)
 
 
 class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
