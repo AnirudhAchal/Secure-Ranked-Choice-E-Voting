@@ -37,10 +37,11 @@ class DashboardView extends Component {
               <p className="card-text">
                 Registered Voters: {election.voters.length}
               </p>
-              <Link to={`/election/${election.id}/`}>
-                <button type="button" className="btn btn-primary">
-                  Vote
-                </button>
+              <Link
+                to={`/election/${election.id}/`}
+                className="btn btn-primary"
+              >
+                Vote
               </Link>
             </div>
           </div>
