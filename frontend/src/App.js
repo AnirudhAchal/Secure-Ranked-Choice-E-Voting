@@ -5,6 +5,7 @@ import LoginContainerView from "./components/LoginContainerView";
 import RegisterContainerView from "./components/RegisterContainerView";
 import Ballot from "./components/Ballot"
 import "react-notifications/lib/notifications.css";
+import AdminDashboardContainerView from "./components/Admin/AdminDashboardContainerView";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/" component={DashboardContainerView} />
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
+        <Route exact path="/admin" component={AdminDashboardContainerView} />
         <Route path="/ballot" component={Ballot} />
       </Switch>
     </Router>
