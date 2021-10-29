@@ -28,6 +28,7 @@ class ElectionContainerView extends Component {
 
   render() {
     const { election, electionHasLoaded } = this.state;
+
     return (
       <ElectionView electionHasLoaded={electionHasLoaded} election={election} />
     );
