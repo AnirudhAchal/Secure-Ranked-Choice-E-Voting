@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
 import "./styles/Ballot.css";
+import axiosInstance from "../axios";
 import isAuthenticated from "./utils/authentication";
+import { curElection } from "../const.js";
 
 class Ballot extends Component {
   constructor() {
     super();
     this.state = {
-      candidates: [
-        { id: 1, name: 'Rogan'},
-        { id: 2, name: 'Shapiro'},
-        { id: 3, name: 'Kalpit'},
-        { id: 4, name: 'Maher'},
-        { id: 5, name: 'Baghdadi'}
-      ],
+      candidates: [],
       totalPreferences: 3,
       tracker: new Array(100).fill(null),
       redirectToLogin: false
@@ -27,6 +23,17 @@ class Ballot extends Component {
         redirectToLogin: true,
       });
     }
+
+    axiosInstance
+      .get(`/election/${curElection.id}/`)
+      .then((res) => {
+        //console.log(res);
+        this.setState({ candidates: res.data.candidates });
+        //console.log(this.state.candidates);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   onChangeValue(e) {
@@ -47,25 +54,31 @@ class Ballot extends Component {
   }
 
   renderTableHeader() {
-    let header = Object.keys(this.state.candidates[0])
-    return header.map((key, index) => {
-       return <th key={index}>{key.toUpperCase()}</th>
-    })
+    return (
+      <>
+      <th key={1}>ID</th>
+      <th key={2}>Name</th>
+      </>
+    )
   }
 
   renderTableData() {
-    return this.state.candidates.map((candidate, index) => {
-      const { id, name } = candidate //destructuring
+    var id = 0;
+    console.log(this.state.candidates);
+    return this.state.candidates.map((candidate) => {
+      //const { id, name } = candidate //destructuring
       var cols = [];
       for (let i = 1; i <= this.state.totalPreferences; i++) {
         cols.push(<td><input type="radio" value={i} name={id} />{i}</td>)
       }
+      
       cols.push(<td><input type="radio" value={this.state.totalPreferences + 1} name={id} /> clear</td>)
-
+      id++;
+      console.log(id);
       return (
         <tr key={id}>
           <td>{id}</td>
-          <td>{name}</td>
+          <td>{candidate}</td>
           {cols}
         </tr>
       )
@@ -96,7 +109,7 @@ class Ballot extends Component {
 
     return (
       <div onChange={this.onChangeValue}>
-        <h1 id='title'>Ranked Choice Ballot</h1>
+        <h1 id='title'>Ranked Choice Ballot - {curElection.id} </h1>
         <table id='candidates'>
           <tbody>
             <tr>{this.renderTableHeader()}</tr>
