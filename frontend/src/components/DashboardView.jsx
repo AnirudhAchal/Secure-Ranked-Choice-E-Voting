@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { curElection } from "../const.js";
 
 class DashboardView extends Component {
   renderUpcoming() {
     const { upcomingElections } = this.props;
-    console.log(upcomingElections);
 
     return upcomingElections.map((election) => {
       return (
