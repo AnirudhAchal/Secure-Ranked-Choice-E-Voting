@@ -45,4 +45,3 @@ class BallotSerializer(serializers.ModelSerializer):
                 election.save()
 
         return data
-
