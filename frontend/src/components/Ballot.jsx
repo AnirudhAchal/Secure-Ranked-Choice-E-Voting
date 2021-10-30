@@ -17,8 +17,6 @@ class Ballot extends Component {
   }
 
   onChangeValue(e) {
-    console.log(e.target.value);
-    console.log(e.target.name);
     const idx = Number(e.target.name) - 1;
     const pref = Number(e.target.value);
 
@@ -26,7 +24,7 @@ class Ballot extends Component {
 
     // if (pref === totalPreferences + 1) tracker[idx] = null;
     tracker[idx] = pref;
-    console.log(tracker);
+
     this.setState({
       tracker: tracker,
     });
@@ -63,7 +61,7 @@ class Ballot extends Component {
             clear
           </td>
         );*/
-      console.log(index + 1);
+
       return (
         <tr key={index + 1}>
           <td>{index + 1}</td>
