@@ -35,7 +35,7 @@ class BallotSerializer(serializers.ModelSerializer):
         if request and hasattr(request, "user"):
             user = request.user
 
-        if user:
+        if user and not user.is_anonymous:
             election = Election.objects.get(pk=data['election'].id)
             if election.voted_voters.filter(pk=user.id).exists():
                 raise ValidationError(f"You already voted in this election")
