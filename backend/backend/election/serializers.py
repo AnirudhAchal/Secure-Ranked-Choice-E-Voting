@@ -38,7 +38,7 @@ class BallotSerializer(serializers.ModelSerializer):
         if user:
             election = Election.objects.get(pk=data['election'].id)
             if election.voted_voters.filter(pk=user.id).exists():
-                raise ValidationError(f"{user} already voted in this election")
+                raise ValidationError(f"You already voted in this election")
             else:
                 user = get_user_model().objects.get(pk=user.id)
                 election.voted_voters.add(user)
