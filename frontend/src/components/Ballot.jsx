@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./styles/Ballot.css";
+// import "./styles/Ballot.css";
 
 class Ballot extends Component {
   constructor(props) {
@@ -33,12 +33,14 @@ class Ballot extends Component {
   }
 
   renderTableHeader() {
-    return (
-      <>
-        <th key={1}>ID</th>
-        <th key={2}>Name</th>
-      </>
-    );
+    const { totalPreferences } = this.state;
+    var rows = [];
+    rows.push(<th>ID</th>);
+    rows.push(<th>Name</th>);
+    for (var i = 1; i <= totalPreferences; i++) {
+      rows.push(<th>Preference {i}</th>);
+    }
+    return <tr> {rows} </tr>;
   }
 
   renderTableData() {
@@ -51,7 +53,6 @@ class Ballot extends Component {
         cols.push(
           <td>
             <input type="radio" key={i * 100} value={i} name={index + 1} />
-            {i}
           </td>
         );
       }
@@ -92,19 +93,23 @@ class Ballot extends Component {
   }
 
   render() {
-    const { election } = this.state;
-
     return (
-      <div onChange={this.onChangeValue}>
-        <h1 id="title">Ranked Choice Ballot - {election.name} </h1>
-        <table id="candidates">
-          <tbody>
-            <tr>{this.renderTableHeader()}</tr>
-            {this.renderTableData()}
-          </tbody>
+      <div onChange={this.onChangeValue} className="mt-4">
+        <h1 className="text-center display-4">Ranked Choice Ballot</h1>
+        <p className="text-center lead">
+          (Click on the radio buttons below according to your preference of
+          candidates)
+        </p>
+        <table className="table table-striped table-bordered text-center">
+          <thead className="thead-dark">{this.renderTableHeader()}</thead>
+          <tbody>{this.renderTableData()}</tbody>
         </table>
-        <div className="submission">
-          <button className="submit" onClick={() => this.handleSubmit()}>
+        <div className="text-center">
+          <button
+            className="btn btn-dark"
+            type="submit"
+            onClick={() => this.handleSubmit()}
+          >
             {"SUBMIT"}
           </button>
         </div>
