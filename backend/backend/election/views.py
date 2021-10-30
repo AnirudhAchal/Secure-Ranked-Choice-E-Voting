@@ -8,6 +8,11 @@ class ElectionDetailViewPermission(permissions.BasePermission):
         return request.user in obj.voters.all()
 
 
+class BallotCreateViewPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user in obj.election.voters.all()
+
+
 class CurrentElectionList(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ElectionSerializer
@@ -38,6 +43,6 @@ class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
     serializer_class = ElectionSerializer
 
 
-class BallotCreate(generics.CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+class BallotCreate(generics.CreateAPIView, BallotCreateViewPermission):
+    permission_classes = [permissions.IsAuthenticated, BallotCreateViewPermission]
     serializer_class = BallotSerializer
