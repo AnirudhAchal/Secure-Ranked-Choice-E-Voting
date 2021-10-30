@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.contrib.postgres.fields import ArrayField
 
 
 class Election(models.Model):
@@ -46,7 +47,22 @@ class Election(models.Model):
 
 class Ballot(models.Model):
     election = models.ForeignKey(Election, on_delete=models.CASCADE)
-    vote = models.JSONField()
+    vote_details = models.JSONField()
 
     def __str__(self):
-        return f'{self.election} {self.id}'
+        return f'Ballot #{self.id} - {self.election}'
+
+    def clean(self):
+        print(self.vote_details)
+        if not self.vote_details:
+            raise ValidationError("Relevant vote details not provided")
+
+        if 'preferences' not in self.vote_details:
+            raise ValidationError("No preferences provided in vote details")
+
+        if len(self.vote_details['preferences']) != self.election.candidates.all().count():
+            raise ValidationError("Preferences do not include all candidates")
+
+        for candidate_id in self.vote_details['preferences']:
+            if not self.election.candidates.filter(pk=candidate_id).exists():
+                raise ValidationError("Invalid candidates")
