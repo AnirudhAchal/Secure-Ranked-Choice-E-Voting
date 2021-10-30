@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./styles/Ballot.css";
+import axiosInstance from "../axios";
 
 class Ballot extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ class Ballot extends Component {
     });
   }
 
-  handleSubmit() {
+  validateBallot() {
     const { totalPreferences, tracker } = this.state;
 
     var val = new Array(tracker.length).fill(null);
@@ -84,12 +84,35 @@ class Ballot extends Component {
 
     for (let i = 0; i < totalPreferences; i++) {
       if (val[i] !== 1) {
-        console.log("Submission Failed");
-        return;
+        return false;
       }
     }
 
-    console.log("Submission Accepted");
+    return true;
+  }
+
+  handleSubmit() {
+    const { tracker, election } = this.state;
+
+    var preferences = new Array(tracker.length).fill(null);
+
+    for (let i = 0; i < preferences.length; i++) {
+      preferences[i] = election.candidates[tracker[i] - 1].id;
+    }
+
+    axiosInstance
+      .post("/election/vote/", {
+        election: election.id,
+        vote_details: {
+          preferences: preferences,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -109,6 +132,7 @@ class Ballot extends Component {
             className="btn btn-dark"
             type="submit"
             onClick={() => this.handleSubmit()}
+            disabled={!this.validateBallot()}
           >
             {"SUBMIT"}
           </button>

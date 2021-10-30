@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from django.contrib.postgres.fields import ArrayField
 
 
 class Election(models.Model):
@@ -28,6 +27,7 @@ class Election(models.Model):
     admins = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='%(class)s_admins')
     voters = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='%(class)s_voters')
     candidates = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='%(class)s_candidates')
+    voted_voters = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='%(class)s_voted_voters')
     winner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True,
                                related_name='%(class)s_winner')
     election_details = models.JSONField(null=True, blank=True)

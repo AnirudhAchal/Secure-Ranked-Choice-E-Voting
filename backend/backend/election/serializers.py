@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Election, Ballot
 from django.contrib.auth.forms import get_user_model
+from django.core.exceptions import ValidationError
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,12 +29,20 @@ class BallotSerializer(serializers.ModelSerializer):
         model = Ballot
         fields = '__all__'
 
-    """def validate(self, data):
+    def validate(self, data):
         user = None
         request = self.context.get("request")
         if request and hasattr(request, "user"):
             user = request.user
 
         if user:
-            print(user)"""
+            election = Election.objects.get(pk=data['election'].id)
+            if election.voted_voters.filter(pk=user.id).exists():
+                raise ValidationError(f"{user} already voted in this election")
+            else:
+                user = get_user_model().objects.get(pk=user.id)
+                election.voted_voters.add(user)
+                election.save()
+
+        return data
 
