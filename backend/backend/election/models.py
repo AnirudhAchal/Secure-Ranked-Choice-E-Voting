@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 class Election(models.Model):
@@ -37,6 +38,10 @@ class Election(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.start_date > self.end_date:
+            raise ValidationError("Start date cannot be greater than End date")
 
 
 class Ballot(models.Model):
