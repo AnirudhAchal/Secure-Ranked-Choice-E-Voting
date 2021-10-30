@@ -10,6 +10,7 @@ function CreateElection() {
         date_posted: "",
         startDatetime: "",
         endDatetime: "",
+        electionDescription: "",
         admins: [],
         voters: [],
         candidates: [],
@@ -18,7 +19,7 @@ function CreateElection() {
         history: []
     });
 
-    const {electionName, date_posted, startDatetime, endDatetime, voters} = election;
+    const {electionName, date_posted, startDatetime, endDatetime, electionDescription, voters} = election;
 
     const [users, setUsers] = useState([]);
     useEffect(() => {
@@ -69,7 +70,7 @@ function CreateElection() {
                     <div className="form-group">
                         <label>Date Posted</label>
                         <input
-                            type="text" 
+                            type="date" 
                             className="form-control"
                             name = "date_posted"
                             placeholder="dd-mm-yyyy" 
@@ -82,10 +83,10 @@ function CreateElection() {
                     <div className="form-group">
                         <label>Start Datetime</label>
                         <input
-                            type="text" 
+                            type="datetime-local" 
                             className="form-control"
                             name = "startDatetime"
-                            placeholder="dd-mm-yyyy" 
+                            placeholder="dd-mm-yyyy --:--" 
                             value = {startDatetime}
                             onChange = {handleChange}
                             required
@@ -95,10 +96,10 @@ function CreateElection() {
                     <div className="form-group">
                         <label>End Datetime</label>
                         <input
-                            type="text" 
+                            type="datetime-local" 
                             className="form-control"
                             name = "endDatetime"
-                            placeholder="dd-mm-yyyy" 
+                            placeholder="dd-mm-yyyy --:--" 
                             value = {endDatetime}
                             onChange = {handleChange}
                             required
@@ -115,6 +116,19 @@ function CreateElection() {
                             {users && users.map(user => <option>{user}</option>)}
                         </select>
                     </div>
+
+                    <div className="form-group">
+                        <label>Election Description</label>
+                        <textarea 
+                            className="form-control"
+                            name = "electionDescription"
+                            placeholder="Description about the election" 
+                            value = {electionDescription}
+                            onChange = {handleChange}
+                            required
+                        />
+                    </div>
+
                     <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>

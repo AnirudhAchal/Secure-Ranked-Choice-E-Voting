@@ -13,16 +13,17 @@ function CandidatesRequest() {
                 electionName: "ajdfja",
                 userName: "fdnfkja",
                 userEmail: "najkdfa",
-                status: "accepted"
+                status: ""
             }
         ])  
     }, []);
 
     const handleStatus = e => {
         const { name, value } = e.target;
-        setRequests(prev => ({ ...prev, [name]: value }));
+        console.log(name, value);
         
-        // also send an axios request to delete that request now
+        // send an axios request to delete this request from requests list
+        // an axios request to put this user in the candidates list of that election if the value is accept
     };
     return (
         <div>
@@ -38,23 +39,22 @@ function CandidatesRequest() {
                     </tr>
                 </thead>
                 <tbody>
-                    {requests && requests.map((request,index) => {
-                        return (
-                            <tr key = {request._id}>
-                                <td>{request.electionName}</td>
-                                <td>{request.userName}</td>
-                                <td>{request.userEmail}</td>
-                                <select className="form-control"
-                                    name = "status"
-                                    value = {status}
-                                    onChange = {handleStatus}
-                                >
-                                    <option>Accept</option>
-                                    <option>Reject</option>
-                                </select>
-                            </tr>
-                        );
-                    })};
+                    {requests && requests.map((request,index) => 
+                        <tr key = {request._id}>
+                            <td>{request.electionName}</td>
+                            <td>{request.userName}</td>
+                            <td>{request.userEmail}</td>
+                            <select className="form-control"
+                                name = "status"
+                                value = {status}
+                                onChange = {handleStatus}
+                            >
+                                <option>{}</option>
+                                <option>Accept</option>
+                                <option>Reject</option>
+                            </select>
+                        </tr>
+                    )};
                     {!requests && 
                         <div className="text-center">
                             <h2 className="mt-5 text-center">No Requests are there till now</h2>
