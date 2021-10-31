@@ -15,7 +15,6 @@ function App() {
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
         <Route exact path="/admin" component={AdminDashboardContainerView} />
-        <Route path="/ballot" component={Ballot} />
         <Route path="/election/:id" component={ElectionContainerView} />
 
       </Switch>

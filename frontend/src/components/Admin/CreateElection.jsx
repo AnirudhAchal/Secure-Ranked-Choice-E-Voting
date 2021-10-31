@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Image from 'react-bootstrap/Image'
 import "../styles/Register.css";
 import electionImage from "../styles/images/election_image.jpg";
-import { Redirect } from "react-router";
 
 function CreateElection() {
     const [election, setElection] = useState({
