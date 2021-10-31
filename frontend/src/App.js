@@ -14,7 +14,7 @@ function App() {
         <Route exact path="/" component={DashboardContainerView} />
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
-        <Route exact path="/admin" component={AdminDashboardContainerView} />
+        <Route path="/admin" component={AdminDashboardContainerView} />
         <Route path="/election/:id" component={ElectionContainerView} />
       </Switch>
     </Router>
