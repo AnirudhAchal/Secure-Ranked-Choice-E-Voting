@@ -16,7 +16,6 @@ function App() {
         <Route path="/register" component={RegisterContainerView} />
         <Route exact path="/admin" component={AdminDashboardContainerView} />
         <Route path="/election/:id" component={ElectionContainerView} />
-
       </Switch>
     </Router>
   );
