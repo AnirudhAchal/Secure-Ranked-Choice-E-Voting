@@ -27,6 +27,7 @@ class Election(models.Model):
     admins = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='%(class)s_admins')
     voters = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='%(class)s_voters')
     candidates = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='%(class)s_candidates')
+    voted_voters = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='%(class)s_voted_voters')
     winner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True,
                                related_name='%(class)s_winner')
     election_details = models.JSONField(null=True, blank=True)
@@ -46,7 +47,22 @@ class Election(models.Model):
 
 class Ballot(models.Model):
     election = models.ForeignKey(Election, on_delete=models.CASCADE)
-    vote = models.JSONField()
+    vote_details = models.JSONField()
 
     def __str__(self):
-        return f'{self.election} {self.id}'
+        return f'Ballot #{self.id} - {self.election}'
+
+    def clean(self):
+        if not self.vote_details:
+            raise ValidationError("Relevant vote details not provided")
+
+        if 'preferences' not in self.vote_details:
+            raise ValidationError("No preferences provided in vote details")
+
+        for candidate in self.election.candidates.all():
+            if candidate.id not in self.vote_details['preferences']:
+                raise ValidationError("Preferences do not include all candidates")
+
+        for candidate_id in self.vote_details['preferences']:
+            if not self.election.candidates.filter(pk=candidate_id).exists():
+                raise ValidationError("Invalid candidates")
