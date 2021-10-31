@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import ResultView from "./resultView";
+import ResultView from "./ResultView";
 
-class ResultContainerView extends React.Component {
+class ResultContainerView extends Component {
   constructor(props) {
     super(props);
 
@@ -11,11 +11,31 @@ class ResultContainerView extends React.Component {
       election: election,
       results: election.election_details["results"],
     };
+
+    this.idToCandidateUsername = this.getCandidateUsernames();
+  }
+
+  getCandidateUsernames() {
+    const { election } = this.state;
+    const { candidates } = election;
+    const idToCandidateUsername = {};
+
+    for (let i = 0; i < candidates.length; i++) {
+      idToCandidateUsername[candidates[i].id] = candidates[i].user_name;
+    }
+
+    return idToCandidateUsername;
   }
 
   render() {
     const { results } = this.state;
-    return <ResultView results={results} />;
+
+    return (
+      <ResultView
+        results={results}
+        idToCandidateUsername={this.idToCandidateUsername}
+      />
+    );
   }
 }
 

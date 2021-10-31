@@ -62,7 +62,6 @@ class ElectionView extends Component {
 
   renderResults() {
     const { election } = this.props;
-    console.log(election);
 
     return <ResultContainerView election={election} />;
   }
