@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Ballot from "./Ballot";
 import { Link } from "react-router-dom";
 import Moment from "moment";
+import BallotContainerView from "./BallotContainerView";
 
 class ElectionView extends Component {
   renderBody() {
@@ -43,7 +43,7 @@ class ElectionView extends Component {
         </div>
         <hr />
 
-        <Ballot election={election} />
+        <BallotContainerView election={election} />
         <p className="text-right font-weight-light align-bottom">
           Posted {Moment(election.date_posted).startOf("hour").fromNow()}
         </p>
