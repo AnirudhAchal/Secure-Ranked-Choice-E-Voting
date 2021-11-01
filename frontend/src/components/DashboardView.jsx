@@ -66,9 +66,12 @@ class DashboardView extends Component {
               <p className="card-text">
                 Winner: {election.winner && election.winner.user_name}
               </p>
-              <button type="button" className="btn btn-primary">
+              <Link
+                to={`/election/${election.id}/`}
+                className="btn btn-primary"
+              >
                 Full Results
-              </button>
+              </Link>
             </div>
           </div>
         </div>
