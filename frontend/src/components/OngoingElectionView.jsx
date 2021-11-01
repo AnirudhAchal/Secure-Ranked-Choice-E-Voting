@@ -13,6 +13,7 @@ export class OngoingElectionView extends Component {
       </div>
     );
   }
+  
   renderCurrent() {
     const { currentElections } = this.props;
 
@@ -37,6 +38,7 @@ export class OngoingElectionView extends Component {
       );
     });
   }
+  
   render() {
     return (
       <>
