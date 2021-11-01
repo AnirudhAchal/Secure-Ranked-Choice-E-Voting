@@ -22,7 +22,7 @@ class ElectionView extends Component {
 
     return (
       <div>
-        <div className="display-3 pb-3 mb-3 border-bottom d-flex justify-content-center my-1">
+        <div className="display-3 pb-3 mb-3  d-flex justify-content-center my-1">
           {election.name}
         </div>
         <div className="row d-flex justify-content-center">
@@ -49,7 +49,7 @@ class ElectionView extends Component {
             </div>
           </div>
         </div>
-        <hr />
+        <hr className="container" />
       </div>
     );
   }
@@ -78,10 +78,24 @@ class ElectionView extends Component {
 
   renderFooter() {
     const { election } = this.props;
-
+    var mailtos = [];
+    for (var i = 0; i < election.admins.length; i++) {
+      var mailt= "mailto:"+ election.admins[i].email
+      mailtos.push(
+        <>
+          {election.admins[i].user_name}: <a href={mailt}>{election.admins[i].email}</a>
+          <br/>
+          </>
+        );
+    }
+    console.log(mailtos)
     return (
-      <p className="text-right font-weight-light align-bottom">
+      <p className="text-right font-weight-light align-bottom" style={{paddingRight: '15px'}}>
         Posted {Moment(election.date_posted).startOf("hour").fromNow()}
+        <br />
+        <br />
+        For any technical problems, mail:
+        <br /> {mailtos}
       </p>
     );
   }

@@ -10,12 +10,12 @@ class BallotView extends Component {
     for (var i = 1; i <= totalPreferences; i++) {
       rows.push(<th>Preference {i}</th>);
     }
-    return <tr> {rows} </tr>;
+    return <tr>{rows}</tr>;
   }
 
   renderTableData() {
     const { election, totalPreferences } = this.props;
-
+    console.log(election);
     return election.candidates.map((candidate, index) => {
       const { user_name } = candidate; //destructuring
       var cols = [];
@@ -26,13 +26,6 @@ class BallotView extends Component {
           </td>
         );
       }
-
-      /*cols.push(
-          <td>
-            <input type="radio" value={totalPreferences + 1} name={index + 1} />{" "}
-            clear
-          </td>
-        );*/
 
       return (
         <tr key={index + 1}>
@@ -48,7 +41,7 @@ class BallotView extends Component {
     const { onChangeValue, onSubmit, validateBallot } = this.props;
 
     return (
-      <div onChange={onChangeValue} className="mt-4">
+      <div onChange={onChangeValue} className="mt-4 container">
         <h1 className="text-center display-4">Ranked Choice Ballot</h1>
         <p className="text-center lead">
           (Click on the radio buttons below according to your preference of
