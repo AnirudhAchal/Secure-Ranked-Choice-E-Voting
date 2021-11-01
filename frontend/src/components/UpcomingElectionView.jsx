@@ -13,6 +13,7 @@ export class UpcomingElectionView extends Component {
       </div>
     );
   }
+  
   renderUpcoming() {
     const { upcomingElections } = this.props;
     return upcomingElections.map((election) => {
