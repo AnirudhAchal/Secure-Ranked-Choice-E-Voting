@@ -3,6 +3,7 @@ from .models import Election, Ballot
 from .serializers import ElectionSerializer, BallotSerializer
 from django.utils import timezone
 from .utils import Util
+from django.contrib.auth.forms import get_user_model
 
 
 class ElectionDetailViewPermission(permissions.BasePermission):
@@ -62,7 +63,10 @@ class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
                 for ballot_object in ballot_objects:
                     ballots.append(ballot_object.vote_details['preferences'])
 
-                election.election_details['results'] = Util.get_rank_choice_results(ballots=ballots)
+                results = Util.get_rank_choice_results(ballots=ballots)
+
+                election.election_details['results'] = results
+                election.winner = get_user_model().objects.get(pk=results['winner'])
                 election.save()
 
         return Election.objects.all()
