@@ -8,6 +8,9 @@ class Util:
     """
     @staticmethod
     def get_rank_choice_results(ballots):
+        if len(ballots) == 0:
+            return {'winner': None, 'history': None}
+
         round = 0
         winner = 0
         candidates = len(ballots[0])
