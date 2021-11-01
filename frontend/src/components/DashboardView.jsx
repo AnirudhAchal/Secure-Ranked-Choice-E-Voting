@@ -28,11 +28,11 @@ class DashboardView extends Component {
                 src={upcoming}
                 alt="Upcoming"
                 style={{ width: "300px" }}
-                className="rounded mx-auto d-block"
+                className="rounded mx-auto d-block card-img-top"
               />
-              <div className="card-body">
-                <Link to="/upcoming" className="stretched-link">
-                  <h5 className="card-text">Upcoming Elections</h5>
+              <div className="card-body ">
+                <Link to="/upcoming" className="stretched-link text-dark">
+                  <h5 className="card-text ">Upcoming Elections</h5>
                 </Link>
               </div>
             </div>
@@ -42,10 +42,10 @@ class DashboardView extends Component {
                 src={ongoing}
                 alt="Ongoing"
                 style={{ width: "300px" }}
-                className="rounded mx-auto d-block"
+                className="rounded mx-auto d-block card-img-top"
               />
               <div className="card-body">
-                <Link to="/ongoing" className="stretched-link">
+                <Link to="/ongoing" className="stretched-link text-dark">
                   <h5 className="card-text">Ongoing Elections</h5>
                 </Link>
               </div>
@@ -59,7 +59,7 @@ class DashboardView extends Component {
                 className="rounded mx-auto d-block"
               />
               <div className="card-body">
-                <Link to="/completed" className="stretched-link">
+                <Link to="/completed" className="stretched-link text-dark">
                   <h5 className="card-text">Completed Elections</h5>
                 </Link>
               </div>

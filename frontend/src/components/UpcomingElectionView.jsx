@@ -15,7 +15,6 @@ export class UpcomingElectionView extends Component {
   }
   renderUpcoming() {
     const { upcomingElections } = this.props;
-
     return upcomingElections.map((election) => {
       return (
         <div className="col-lg-4" key={election.id}>
