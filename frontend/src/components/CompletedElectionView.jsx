@@ -13,6 +13,7 @@ export class CompletedElectionView extends Component {
       </div>
     );
   }
+  
   renderCompleted() {
     const { completedElections } = this.props;
 
