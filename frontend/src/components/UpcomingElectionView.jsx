@@ -18,7 +18,7 @@ export class UpcomingElectionView extends Component {
     return upcomingElections.map((election) => {
       return (
         <div className="col-lg-4" key={election.id}>
-          <div className="mx-3 card">
+          <div className="mx-3 my-3 card">
             <div className="card-body">
               <h5 className="card-title">{election.name}</h5>
               <p className="card-text">
