@@ -89,7 +89,7 @@ class ElectionView extends Component {
         </>
       );
     }
-    console.log(mailtos);
+
     return (
       <p
         className="text-right font-weight-light align-bottom"
