@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { Link } from "react-router-dom";
 
 export class UpcomingElectionView extends Component {
@@ -13,7 +14,25 @@ export class UpcomingElectionView extends Component {
       </div>
     );
   }
-  
+
+  renderButton(election) {
+    const { onSubmitRequest, standingAsCandidate } = this.props;
+
+    if (standingAsCandidate[election.id]) {
+      return <p>Registered as candidate!</p>;
+    }
+
+    return (
+      <button
+        type="button"
+        className="btn btn-dark"
+        onClick={() => onSubmitRequest(election)}
+      >
+        Stand as a Candidate
+      </button>
+    );
+  }
+
   renderUpcoming() {
     const { upcomingElections } = this.props;
     return upcomingElections.map((election) => {
@@ -26,9 +45,7 @@ export class UpcomingElectionView extends Component {
                 {election.election_details &&
                   election.election_details.description}
               </p>
-              <button type="button" className="btn btn-dark">
-                Stand as a Candidate
-              </button>
+              {this.renderButton(election)}
             </div>
           </div>
         </div>
@@ -47,6 +64,7 @@ export class UpcomingElectionView extends Component {
           <hr />
           <div className="row">{this.renderUpcoming()}</div>
         </div>
+        <NotificationContainer />
       </>
     );
   }

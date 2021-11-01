@@ -1,14 +1,20 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, views, status
 from .models import Election, Ballot
-from .serializers import ElectionSerializer, BallotSerializer
+from .serializers import ElectionSerializer, BallotSerializer, CandidateSerializer
 from django.utils import timezone
 from .utils import Util
 from django.contrib.auth.forms import get_user_model
+from rest_framework.response import Response
 
 
 class ElectionDetailViewPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user in obj.voters.all()
+
+
+class BallotCreateViewPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user in obj.election.voters.all()
 
 
 class BallotCreateViewPermission(permissions.BasePermission):
@@ -77,3 +83,24 @@ class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
 class BallotCreate(generics.CreateAPIView, BallotCreateViewPermission):
     permission_classes = [permissions.IsAuthenticated, BallotCreateViewPermission]
     serializer_class = BallotSerializer
+
+
+class CandidateCreate(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = CandidateSerializer(data=request.data)
+        if serializer.is_valid():
+            json = serializer.data
+
+            candidate = get_user_model().objects.get(pk=json['candidate'])
+            election = Election.objects.get(pk=json['election'])
+
+            if candidate in election.voters.all() and timezone.now() < election.start_date:
+                if candidate not in election.candidates.all():
+                    election.candidates.add(candidate)
+                    election.save()
+                    return Response(json, status=status.HTTP_201_CREATED)
+
+            return Response(json, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
