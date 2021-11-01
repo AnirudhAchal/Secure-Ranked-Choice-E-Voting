@@ -18,7 +18,7 @@ class UserCreate(APIView):
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
-        """if serializer.is_valid():
+        if serializer.is_valid():
 
             json = serializer.data
 
@@ -36,7 +36,7 @@ class UserCreate(APIView):
             }
             Util.send_email(data)
 
-            return Response(json, status=status.HTTP_201_CREATED)"""
+            return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
