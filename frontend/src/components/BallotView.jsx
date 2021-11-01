@@ -15,7 +15,7 @@ class BallotView extends Component {
 
   renderTableData() {
     const { election, totalPreferences } = this.props;
-    console.log(election);
+
     return election.candidates.map((candidate, index) => {
       const { user_name } = candidate; //destructuring
       var cols = [];
