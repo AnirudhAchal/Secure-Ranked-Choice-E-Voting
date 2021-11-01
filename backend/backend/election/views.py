@@ -64,9 +64,11 @@ class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
                     ballots.append(ballot_object.vote_details['preferences'])
 
                 results = Util.get_rank_choice_results(ballots=ballots)
-
                 election.election_details['results'] = results
-                election.winner = get_user_model().objects.get(pk=results['winner'])
+
+                if results['winner']:
+                    election.winner = get_user_model().objects.get(pk=results['winner'])
+
                 election.save()
 
         return Election.objects.all()
