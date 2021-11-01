@@ -39,14 +39,14 @@ export class UpcomingElectionView extends Component {
   render() {
     return (
       <>
-      <div>{this.renderNavbar()}</div>
-      <div className="container">
-        <h3 className="my-2 d-flex justify-content-center">
-          Upcoming Elections
-        </h3>
-        <hr />
-        <div className="row">{this.renderUpcoming()}</div>
-      </div>
+        <div>{this.renderNavbar()}</div>
+        <div className="container">
+          <h3 className="my-2 d-flex justify-content-center">
+            Upcoming Elections
+          </h3>
+          <hr />
+          <div className="row">{this.renderUpcoming()}</div>
+        </div>
       </>
     );
   }

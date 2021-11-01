@@ -45,14 +45,14 @@ export class CompletedElectionView extends Component {
   render() {
     return (
       <>
-      <div>{this.renderNavbar()}</div>
-      <div className="container">
-        <h3 className="my-2 d-flex justify-content-center">
-          Completed Elections
-        </h3>
-        <hr />
-        <div className="row">{this.renderCompleted()}</div>
-      </div>
+        <div>{this.renderNavbar()}</div>
+        <div className="container">
+          <h3 className="my-2 d-flex justify-content-center">
+            Completed Elections
+          </h3>
+          <hr />
+          <div className="row">{this.renderCompleted()}</div>
+        </div>
       </>
     );
   }
