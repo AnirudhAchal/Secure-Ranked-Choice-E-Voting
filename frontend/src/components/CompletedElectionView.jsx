@@ -31,7 +31,7 @@ export class CompletedElectionView extends Component {
               </p>
               <Link
                 to={`/election/${election.id}/`}
-                className="btn btn-primary"
+                className="btn btn-dark"
               >
                 Full Results
               </Link>

@@ -27,7 +27,7 @@ export class OngoingElectionView extends Component {
               </p>
               <Link
                 to={`/election/${election.id}/`}
-                className="btn btn-primary"
+                className="btn btn-dark"
               >
                 Vote
               </Link>

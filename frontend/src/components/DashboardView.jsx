@@ -23,45 +23,47 @@ class DashboardView extends Component {
           style={{ paddingTop: "10%" }}
         >
           <div className="card-deck">
-            <Link to="/upcoming">
-              <div className="mx-3 card" style={{ width: "350px" }}>
-                <img
-                  src={upcoming}
-                  alt="Upcoming"
-                  style={{ width: "300px" }}
-                  className="rounded mx-auto d-block"
-                />
-                <div className="card-body">
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={upcoming}
+                alt="Upcoming"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block"
+              />
+              <div className="card-body">
+                <Link to="/upcoming" className="stretched-link">
                   <h5 className="card-text">Upcoming Elections</h5>
-                </div>
+                </Link>
               </div>
-            </Link>
-            <Link to="/ongoing">
-              <div className="mx-3 card" style={{ width: "350px" }}>
-                <img
-                  src={ongoing}
-                  alt="Ongoing"
-                  style={{ width: "300px" }}
-                  className="rounded mx-auto d-block"
-                />
-                <div className="card-body">
+            </div>
+
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={ongoing}
+                alt="Ongoing"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block"
+              />
+              <div className="card-body">
+                <Link to="/ongoing" className="stretched-link">
                   <h5 className="card-text">Ongoing Elections</h5>
-                </div>
+                </Link>
               </div>
-            </Link>
-            <Link to="/completed">
-              <div className="mx-3 card" style={{ width: "350px" }}>
-                <img
-                  src={completed}
-                  alt="Completed"
-                  style={{ width: "300px" }}
-                  className="rounded mx-auto d-block"
-                />
-                <div className="card-body">
+            </div>
+
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={completed}
+                alt="Completed"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block"
+              />
+              <div className="card-body">
+                <Link to="/completed" className="stretched-link">
                   <h5 className="card-text">Completed Elections</h5>
-                </div>
+                </Link>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ export class UpcomingElectionView extends Component {
                 {election.election_details &&
                   election.election_details.description}
               </p>
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-dark">
                 Stand as a Candidate
               </button>
             </div>
