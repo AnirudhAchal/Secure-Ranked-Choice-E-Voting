@@ -23,33 +23,6 @@ class DashboardContainerView extends Component {
         redirectToLogin: true,
       });
     }
-
-    axiosInstance
-      .get("/election/upcoming/")
-      .then((res) => {
-        this.setState({ upcomingElections: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axiosInstance
-      .get("/election/completed/")
-      .then((res) => {
-        this.setState({ completedElections: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axiosInstance
-      .get("/election/current/")
-      .then((res) => {
-        this.setState({ currentElections: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   handleLogout() {
@@ -76,9 +49,6 @@ class DashboardContainerView extends Component {
   render() {
     const {
       redirectToLogin,
-      currentElections,
-      upcomingElections,
-      completedElections,
     } = this.state;
 
     if (redirectToLogin) {
@@ -88,9 +58,6 @@ class DashboardContainerView extends Component {
     return (
       <DashboardView
         onLogout={this.handleLogout}
-        currentElections={currentElections}
-        upcomingElections={upcomingElections}
-        completedElections={completedElections}
       />
     );
   }
