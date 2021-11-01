@@ -86,7 +86,12 @@ class ResultView extends Component {
   render() {
     const { results, idToCandidateUsername } = this.props;
     const { winner, history } = results;
-
+    
+    if (!winner || !history) {
+      return (
+        <center><h1>There were no votes casted in this election</h1></center>
+      );
+    }
     let colorOfCandidates = {};
     for (const [id] of Object.entries(history[0])) {
       colorOfCandidates[id] = getRandomColor();
