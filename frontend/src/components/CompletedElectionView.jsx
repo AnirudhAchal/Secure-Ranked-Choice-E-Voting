@@ -13,7 +13,15 @@ export class CompletedElectionView extends Component {
       </div>
     );
   }
-  
+
+  renderWinner(election) {
+    if (election.winner) {
+      return <p className="card-text">Winner: {election.winner.user_name}</p>;
+    }
+
+    return null;
+  }
+
   renderCompleted() {
     const { completedElections } = this.props;
 
@@ -27,13 +35,8 @@ export class CompletedElectionView extends Component {
                 {election.election_details &&
                   election.election_details.description}
               </p>
-              <p className="card-text">
-                Winner: {election.winner && election.winner.user_name}
-              </p>
-              <Link
-                to={`/election/${election.id}/`}
-                className="btn btn-dark"
-              >
+              {this.renderWinner(election)}
+              <Link to={`/election/${election.id}/`} className="btn btn-dark">
                 Full Results
               </Link>
             </div>

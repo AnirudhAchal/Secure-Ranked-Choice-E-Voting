@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { Link } from "react-router-dom";
+import Moment from "moment";
 
 export class UpcomingElectionView extends Component {
   renderNavbar() {
@@ -44,6 +45,14 @@ export class UpcomingElectionView extends Component {
               <p className="card-text">
                 {election.election_details &&
                   election.election_details.description}
+              </p>
+              <p className="card-text">
+                <b>Start date:</b>{" "}
+                {Moment(election.start_date).format("MMMM Do YYYY, h:mm:ss a")}
+              </p>
+              <p className="card-text">
+                <b>End date:</b>{" "}
+                {Moment(election.end_date).format("MMMM Do YYYY, h:mm:ss a")}
               </p>
               {this.renderButton(election)}
             </div>
