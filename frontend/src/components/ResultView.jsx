@@ -111,7 +111,12 @@ class ResultView extends Component {
 
   render() {
     const { results, idToCandidateUsername } = this.props;
-    const { winner } = results;
+    const { winner, history } = results;
+    if (!winner || !history) {
+      return (
+        <center><h1>There were no votes casted in this election</h1></center>
+      );
+    }
     return (
       <div>
         <div className="row">
