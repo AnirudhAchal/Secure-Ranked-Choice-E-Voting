@@ -17,7 +17,7 @@ class ResultView extends Component {
     return (
       <div className="Charts float-container">
         <div className="BarGraph float-child">
-          <h1>Bar Graph of Votes</h1>
+          <h1 className="text-center">Bar Graph of Votes</h1>
           <div style={{ maxWidth: "650px" }}>
             <Bar
               data={graphData}
@@ -52,7 +52,7 @@ class ResultView extends Component {
     return (
       <div className="Charts float-container">
         <div className="PieChart float-child">
-          <h1>Pie Chart of Votes</h1>
+          <h1 className="text-center">Pie Chart of Votes</h1>
           <div style={{ maxWidth: "650px" }}>
             <Pie
               data={graphData}
@@ -146,14 +146,22 @@ class ResultView extends Component {
       <div>
         {graphDataOfAllRounds.map((object, i) => (
           <div>
-            <h1>Round {i + 1} results: </h1>
-            <this.renderBarGraph graphData={object} roundNumber={i} />
-            <this.renderPieChart graphData={object} roundNumber={i} />
+            <h1 className = "text-center">Round {i + 1} results: </h1>
+            <div className = "row">
+              <div className = "column">
+                <this.renderBarGraph graphData={object} roundNumber={i} />
+              </div>
+              <div className = "column">
+                <this.renderPieChart graphData={object} roundNumber={i} />
+              </div>
+            </div>  
           </div>
+          
         ))}
-        <h1 className="winner">
-          The winner is {idToCandidateUsername[winner]}
-        </h1>
+        <div className="winner text-center">
+              <h1>The winner is {idToCandidateUsername[winner]}</h1>
+        </div>
+        
       </div>
     );
   }
