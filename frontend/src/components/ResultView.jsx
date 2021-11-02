@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
+import { Link } from "react-router-dom";
+
 
 function getRandomColor() {
   // return "#" + Math.random().toString(16).substr(2, 6); not so good
@@ -110,7 +112,7 @@ class ResultView extends Component {
   }
 
   render() {
-    const { results, idToCandidateUsername } = this.props;
+    const { election, results, idToCandidateUsername } = this.props;
     const { winner, history } = results;
     if (!winner || !history) {
       return (
@@ -192,6 +194,7 @@ class ResultView extends Component {
             The Elected Candidate is: {idToCandidateUsername[winner]}
           </h1>
         </div>
+        <Link  className="btn btn-dark">See all the graphs</Link>
       </div>
     );
   }
