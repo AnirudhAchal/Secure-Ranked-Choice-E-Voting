@@ -13,25 +13,25 @@ class Util:
 
         round = 0
         winner = 0
-        candidates = len(ballots[0])
-        voters = len(ballots)
-        majority = voters / 2
-        track = [0] * voters
-        skip = dict()
+        number_of_candidates = len(ballots[0])
+        number_of_voters = len(ballots)
+        majority = number_of_voters / 2
+        preference_tracker = [0] * number_of_voters
+        eliminated_candidates = dict()
         result_history = {}
 
         for key in ballots[0]:
-            skip[key] = 0
+            eliminated_candidates[key] = 0
 
-        while round < candidates:
+        while round < number_of_candidates:
             arr = dict()
             for key in ballots[0]:
-                if not skip[key]:
+                if not eliminated_candidates[key]:
                     arr[key] = 0
 
             # count votes
-            for i in range(0, voters):
-                arr[ballots[i][track[i]]] += 1
+            for i in range(0, number_of_voters):
+                arr[ballots[i][preference_tracker[i]]] += 1
 
             result_history[round] = arr
 
@@ -40,7 +40,7 @@ class Util:
             lowest = 0
 
             for i in arr:
-                if skip[i] == 1:
+                if eliminated_candidates[i] == 1:
                     continue
                 if arr[i] > majority:
                     winner = i
@@ -52,11 +52,11 @@ class Util:
                 break
 
             # eliminate loser
-            skip[lowest] = 1
+            eliminated_candidates[lowest] = 1
 
-            for i in range(0, voters):
-                while skip[ballots[i][track[i]]] == 1:
-                    track[i] += 1
+            for i in range(0, number_of_voters):
+                while eliminated_candidates[ballots[i][preference_tracker[i]]] == 1:
+                    preference_tracker[i] += 1
             round += 1
 
         return {'winner': winner, 'history': result_history}
