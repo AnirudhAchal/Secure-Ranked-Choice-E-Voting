@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
-import "./styles/ResultView.css";
 
 function getRandomColor() {
   // return "#" + Math.random().toString(16).substr(2, 6); not so good
@@ -36,9 +35,7 @@ class ResultView extends Component {
   componentDidMount() {
     this.chart1 = this.chartReference1.current.chartInstance;
     this.chart2 = this.chartReference2.current.chartInstance;
-    setTimeout(() => {
-      this.calculateData();
-    }, 1000);
+    this.calculateData();
   }
 
   calculateData() {
@@ -114,79 +111,81 @@ class ResultView extends Component {
 
   render() {
     const { results, idToCandidateUsername } = this.props;
-    const { winner} = results;
+    const { winner } = results;
     return (
       <div>
-        <div className = "row">
-          <div className = "column">
-        <div className="Charts float-container-center">
-          <div className="my-3 mx-5 BarGraph float-child">
-            <h1 className="display-4 my-3">Bar Graph of Votes</h1>
-            <hr/>
-            <div style={{ maxWidth: "650px" }}>
-              <Bar
-                ref={this.chartReference1}
-                data={this.state.data}
-                height={400}
-                options={{
-                  maintainAspectRatio: false,
-                  scales: {
-                    yAxes: [
-                      {
-                        ticks: {
-                          // The y-axis value will start from zero
-                          beginAtZero: true,
+        <div className="row">
+          <div className="col-sm">
+            <div className="Charts float-container-center">
+              <div className="my-3 mx-5 BarGraph float-child">
+                <h1 className="display-4 my-3">Bar Graph Representation</h1>
+                <hr />
+                <div style={{ maxWidth: "650px" }}>
+                  <Bar
+                    ref={this.chartReference1}
+                    data={this.state.data}
+                    height={400}
+                    options={{
+                      maintainAspectRatio: false,
+                      scales: {
+                        yAxes: [
+                          {
+                            ticks: {
+                              // The y-axis value will start from zero
+                              beginAtZero: true,
+                            },
+                          },
+                        ],
+                      },
+                      legend: {
+                        labels: {
+                          fontSize: 15,
                         },
                       },
-                    ],
-                  },
-                  legend: {
-                    labels: {
-                      fontSize: 15,
-                    },
-                  },
-                }}
-              />
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm">
+            <div className="Charts float-container">
+              <div className="PieChart float-child">
+                <h1 className="display-4 my-3">Doughnut Representation</h1>
+                <hr />
+                <div style={{ maxWidth: "650px" }}>
+                  <Doughnut
+                    ref={this.chartReference2}
+                    data={this.state.data}
+                    height={400}
+                    options={{
+                      maintainAspectRatio: false,
+                      scales: {
+                        yAxes: [
+                          {
+                            ticks: {
+                              // The y-axis value will start from zero
+                              beginAtZero: true,
+                            },
+                          },
+                        ],
+                      },
+                      legend: {
+                        labels: {
+                          fontSize: 15,
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        </div>
-        <div className = "column">
-        <div className="Charts float-container">
-          <div className="PieChart float-child">
-          <h1 className="display-4 my-3">Doughnut of Votes</h1>
-            <hr/>
-            <div style={{ maxWidth: "650px" }}>
-              <Doughnut
-                ref={this.chartReference2}
-                data={this.state.data}
-                height={400}
-                options={{
-                  maintainAspectRatio: false,
-                  scales: {
-                    yAxes: [
-                      {
-                        ticks: {
-                          // The y-axis value will start from zero
-                          beginAtZero: true,
-                        },
-                      },
-                    ],
-                  },
-                  legend: {
-                    labels: {
-                      fontSize: 15,
-                    },
-                  },
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-      <div className="my-5 text-center text-dark">
-              <h1 className='display-4'>The Elected Candidate is: {idToCandidateUsername[winner]}</h1>
+        <div className="my-5 text-center text-dark">
+          <h1 className="display-4">
+            The Elected Candidate is: {idToCandidateUsername[winner]}
+          </h1>
         </div>
       </div>
     );
