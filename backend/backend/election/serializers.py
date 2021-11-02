@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Election, Ballot
 from django.contrib.auth.forms import get_user_model
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -24,6 +25,11 @@ class ElectionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CandidateSerializer(serializers.Serializer):
+    candidate = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
+    election = serializers.PrimaryKeyRelatedField(queryset=Election.objects.all())
+
+
 class BallotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ballot
@@ -39,6 +45,8 @@ class BallotSerializer(serializers.ModelSerializer):
             election = Election.objects.get(pk=data['election'].id)
             if election.voted_voters.filter(pk=user.id).exists():
                 raise ValidationError(f"You already voted in this election")
+            elif election.end_date < timezone.now():
+                raise ValidationError(f"The election has ended")
             else:
                 user = get_user_model().objects.get(pk=user.id)
                 election.voted_voters.add(user)

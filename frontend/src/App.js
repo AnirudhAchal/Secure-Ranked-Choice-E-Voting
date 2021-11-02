@@ -6,6 +6,9 @@ import RegisterContainerView from "./components/RegisterContainerView";
 import ElectionContainerView from "./components/ElectionContainerView";
 import "react-notifications/lib/notifications.css";
 import AdminDashboardContainerView from "./components/Admin/AdminDashboardContainerView";
+import OngoingElectionContainerView from "./components/OngoingElectionContainerView";
+import UpcomingElectionContainerView from "./components/UpcomingElectionContainerView";
+import CompletedElectionContainerView from "./components/CompletedElectionContainerView";
 
 function App() {
   return (
@@ -14,8 +17,11 @@ function App() {
         <Route exact path="/" component={DashboardContainerView} />
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
-        <Route exact path="/admin" component={AdminDashboardContainerView} />
+        <Route path="/admin" component={AdminDashboardContainerView} />
         <Route path="/election/:id" component={ElectionContainerView} />
+        <Route path="/ongoing" component={OngoingElectionContainerView} />
+        <Route path="/upcoming" component={UpcomingElectionContainerView} />
+        <Route path="/completed" component={CompletedElectionContainerView} />
       </Switch>
     </Router>
   );

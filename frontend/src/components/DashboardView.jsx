@@ -1,81 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import ongoing from "../images/ongoing.jpg";
+import upcoming from "../images/upcoming.jpg";
+import completed from "../images/completed.png";
 
 class DashboardView extends Component {
-  renderUpcoming() {
-    const { upcomingElections } = this.props;
-
-    return upcomingElections.map((election) => {
-      return (
-        <div className="col-lg-4" key={election.id}>
-          <div className="mx-3 card">
-            <div className="card-body">
-              <h5 className="card-title">{election.name}</h5>
-              <p className="card-text">
-                {election.election_details &&
-                  election.election_details.description}
-              </p>
-              <button type="button" className="btn btn-primary">
-                Stand as a Candidate
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  }
-
-  renderCurrent() {
-    const { currentElections } = this.props;
-
-    return currentElections.map((election) => {
-      return (
-        <div className="col-lg-4" key={election.id}>
-          <div className="mx-3 card">
-            <div className="card-body">
-              <h5 className="card-title">{election.name}</h5>
-              <p className="card-text">
-                Registered Voters: {election.voters.length}
-              </p>
-              <Link
-                to={`/election/${election.id}/`}
-                className="btn btn-primary"
-              >
-                Vote
-              </Link>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  }
-
-  renderCompleted() {
-    const { completedElections } = this.props;
-
-    return completedElections.map((election) => {
-      return (
-        <div className="col-lg-4" key={election.id}>
-          <div className="mx-3 card">
-            <div className="card-body">
-              <h5 className="card-title">{election.name}</h5>
-              <p className="card-text">
-                {election.election_details &&
-                  election.election_details.description}
-              </p>
-              <p className="card-text">
-                Winner: {election.winner && election.winner.user_name}
-              </p>
-              <button type="button" className="btn btn-primary">
-                Full Results
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  }
-
   render() {
     const { onLogout } = this.props;
 
@@ -89,28 +18,53 @@ class DashboardView extends Component {
             Logout
           </button>
         </nav>
-        <div className="container">
-          <h3 className="my-2 d-flex justify-content-center">
-            Ongoing Elections
-          </h3>
-          <hr />
-          <div className="row">{this.renderCurrent()}</div>
-        </div>
-        <hr />
-        <div className="container">
-          <h3 className="my-2 d-flex justify-content-center">
-            Upcoming Elections
-          </h3>
-          <hr />
-          <div className="row">{this.renderUpcoming()}</div>
-        </div>
-        <hr />
-        <div className="container">
-          <h3 className="my-2 d-flex justify-content-center">
-            Completed Elections
-          </h3>
-          <hr />
-          <div className="row">{this.renderCompleted()}</div>
+        <div
+          className="d-flex justify-content-center text-center mt-10"
+          style={{ paddingTop: "10%" }}
+        >
+          <div className="card-deck">
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={upcoming}
+                alt="Upcoming"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block card-img-top"
+              />
+              <div className="card-body ">
+                <Link to="/upcoming" className="stretched-link text-dark">
+                  <h5 className="card-text ">Upcoming Elections</h5>
+                </Link>
+              </div>
+            </div>
+
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={ongoing}
+                alt="Ongoing"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block card-img-top"
+              />
+              <div className="card-body">
+                <Link to="/ongoing" className="stretched-link text-dark">
+                  <h5 className="card-text">Ongoing Elections</h5>
+                </Link>
+              </div>
+            </div>
+
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={completed}
+                alt="Completed"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block"
+              />
+              <div className="card-body">
+                <Link to="/completed" className="stretched-link text-dark">
+                  <h5 className="card-text">Completed Elections</h5>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
