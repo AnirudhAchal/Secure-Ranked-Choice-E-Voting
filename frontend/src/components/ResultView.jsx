@@ -86,22 +86,19 @@ class ResultView extends Component {
   render() {
     const { results, idToCandidateUsername } = this.props;
     const { winner, history } = results;
-    
+
     if (!winner || !history) {
       return (
-        <center><h1>There were no votes casted in this election</h1></center>
+        <center>
+          <h1>There were no votes casted in this election</h1>
+        </center>
       );
     }
     let colorOfCandidates = {};
     for (const [id] of Object.entries(history[0])) {
       colorOfCandidates[id] = getRandomColor();
     }
-    // Delete after completing this component
-    // console.log(winner);
-    // console.log(history);
-    // console.log(idToCandidateUsername);
 
-    // Add results in this component
     let graphDataOfAllRounds = [];
 
     for (let i = 0; i < Object.keys(history).length; i++) {
@@ -140,7 +137,6 @@ class ResultView extends Component {
 
       graphDataOfAllRounds.push(graphData);
     }
-    // console.log(graphDataOfAllRounds);
 
     return (
       <div>
