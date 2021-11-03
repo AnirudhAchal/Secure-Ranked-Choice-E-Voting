@@ -1,0 +1,10 @@
+.column {
+  margin-top: 25px;
+  float: left;
+  width: 50%;
+}
+
+.winner {
+  padding: 25px;
+  color: green;
+}

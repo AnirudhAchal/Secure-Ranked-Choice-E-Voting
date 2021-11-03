@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-import DashboardView from "./DashboardView";
-import axiosInstance from "../axios";
+import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
-import isAuthenticated from "./utils/authentication";
+import isAuthenticated from "../utils/authentication";
+import AdminNavbar from "./AdminNavbar";
 
-class DashboardContainerView extends Component {
+class AdminDashboardContainerView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       redirectToLogin: false,
-      upcomingElections: [],
-      currentElections: [],
-      completedElections: [],
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -47,20 +44,13 @@ class DashboardContainerView extends Component {
   }
 
   render() {
-    const {
-      redirectToLogin,
-    } = this.state;
-
+    const { redirectToLogin } = this.state;
     if (redirectToLogin) {
       return <Redirect to="/login" />;
     }
 
-    return (
-      <DashboardView
-        onLogout={this.handleLogout}
-      />
-    );
+    return <AdminNavbar onLogout={this.handleLogout} />;
   }
 }
 
-export default DashboardContainerView;
+export default AdminDashboardContainerView;
