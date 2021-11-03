@@ -36,9 +36,9 @@ class ResultStaticView extends Component {
                   ],
                 },
                 title: {
-                    display: true,
-                    text: 'BarChart Representation',
-                    position: 'bottom'
+                  display: true,
+                  text: "BarChart Representation",
+                  position: "bottom",
                 },
                 legend: {
                   labels: {
@@ -76,9 +76,9 @@ class ResultStaticView extends Component {
                   ],
                 },
                 title: {
-                    display: true,
-                    text: 'Doughnut Representation',
-                    position: 'bottom'
+                  display: true,
+                  text: "Doughnut Representation",
+                  position: "bottom",
                 },
                 legend: {
                   labels: {
@@ -157,9 +157,7 @@ class ResultStaticView extends Component {
         </div>
         {graphDataOfAllRounds.map((object, i) => (
           <div>
-            <h3 className="mx-3 my-4 text-muted">
-              Round {i + 1} results:{" "}
-            </h3>
+            <h3 className="mx-3 my-4 text-muted">Round {i + 1} results: </h3>
             <div className="row mx-auto">
               <div className=" mx-5 col sm-3">
                 <this.renderBarGraph graphData={object} roundNumber={i} />

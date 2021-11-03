@@ -49,24 +49,23 @@ class ResultContainerView extends Component {
       );
     }
 
-    
     let butt;
 
     butt = (
       <button
         onClick={() => {
-          this.setState({ static1: !this.state.static1 }); 
+          this.setState({ static1: !this.state.static1 });
         }}
         className="btn btn-dark togbut"
-        style={{display:"none"}}
+        style={{ display: "none" }}
         id="togbut"
       >
         Toggle View
       </button>
     );
-    
+
     function hideElement() {
-      document.getElementById('togbut').style.display = 'block';
+      document.getElementById("togbut").style.display = "block";
     }
     setTimeout(hideElement, 10000);
 

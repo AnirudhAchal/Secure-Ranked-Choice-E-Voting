@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Bar, Doughnut} from "react-chartjs-2";
+import { Bar, Doughnut } from "react-chartjs-2";
 
 function getRandomColor() {
   // return "#" + Math.random().toString(16).substr(2, 6); not so good
@@ -40,8 +40,8 @@ class ResultView extends Component {
   }
 
   componentWillUnmount() {
-    this.chart1=null;
-    this.chart2=null;
+    this.chart1 = null;
+    this.chart2 = null;
     clearInterval(this.timer);
   }
 
@@ -143,9 +143,9 @@ class ResultView extends Component {
       },
       title: {
         display: true,
-        text: 'BarChart Representation',
-        position: 'bottom'
-    },
+        text: "BarChart Representation",
+        position: "bottom",
+      },
       legend: {
         labels: {
           fontSize: 15,
@@ -167,9 +167,9 @@ class ResultView extends Component {
       },
       title: {
         display: true,
-        text: 'Doughnut Representation',
-        position: 'bottom',
-    },
+        text: "Doughnut Representation",
+        position: "bottom",
+      },
       legend: {
         labels: {
           fontSize: 15,
@@ -177,7 +177,7 @@ class ResultView extends Component {
       },
     };
     console.log(10, this.graphDataOfAllRounds);
-    
+
     return (
       <div>
         <div className="my-5 text-center text-dark">
@@ -189,14 +189,14 @@ class ResultView extends Component {
           <div className="col-sm">
             <div className="Charts float-container-center">
               <div className="my-3 mx-5 BarGraph float-child">
-                <hr/>
+                <hr />
                 <div style={{ maxWidth: "650px" }}>
                   <Bar
                     ref={this.chartReference1}
                     data={this.state.data}
                     height={400}
                     options={options_b}
-                    id = "1"
+                    id="1"
                   />
                 </div>
               </div>
@@ -212,7 +212,7 @@ class ResultView extends Component {
                     data={this.state.data}
                     height={400}
                     options={options_d}
-                    id = "2"
+                    id="2"
                   />
                 </div>
               </div>
