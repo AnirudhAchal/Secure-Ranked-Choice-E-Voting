@@ -32,6 +32,15 @@ class ResultContainerView extends Component {
     const { results } = this.state;
 
     const { static1 } = this.state;
+    const { winner, history } = results;
+
+    if (!winner || !history) {
+      return (
+        <center>
+          <h2>There were no votes casted in this election</h2>
+        </center>
+      );
+    }
     let view;
     if (!static1) {
       view = (

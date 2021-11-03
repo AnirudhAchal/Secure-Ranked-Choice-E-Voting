@@ -43,19 +43,13 @@ class ResultView extends Component {
     this.chart1 = null;
     this.chart2 = null;
     clearInterval(this.timer);
+    clearTimeout(this.timer);
   }
 
   calculateData() {
     const { results, idToCandidateUsername } = this.props;
-    const { winner, history } = results;
+    const { history } = results;
 
-    if (!winner || !history) {
-      return (
-        <center>
-          <h1>There were no votes casted in this election</h1>
-        </center>
-      );
-    }
     let colorOfCandidates = {};
     for (const [id] of Object.entries(history[0])) {
       colorOfCandidates[id] = getRandomColor();
@@ -121,14 +115,7 @@ class ResultView extends Component {
 
   render() {
     const { results, idToCandidateUsername } = this.props;
-    const { winner, history } = results;
-    if (!winner || !history) {
-      return (
-        <center>
-          <h1>There were no votes casted in this election</h1>
-        </center>
-      );
-    }
+    const { winner } = results;
     const options_b = {
       maintainAspectRatio: false,
       scales: {
