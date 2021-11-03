@@ -92,7 +92,7 @@ class ElectionView extends Component {
 
     return (
       <p
-        className="text-right font-weight-light align-bottom sticky-bottom"
+        className="text-right font-weight-light align-bottom"
         style={{ paddingRight: "15px" }}
       >
         Posted {Moment(election.date_posted).startOf("hour").fromNow()}
