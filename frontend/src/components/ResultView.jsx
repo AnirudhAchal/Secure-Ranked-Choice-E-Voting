@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Bar, Doughnut } from "react-chartjs-2";
-import { Link } from "react-router-dom";
-
+import { Bar, Doughnut} from "react-chartjs-2";
 
 function getRandomColor() {
   // return "#" + Math.random().toString(16).substr(2, 6); not so good
@@ -31,6 +29,7 @@ class ResultView extends Component {
           },
         ],
       },
+      graphDataOfAllRounds: [],
     };
   }
 
@@ -38,6 +37,12 @@ class ResultView extends Component {
     this.chart1 = this.chartReference1.current.chartInstance;
     this.chart2 = this.chartReference2.current.chartInstance;
     this.calculateData();
+  }
+
+  componentWillUnmount() {
+    this.chart1=null;
+    this.chart2=null;
+    clearInterval(this.timer);
   }
 
   calculateData() {
@@ -90,9 +95,12 @@ class ResultView extends Component {
       });
       timeout += 1500;
       graphData.datasets[0].borderColor = graphData.datasets[0].backgroundColor;
-      console.log(1);
       this.updateChartDelayed(graphData, timeout);
       console.log(graphData);
+      var joined = this.state.graphDataOfAllRounds;
+      joined.push(graphData);
+      this.setState({ graphDataOfAllRounds: joined });
+      console.log(joined);
     }
   }
 
@@ -112,44 +120,83 @@ class ResultView extends Component {
   }
 
   render() {
-    const { election, results, idToCandidateUsername } = this.props;
+    const { results, idToCandidateUsername } = this.props;
     const { winner, history } = results;
     if (!winner || !history) {
       return (
-        <center><h1>There were no votes casted in this election</h1></center>
+        <center>
+          <h1>There were no votes casted in this election</h1>
+        </center>
       );
     }
+    const options_b = {
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              // The y-axis value will start from zero
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+      title: {
+        display: true,
+        text: 'BarChart Representation',
+        position: 'bottom'
+    },
+      legend: {
+        labels: {
+          fontSize: 15,
+        },
+      },
+    };
+
+    const options_d = {
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              // The y-axis value will start from zero
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+      title: {
+        display: true,
+        text: 'Doughnut Representation',
+        position: 'bottom',
+    },
+      legend: {
+        labels: {
+          fontSize: 15,
+        },
+      },
+    };
+    console.log(10, this.graphDataOfAllRounds);
+    
     return (
       <div>
-        <div className="row">
+        <div className="my-5 text-center text-dark">
+          <h1 className="display-4">
+            The Elected Candidate is: {idToCandidateUsername[winner]}
+          </h1>
+        </div>
+        <div className="row mx-auto">
           <div className="col-sm">
             <div className="Charts float-container-center">
               <div className="my-3 mx-5 BarGraph float-child">
-                <h1 className="display-4 my-3">Bar Graph Representation</h1>
-                <hr />
+                <hr/>
                 <div style={{ maxWidth: "650px" }}>
                   <Bar
                     ref={this.chartReference1}
                     data={this.state.data}
                     height={400}
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              // The y-axis value will start from zero
-                              beginAtZero: true,
-                            },
-                          },
-                        ],
-                      },
-                      legend: {
-                        labels: {
-                          fontSize: 15,
-                        },
-                      },
-                    }}
+                    options={options_b}
+                    id = "1"
                   />
                 </div>
               </div>
@@ -158,43 +205,20 @@ class ResultView extends Component {
           <div className="col-sm">
             <div className="Charts float-container">
               <div className="PieChart float-child">
-                <h1 className="display-4 my-3">Doughnut Representation</h1>
                 <hr />
                 <div style={{ maxWidth: "650px" }}>
                   <Doughnut
                     ref={this.chartReference2}
                     data={this.state.data}
                     height={400}
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              // The y-axis value will start from zero
-                              beginAtZero: true,
-                            },
-                          },
-                        ],
-                      },
-                      legend: {
-                        labels: {
-                          fontSize: 15,
-                        },
-                      },
-                    }}
+                    options={options_d}
+                    id = "2"
                   />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="my-5 text-center text-dark">
-          <h1 className="display-4">
-            The Elected Candidate is: {idToCandidateUsername[winner]}
-          </h1>
-        </div>
-        <Link  className="btn btn-dark">See all the graphs</Link>
       </div>
     );
   }
