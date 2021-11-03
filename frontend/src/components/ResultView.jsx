@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Bar, Pie } from "react-chartjs-2";
-import "./styles/ResultView.css";
+import { Bar, Doughnut } from "react-chartjs-2";
 
 function getRandomColor() {
   // return "#" + Math.random().toString(16).substr(2, 6); not so good
@@ -13,94 +12,49 @@ function getRandomColor() {
 }
 
 class ResultView extends Component {
-  renderBarGraph({ graphData, roundNumber }) {
-    return (
-      <div className="Charts float-container">
-        <div className="BarGraph float-child">
-          <h1 className="text-center">Bar Graph of Votes</h1>
-          <div style={{ maxWidth: "650px" }}>
-            <Bar
-              data={graphData}
-              // Height of graph
-              height={400}
-              options={{
-                maintainAspectRatio: false,
-                scales: {
-                  yAxes: [
-                    {
-                      ticks: {
-                        // The y-axis value will start from zero
-                        beginAtZero: true,
-                      },
-                    },
-                  ],
-                },
-                legend: {
-                  labels: {
-                    fontSize: 15,
-                  },
-                },
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    );
+  constructor(props) {
+    super(props);
+    this.chartReference1 = React.createRef();
+    this.chartReference2 = React.createRef();
+    this.state = {
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: "# of votes",
+            data: [],
+            backgroundColor: [],
+            borderColor: [],
+            borderWidth: 0.5,
+          },
+        ],
+      },
+      graphDataOfAllRounds: [],
+    };
   }
 
-  renderPieChart({ graphData, roundNumber }) {
-    return (
-      <div className="Charts float-container">
-        <div className="PieChart float-child">
-          <h1 className="text-center">Pie Chart of Votes</h1>
-          <div style={{ maxWidth: "650px" }}>
-            <Pie
-              data={graphData}
-              // Height of graph
-              height={400}
-              options={{
-                maintainAspectRatio: false,
-                scales: {
-                  yAxes: [
-                    {
-                      ticks: {
-                        // The y-axis value will start from zero
-                        beginAtZero: true,
-                      },
-                    },
-                  ],
-                },
-                legend: {
-                  labels: {
-                    fontSize: 15,
-                  },
-                },
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    );
+  componentDidMount() {
+    this.chart1 = this.chartReference1.current.chartInstance;
+    this.chart2 = this.chartReference2.current.chartInstance;
+    this.calculateData();
   }
 
-  render() {
+  componentWillUnmount() {
+    this.chart1 = null;
+    this.chart2 = null;
+    clearInterval(this.timer);
+    clearTimeout(this.timer);
+  }
+
+  calculateData() {
     const { results, idToCandidateUsername } = this.props;
-    const { winner, history } = results;
+    const { history } = results;
 
-    if (!winner || !history) {
-      return (
-        <center>
-          <h1>There were no votes casted in this election</h1>
-        </center>
-      );
-    }
     let colorOfCandidates = {};
     for (const [id] of Object.entries(history[0])) {
       colorOfCandidates[id] = getRandomColor();
     }
-
-    let graphDataOfAllRounds = [];
-
+    let timeout = 0;
     for (let i = 0; i < Object.keys(history).length; i++) {
       let intermediate_result = history[i];
 
@@ -117,7 +71,7 @@ class ResultView extends Component {
         labels: [],
         datasets: [
           {
-            label: "total count",
+            label: "",
             data: [],
             backgroundColor: [],
             borderColor: [],
@@ -133,31 +87,125 @@ class ResultView extends Component {
           colorOfCandidates[candidate.id]
         );
       });
+      timeout += 1500;
       graphData.datasets[0].borderColor = graphData.datasets[0].backgroundColor;
-
-      graphDataOfAllRounds.push(graphData);
+      this.updateChartDelayed(graphData, timeout);
+      console.log(graphData);
+      var joined = this.state.graphDataOfAllRounds;
+      joined.push(graphData);
+      this.setState({ graphDataOfAllRounds: joined });
+      console.log(joined);
     }
+  }
+
+  updateChartDelayed(graphData, timeout) {
+    this.timer = setTimeout(() => {
+      this.chart1.data.labels = graphData.labels;
+      this.chart1.data.datasets[0].data = graphData.datasets[0].data;
+      this.chart1.data.datasets[0].backgroundColor =
+        graphData.datasets[0].backgroundColor;
+      this.chart1.update();
+      this.chart2.data.labels = graphData.labels;
+      this.chart2.data.datasets[0].data = graphData.datasets[0].data;
+      this.chart2.data.datasets[0].backgroundColor =
+        graphData.datasets[0].backgroundColor;
+      this.chart2.update();
+    }, timeout);
+  }
+
+  render() {
+    const { results, idToCandidateUsername } = this.props;
+    const { winner } = results;
+    const options_b = {
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              // The y-axis value will start from zero
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+      title: {
+        display: true,
+        text: "BarChart Representation",
+        position: "bottom",
+      },
+      legend: {
+        labels: {
+          fontSize: 15,
+        },
+      },
+    };
+
+    const options_d = {
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              // The y-axis value will start from zero
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+      title: {
+        display: true,
+        text: "Doughnut Representation",
+        position: "bottom",
+      },
+      legend: {
+        labels: {
+          fontSize: 15,
+        },
+      },
+    };
+    console.log(10, this.graphDataOfAllRounds);
 
     return (
       <div>
-        {graphDataOfAllRounds.map((object, i) => (
-          <div>
-            <h1 className = "text-center">Round {i + 1} results: </h1>
-            <div className = "row">
-              <div className = "column">
-                <this.renderBarGraph graphData={object} roundNumber={i} />
-              </div>
-              <div className = "column">
-                <this.renderPieChart graphData={object} roundNumber={i} />
-              </div>
-            </div>  
-          </div>
-          
-        ))}
-        <div className="winner text-center">
-              <h1>The winner is {idToCandidateUsername[winner]}</h1>
+        <div className="my-5 text-center text-dark">
+          <h1 className="display-4">
+            The Elected Candidate is: {idToCandidateUsername[winner]}
+          </h1>
         </div>
-        
+        <div className="row mx-auto">
+          <div className="col-sm">
+            <div className="Charts float-container-center">
+              <div className="my-3 mx-5 BarGraph float-child">
+                <hr />
+                <div style={{ maxWidth: "650px" }}>
+                  <Bar
+                    ref={this.chartReference1}
+                    data={this.state.data}
+                    height={400}
+                    options={options_b}
+                    id="1"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm">
+            <div className="Charts float-container">
+              <div className="PieChart float-child">
+                <hr />
+                <div style={{ maxWidth: "650px" }}>
+                  <Doughnut
+                    ref={this.chartReference2}
+                    data={this.state.data}
+                    height={400}
+                    options={options_d}
+                    id="2"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
