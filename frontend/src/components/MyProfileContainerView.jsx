@@ -25,7 +25,7 @@ class MyProfileContainerView extends Component {
     const currentUserId = getCurrentUserId();
 
     axiosInstance
-      .get(`/authentication/update/user/${currentUserId}/`)
+      .get(`/authentication/current-user/${currentUserId}/`)
       .then((res) => {
         //console.log(res.data)
         this.setState({ user: res.data, userHasLoaded: true });
