@@ -73,7 +73,7 @@ class VerifyEmail(generics.GenericAPIView):
 
 
 class ResendVerificationEmail(generics.GenericAPIView):
-    def get(self, request):
+    def post(self, request):
         serializer = EmailSerializer(data=request.data)
 
         if serializer.is_valid():
