@@ -9,7 +9,9 @@ import AdminDashboardContainerView from "./components/Admin/AdminDashboardContai
 import OngoingElectionContainerView from "./components/OngoingElectionContainerView";
 import UpcomingElectionContainerView from "./components/UpcomingElectionContainerView";
 import CompletedElectionContainerView from "./components/CompletedElectionContainerView";
+import ProfileContainerView from "./components/ProfileContainerView";
 import VerifyEmailContainerView from "./components/VerifyEmailContainerView";
+import MyProfileContainerView from "./components/MyProfileContainerView";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/ongoing" component={OngoingElectionContainerView} />
         <Route path="/upcoming" component={UpcomingElectionContainerView} />
         <Route path="/completed" component={CompletedElectionContainerView} />
+        <Route path="/profile/:username" component={ProfileContainerView} />
+        <Route path="/myprofile" component={MyProfileContainerView} />
       </Switch>
     </Router>
   );

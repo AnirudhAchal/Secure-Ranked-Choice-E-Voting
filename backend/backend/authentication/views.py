@@ -1,11 +1,11 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, EmailSerializer
+from .serializers import UserSerializer, EmailSerializer, ProfileSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from django.contrib.sites.shortcuts import get_current_site
-from rest_framework import generics
+from rest_framework import generics, permissions
 from django.urls import reverse
 from .models import User
 from .utils import Util
@@ -100,3 +100,21 @@ class ResendVerificationEmail(generics.GenericAPIView):
                     return Response({'error': 'No account exists with this email'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'error': 'Email is a required field'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserDetail(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+    lookup_field = 'user_name'
+
+
+class CurrentUserDetailViewPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user == obj
+
+
+class CurrentUserDetail(generics.RetrieveUpdateAPIView, CurrentUserDetailViewPermission):
+    permission_classes = [permissions.IsAuthenticated, CurrentUserDetailViewPermission]
+    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
