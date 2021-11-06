@@ -19,3 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
