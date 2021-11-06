@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import DashboardView from "./DashboardView";
-import axiosInstance from "../axios";
+import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
-import isAuthenticated from "./utils/authentication";
+import isAuthenticated from "../utils/authentication";
 
 class DashboardContainerView extends Component {
   constructor(props) {
@@ -47,19 +47,13 @@ class DashboardContainerView extends Component {
   }
 
   render() {
-    const {
-      redirectToLogin,
-    } = this.state;
+    const { redirectToLogin } = this.state;
 
     if (redirectToLogin) {
       return <Redirect to="/login" />;
     }
 
-    return (
-      <DashboardView
-        onLogout={this.handleLogout}
-      />
-    );
+    return <DashboardView onLogout={this.handleLogout} />;
   }
 }
 
