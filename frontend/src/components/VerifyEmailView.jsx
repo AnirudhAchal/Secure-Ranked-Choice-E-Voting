@@ -24,7 +24,7 @@ class VerifyEmailView extends Component {
                 onChange={(e) => onEmailChange(e.target.value)}
               />
             </Form.Group>
-            <Form.Group size="lg" controlId="login">
+            <Form.Group size="lg" controlId="resendLink">
               <Button block size="lg" type="submit" disabled={!validateForm()}>
                 Resend link
               </Button>

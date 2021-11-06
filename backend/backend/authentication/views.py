@@ -82,7 +82,6 @@ class ResendVerificationEmail(generics.GenericAPIView):
             if email:
                 try:
                     user = User.objects.get(email=email)
-
                     if not user.is_active:
                         token = RefreshToken.for_user(user)
                         current_site = get_current_site(request)
@@ -95,11 +94,9 @@ class ResendVerificationEmail(generics.GenericAPIView):
                             'to_email': f'{user.email}',
                         }
                         Util.send_email(data)
-
                         return Response({'message': 'Successfully resent'}, status=status.HTTP_200_OK)
                     return Response({'error': 'Email already verified'}, status=status.HTTP_400_BAD_REQUEST)
                 except Exception as e:
                     return Response({'error': 'No account exists with this email'}, status=status.HTTP_400_BAD_REQUEST)
-
             return Response({'error': 'Email is a required field'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
