@@ -102,6 +102,11 @@ class RegisterContainerView extends Component {
         this.setState({
           redirectToLogin: true,
         });
+        NotificationManager.success(
+          "A verification link has been sent to your account.",
+          "Registration Successful",
+          5000
+        );
       })
       .catch((err) => {
         console.log(err);

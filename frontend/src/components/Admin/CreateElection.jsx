@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "react-bootstrap/Image";
-import "../styles/Register.css";
+import "../styles/CreateElectionView.css";
 import electionImage from "../styles/images/election_image.jpg";
 
 function CreateElection() {
@@ -55,7 +55,7 @@ function CreateElection() {
 
   return (
     <div>
-      <div className="Register">
+      <div className="CreateElection">
         <form onSubmit={handleSubmit}>
           <Image src={electionImage} fluid />
           <div className="form-group">
