@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, EmailSerializer
+from .serializers import UserSerializer, EmailSerializer, ProfileSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from django.contrib.sites.shortcuts import get_current_site
@@ -104,7 +104,7 @@ class ResendVerificationEmail(generics.GenericAPIView):
 
 class UserDetail(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserSerializer
+    serializer_class = ProfileSerializer
     queryset = User.objects.all()
     lookup_field = 'user_name'
 
@@ -116,5 +116,5 @@ class CurrentUserDetailViewPermission(permissions.BasePermission):
 
 class CurrentUserDetail(generics.RetrieveUpdateAPIView, CurrentUserDetailViewPermission):
     permission_classes = [permissions.IsAuthenticated, CurrentUserDetailViewPermission]
-    serializer_class = UserSerializer
+    serializer_class = ProfileSerializer
     queryset = User.objects.all()
