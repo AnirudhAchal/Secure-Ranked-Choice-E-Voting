@@ -51,8 +51,8 @@ class LoginView extends Component {
             <Form.Group size="lg" controlId="register">
               <Form.Label>Don't have an account?&nbsp;</Form.Label>
               <Link to="/register">Register</Link>
-              <Form.Label>Activate your account&nbsp;</Form.Label>
-              <Link to="/verify-email">resend link</Link>
+              <Form.Label>Activation link expired?&nbsp;</Form.Label>
+              <Link to="/verify-email">Resend link</Link>
             </Form.Group>
           </Form>
           <NotificationContainer />
