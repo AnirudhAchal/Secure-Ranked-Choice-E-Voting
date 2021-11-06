@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axiosInstance from "../axios";
+import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
-import isAuthenticated from "./utils/authentication";
+import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
 import VerifyEmailView from "./VerifyEmailView";
 
