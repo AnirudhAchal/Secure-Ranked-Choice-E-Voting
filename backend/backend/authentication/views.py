@@ -5,7 +5,7 @@ from .serializers import UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from django.contrib.sites.shortcuts import get_current_site
-from rest_framework import generics
+from rest_framework import generics, permissions
 from django.urls import reverse
 from .models import User
 from .utils import Util
@@ -70,3 +70,11 @@ class VerifyEmail(generics.GenericAPIView):
             return Response({'error': 'Activation link expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserDetail(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(user_name=self.request.user.user_name)

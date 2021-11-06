@@ -8,7 +8,7 @@ class ProfileContainerView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {username: "Average_Guy", firstname: "John", lastname: "Doe", email: "johndoe@gmail.com"},
+            user: {},
             userHasLoaded: true,
             redirectToLogin: false,
         };
@@ -20,21 +20,21 @@ class ProfileContainerView extends Component {
             redirectToLogin: true,
             });
         }
-  
-        /*axiosInstance
-            .get("authentication/user/")
+
+        axiosInstance
+            .get('authentication/user/')
             .then((res) => {
+            //console.log(res.data)
             this.setState({ user: res.data, userHasLoaded: true });
+            //console.log(this.state.user)
         })
         .catch((err) => {
           console.log(err);
-        });*/
+        });
     }
   
     render() {
-        const { redirectToLogin } = this.state; 
-        const { user } = this.state;
-        const { userHasLoaded } = this.state;
+        const { redirectToLogin, user, userHasLoaded } = this.state; 
 
         if (redirectToLogin) {
             return <Redirect to="/login" />;
