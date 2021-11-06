@@ -109,6 +109,22 @@ class MyProfileView extends Component {
     );
   }
 
+  renderSearchBar() {
+    const { onChangeSearchText, searchText, onSearchProfile } = this.props;
+    return (
+      <div>
+        <button onClick={onSearchProfile}>Search Profile</button>
+        <input
+          type="text"
+          id="searchBar"
+          name="searchBar"
+          value={searchText}
+          onChange={(e) => onChangeSearchText(e.target.value)}
+        />
+      </div>
+    );
+  }
+
   render() {
     const { user, userHasLoaded } = this.props;
 
@@ -120,6 +136,7 @@ class MyProfileView extends Component {
       <div>
         <center>
           <h1>Profile Page</h1>
+          {this.renderSearchBar()}
           <h3>Email: {user.email}</h3>
           <h3>Username: {user.user_name}</h3>
           {this.renderFirstName()}

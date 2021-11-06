@@ -17,6 +17,7 @@ class MyProfileContainerView extends Component {
       firstName: "",
       lastName: "",
       about: "",
+      searchText: "",
       redirectToLogin: false,
     };
 
@@ -35,6 +36,9 @@ class MyProfileContainerView extends Component {
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
     this.handleChangeLastName = this.handleChangeLastName.bind(this);
     this.handleChangeAbout = this.handleChangeAbout.bind(this);
+    this.handleChangeSearchText = this.handleChangeSearchText.bind(this);
+
+    this.handleSearchProfile = this.handleSearchProfile.bind(this);
   }
 
   async componentDidMount() {
@@ -58,6 +62,17 @@ class MyProfileContainerView extends Component {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  handleChangeSearchText(searchText) {
+    this.setState({
+      searchText: searchText,
+    });
+  }
+
+  handleSearchProfile() {
+    const { searchText } = this.state;
+    window.location.href = `/profile/${searchText}`;
   }
 
   handleEditFirstName() {
@@ -182,6 +197,7 @@ class MyProfileContainerView extends Component {
       firstName,
       lastName,
       about,
+      searchText,
     } = this.state;
 
     if (redirectToLogin) {
@@ -198,6 +214,7 @@ class MyProfileContainerView extends Component {
         firstName={firstName}
         lastName={lastName}
         about={about}
+        searchText={searchText}
         onChangeFirstName={this.handleChangeFirstName}
         onChangeLastName={this.handleChangeLastName}
         onChangeAbout={this.handleChangeAbout}
@@ -210,6 +227,8 @@ class MyProfileContainerView extends Component {
         onSaveFirstName={this.handleSaveFirstName}
         onSaveLastName={this.handleSaveLastName}
         onSaveAbout={this.handleSaveAbout}
+        onChangeSearchText={this.handleChangeSearchText}
+        onSearchProfile={this.handleSearchProfile}
       />
     );
   }
