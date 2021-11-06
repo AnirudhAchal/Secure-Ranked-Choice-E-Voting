@@ -2,28 +2,32 @@ import React, { useState, useEffect } from "react";
 import Image from "react-bootstrap/Image";
 import "../styles/Register.css";
 import electionImage from "../styles/images/election_image.jpg";
+import { NotificationManager } from "react-notifications";
+import axiosInstance from "../../axios";
 
 function CreateElection() {
   const [election, setElection] = useState({
-    electionName: "",
+    name: "",
     date_posted: "",
-    startDatetime: "",
-    endDatetime: "",
-    electionDescription: "",
+    start_date: "",
+    end_date: "",
     admins: [],
     voters: [],
     candidates: [],
-    ballotsList: [],
+    voted_voters: [],
     winner: "",
-    history: [],
+    election_details: {electionDescription: ""},
   });
 
+
+
+
   const {
-    electionName,
+    name,
     date_posted,
-    startDatetime,
-    endDatetime,
-    electionDescription,
+    start_date,
+    end_date,
+    admins,
     voters,
   } = election;
 
@@ -39,7 +43,7 @@ function CreateElection() {
     setElection((prev) => ({ ...prev, [name]: value }));
   };
 
-  const selectedVoters = (e) => {
+  const selectedPeople = (e) => {
     const name = e.target.name;
     let value = Array.from(e.target.selectedOptions, (option) => option.value);
     console.log(value);
@@ -48,8 +52,25 @@ function CreateElection() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // axios request here to post election data to server
-    // and also redirect to admin dashboard once
+    axiosInstance
+      .post("election/createElection/", {
+        name: name,
+        date_posted: date_posted,
+        start_date: start_date,
+        end_date: end_date,
+        voters: voters,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        NotificationManager.error(
+          err.response.data.detail,
+          "Election Createion Failed",
+          5000
+        );
+      });
     console.log(election);
   };
 
@@ -62,9 +83,9 @@ function CreateElection() {
             <label>Election Name</label>
             <input
               type="text"
-              name="electionName"
+              name="name"
               className="form-control"
-              value={electionName}
+              value={name}
               onChange={handleChange}
               required
             />
@@ -72,7 +93,7 @@ function CreateElection() {
           <div className="form-group">
             <label>Date Posted</label>
             <input
-              type="date"
+              type="datetime-local"
               className="form-control"
               name="date_posted"
               placeholder="dd-mm-yyyy"
@@ -87,9 +108,9 @@ function CreateElection() {
             <input
               type="datetime-local"
               className="form-control"
-              name="startDatetime"
+              name="start_date"
               placeholder="dd-mm-yyyy --:--"
-              value={startDatetime}
+              value={start_date}
               onChange={handleChange}
               required
             />
@@ -100,12 +121,25 @@ function CreateElection() {
             <input
               type="datetime-local"
               className="form-control"
-              name="endDatetime"
+              name="end_date"
               placeholder="dd-mm-yyyy --:--"
-              value={endDatetime}
+              value={end_date}
               onChange={handleChange}
               required
             />
+          </div>
+
+          <div className="form-group">
+            <label>Select Admins</label>
+            <select
+              multiple
+              className="form-control"
+              name="admins"
+              value={admins}
+              onChange={selectedPeople}
+            >
+              {users && users.map((user) => <option>{user}</option>)}
+            </select>
           </div>
 
           <div className="form-group">
@@ -115,22 +149,10 @@ function CreateElection() {
               className="form-control"
               name="voters"
               value={voters}
-              onChange={selectedVoters}
+              onChange={selectedPeople}
             >
               {users && users.map((user) => <option>{user}</option>)}
             </select>
-          </div>
-
-          <div className="form-group">
-            <label>Election Description</label>
-            <textarea
-              className="form-control"
-              name="electionDescription"
-              placeholder="Description about the election"
-              value={electionDescription}
-              onChange={handleChange}
-              required
-            />
           </div>
 
           <button class="btn btn-primary" type="submit">

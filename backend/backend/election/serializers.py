@@ -13,6 +13,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ('id', 'email', 'user_name')
 
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
 
 class ElectionSerializer(serializers.ModelSerializer):
     winner = UserSerializer(read_only=True)
@@ -23,6 +28,8 @@ class ElectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Election
         fields = '__all__'
+
+    
 
 
 class CandidateSerializer(serializers.Serializer):

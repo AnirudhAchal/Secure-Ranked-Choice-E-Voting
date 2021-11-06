@@ -1,10 +1,11 @@
 from django.urls import path
 from .views import (CurrentElectionList, UpcomingElectionList, CompletedElectionList, ElectionDetail, BallotCreate,
-                    CandidateCreate)
+                    CandidateCreate, ElectionCreate)
 
 app_name = 'election'
 
 urlpatterns = [
+    path('createElection/', ElectionCreate.as_view(), name='create_election'),
     path('<int:pk>/', ElectionDetail.as_view(), name='election_detail'),
     path('current/', CurrentElectionList.as_view(), name='current_election_list'),
     path('upcoming/', UpcomingElectionList.as_view(), name='upcoming_election_list'),

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Elections from "./Elections";
+import axiosInstance from "../../axios";
 
 function AdminDashboardView() {
   const [upcomingElections, setUpcomingElections] = useState([]);
@@ -7,41 +8,24 @@ function AdminDashboardView() {
   const [pastElections, setPastElections] = useState([]);
 
   useEffect(() => {
-    // to axios requests here to get the data about the elections
-    setUpcomingElections([
-      {
-        electionName: "Student Elections",
-        electionDesc: "CSE CR Elections",
-      },
-      {
-        electionName: "Hostel Committee",
-        electionDesc: "General Secretary Elections",
-      },
-    ]);
+    axiosInstance
+      .get("/election/upcoming/")
+      .then((res) => {
+        setUpcomingElections(res.data);
+      })
 
-    setCurrentElections([
-      {
-        electionName: "Hostel 1 Mess Counsellor",
-        electionDesc: "CSE CR Elections",
-        votesYet: 120,
-        votesTotal: 240,
-      },
-      {
-        electionName: "Sports Co-ordinator",
-        electionDesc: "General Secretary Elections",
-        votesYet: 500,
-        votesTotal: 740,
-      },
-    ]);
+      axiosInstance
+      .get("/election/current/")
+      .then((res) => {
+        setCurrentElections(res.data);
+      })
 
-    setPastElections([
-      {
-        electionName: "Communist House",
-        electionDesc: "House Committee President Elections",
-        votesCast: 400,
-        votesTotal: 840,
-      },
-    ]);
+      axiosInstance
+      .get("/election/completed/")
+      .then((res) => {
+        setPastElections(res.data);
+      })
+    
   }, []);
 
   return (
