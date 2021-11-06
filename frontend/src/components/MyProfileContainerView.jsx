@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { Redirect } from "react-router";
 import axiosInstance from "../axios";
 import isAuthenticated from "./utils/authentication";
-import ProfileView from "./ProfileView";
+import getCurrentUserId from "./utils/user";
+import MyProfileView from "./MyProfileView";
 
-class ProfileContainerView extends Component {
+class MyProfileContainerView extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       user: {},
       userHasLoaded: true,
       redirectToLogin: false,
-      username: this.props.match.params.username,
     };
   }
 
@@ -23,12 +22,14 @@ class ProfileContainerView extends Component {
       });
     }
 
-    const { username } = this.state;
+    const currentUserId = getCurrentUserId();
 
     axiosInstance
-      .get(`/authentication/user/${username}/`)
+      .get(`/authentication/update/user/${currentUserId}/`)
       .then((res) => {
+        //console.log(res.data)
         this.setState({ user: res.data, userHasLoaded: true });
+        //console.log(this.state.user)
       })
       .catch((err) => {
         console.log(err);
@@ -42,8 +43,8 @@ class ProfileContainerView extends Component {
       return <Redirect to="/login" />;
     }
 
-    return <ProfileView userHasLoaded={userHasLoaded} user={user} />;
+    return <MyProfileView userHasLoaded={userHasLoaded} user={user} />;
   }
 }
 
-export default ProfileContainerView;
+export default MyProfileContainerView;

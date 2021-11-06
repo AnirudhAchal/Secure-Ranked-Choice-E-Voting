@@ -5,11 +5,14 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     user_name = serializers.CharField(required=True)
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    about = serializers.CharField(required=False)
     password = serializers.CharField(min_length=8, write_only=True)
 
     class Meta:
         model = User
-        fields = ('email', 'user_name', 'password')
+        fields = ('email', 'user_name', 'password', 'first_name', 'last_name', 'about')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class ProfileView extends Component {
+class MyProfileView extends Component {
   render() {
     const { userHasLoaded } = this.props;
 
@@ -19,11 +19,10 @@ class ProfileView extends Component {
           <h2>{user.user_name}</h2>
           <h2>{user.first_name}</h2>
           <h2>{user.last_name}</h2>
-          <h2>{user.about}</h2>
         </center>
       </div>
     );
   }
 }
 
-export default ProfileView;
+export default MyProfileView;

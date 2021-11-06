@@ -102,9 +102,19 @@ class ResendVerificationEmail(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserDetail(generics.ListAPIView):
+class UserDetail(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserSerializer
+    queryset = User.objects.all()
+    lookup_field = 'user_name'
 
-    def get_queryset(self):
-        return User.objects.filter(user_name=self.request.user.user_name)
+
+class CurrentUserDetailViewPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user == obj
+
+
+class CurrentUserDetail(generics.RetrieveUpdateAPIView, CurrentUserDetailViewPermission):
+    permission_classes = [permissions.IsAuthenticated, CurrentUserDetailViewPermission]
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
