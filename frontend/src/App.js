@@ -14,6 +14,7 @@ import VerifyEmailContainerView from "./components/User/VerifyEmailContainerView
 import MyProfileContainerView from "./components/User/MyProfileContainerView";
 import PasswordResetContainerView from "./components/User/PasswordResetContainerView";
 import PasswordResetEmailContainerView from "./components/User/PasswordResetEmailContainerView";
+import NotFoundPageContainerView from "./components/User/NotFoundPageContainerView";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
           path="/verify-email/:token?"
           component={VerifyEmailContainerView}
         />
+        {/* Keep this below statement last in all Route's */}
+        <Route component={NotFoundPageContainerView} />
       </Switch>
     </Router>
   );
