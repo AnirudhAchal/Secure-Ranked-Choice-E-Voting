@@ -20,7 +20,7 @@ class PasswordResetView extends Component {
         <h2 className="text-center" style={{ paddingTop: "60px" }}>
           Reset your password
         </h2>
-        <div className="Register">
+        <div className="PasswordReset">
           <Form onSubmit={(e) => onSubmit(e)}>
             <Form.Group size="lg" controlId="password">
               <Form.Label>Password</Form.Label>

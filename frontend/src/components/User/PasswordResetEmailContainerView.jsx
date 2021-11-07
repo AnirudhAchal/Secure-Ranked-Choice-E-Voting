@@ -56,7 +56,7 @@ class PasswordResetEmailContainerView extends Component {
 
         NotificationManager.success(
           "A temporary password has been sent to your email.",
-          "Resend Successful",
+          "Successful",
           5000
         );
       })
