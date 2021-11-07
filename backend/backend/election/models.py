@@ -56,13 +56,16 @@ class Ballot(models.Model):
         if not self.vote_details:
             raise ValidationError("Relevant vote details not provided")
 
+        # Check if vote contains preferences
         if 'preferences' not in self.vote_details:
             raise ValidationError("No preferences provided in vote details")
 
+        # Check if all the candidate in the election are present in the ballot
         for candidate in self.election.candidates.all():
             if candidate.id not in self.vote_details['preferences']:
                 raise ValidationError("Preferences do not include all candidates")
 
+        # Check if all the candidates present in the ballot are actually candidates in the election
         for candidate_id in self.vote_details['preferences']:
             if not self.election.candidates.filter(pk=candidate_id).exists():
                 raise ValidationError("Invalid candidates")

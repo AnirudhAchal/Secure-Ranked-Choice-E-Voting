@@ -81,6 +81,7 @@ class ResendVerificationEmail(generics.GenericAPIView):
                 try:
                     user = User.objects.get(email=email)
                     if not user.is_active:
+                        # Resend email to user
                         token = RefreshToken.for_user(user)
                         origin_site = request.META['HTTP_ORIGIN']
                         relative_link = '/verify-email/'
@@ -133,6 +134,7 @@ class PasswordResetEmail(generics.GenericAPIView):
             email = json['email']
             if email:
                 try:
+                    # Send password reset email
                     user = User.objects.get(email=email)
                     new_temporary_password = Util.get_random_password(10)
                     user.set_password(new_temporary_password)

@@ -48,6 +48,8 @@ class BallotSerializer(serializers.ModelSerializer):
             elif election.end_date < timezone.now():
                 raise ValidationError(f"The election has ended")
             else:
+                # If voter has not already voted in the election, consider their code and add them
+                # to the list of voted voters
                 user = get_user_model().objects.get(pk=user.id)
                 election.voted_voters.add(user)
                 election.save()
