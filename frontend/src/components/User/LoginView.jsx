@@ -53,6 +53,8 @@ class LoginView extends Component {
               <Link to="/register">Register</Link>
               <Form.Label>Activation link expired?&nbsp;</Form.Label>
               <Link to="/verify-email">Resend link</Link>
+              <Form.Label>Forgot password?&nbsp;</Form.Label>
+              <Link to="/password-reset-email">Reset password</Link>
             </Form.Group>
           </Form>
           <NotificationContainer />
