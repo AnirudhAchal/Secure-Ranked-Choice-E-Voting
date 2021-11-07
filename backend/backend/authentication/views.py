@@ -134,6 +134,7 @@ class PasswordResetEmail(generics.GenericAPIView):
             email = json['email']
             if email:
                 try:
+                    # Send password reset email
                     user = User.objects.get(email=email)
                     new_temporary_password = Util.get_random_password(10)
                     user.set_password(new_temporary_password)
