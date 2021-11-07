@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axiosInstance from "../axios";
-import isAuthenticated from "./utils/authentication";
+import axiosInstance from "../../axios";
+import isAuthenticated from "../utils/authentication";
 import CompletedElectionView from "./CompletedElectionView";
 
 export class CompletedElectionContainerView extends Component {

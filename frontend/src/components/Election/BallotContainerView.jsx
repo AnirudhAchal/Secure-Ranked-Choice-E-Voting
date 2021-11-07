@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axiosInstance from "../axios";
+import axiosInstance from "../../axios";
 import BallotView from "./BallotView";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 
