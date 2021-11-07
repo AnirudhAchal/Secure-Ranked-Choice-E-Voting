@@ -20,7 +20,10 @@ function App() {
         <Route exact path="/" component={DashboardContainerView} />
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
-        <Route path="/verify-email" component={VerifyEmailContainerView} />
+        <Route
+          path="/verify-email/:token?"
+          component={VerifyEmailContainerView}
+        />
         <Route path="/admin" component={AdminDashboardContainerView} />
         <Route path="/election/:id" component={ElectionContainerView} />
         <Route path="/ongoing" component={OngoingElectionContainerView} />

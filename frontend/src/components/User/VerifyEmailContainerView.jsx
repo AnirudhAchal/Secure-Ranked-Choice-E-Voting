@@ -8,10 +8,12 @@ import VerifyEmailView from "./VerifyEmailView";
 class VerifyEmailContainerView extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: "",
       redirectToDashboard: false,
       redirectToLogin: false,
+      token: this.props.match.params.token,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -20,10 +22,43 @@ class VerifyEmailContainerView extends Component {
   }
 
   async componentDidMount() {
+    const { token } = this.state;
+
     if (isAuthenticated()) {
       this.setState({
         redirectToDashboard: true,
       });
+    }
+
+    if (token) {
+      axiosInstance
+        .get(`/authentication/verify-email/?token=${token}`)
+        .then((res) => {
+          console.log(res);
+
+          this.setState({
+            redirectToLogin: true,
+          });
+
+          NotificationManager.success(
+            res.data.message,
+            "Verification Successful",
+            5000
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+
+          NotificationManager.error(
+            err.response.data.error,
+            "Verification Failed",
+            5000
+          );
+
+          this.setState({
+            token: "",
+          });
+        });
     }
   }
 
