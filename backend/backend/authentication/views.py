@@ -83,6 +83,7 @@ class ResendVerificationEmail(generics.GenericAPIView):
                 try:
                     user = User.objects.get(email=email)
                     if not user.is_active:
+                        # Resend email to user
                         token = RefreshToken.for_user(user)
                         current_site = get_current_site(request)
                         relative_link = reverse('authentication:verify_email')

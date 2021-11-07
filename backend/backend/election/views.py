@@ -91,6 +91,7 @@ class CandidateCreate(views.APIView):
             candidate = get_user_model().objects.get(pk=json['candidate'])
             election = Election.objects.get(pk=json['election'])
 
+            # Check if candidate is a voter in the election and that the election has not ended
             if candidate in election.voters.all() and timezone.now() < election.start_date:
                 if candidate not in election.candidates.all():
                     election.candidates.add(candidate)
