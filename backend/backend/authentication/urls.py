@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (UserCreate, BlacklistTokenUpdateView, VerifyEmail, ResendVerificationEmail, UserDetail,
-                    CurrentUserDetail)
+                    CurrentUserDetail, PasswordReset, PasswordResetEmail)
 
 app_name = 'authentication'
 
@@ -12,4 +12,6 @@ urlpatterns = [
          name='blacklist'),
     path('user/<str:user_name>/', UserDetail.as_view(), name='user_detail'),
     path('current-user/<int:pk>/', CurrentUserDetail.as_view(), name='current_user_detail'),
+    path('password-reset/<int:pk>/', PasswordReset.as_view(), name='password_reset'),
+    path('password-reset-email/', PasswordResetEmail.as_view(), name='password_reset_email'),
 ]

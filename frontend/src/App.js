@@ -12,6 +12,8 @@ import CompletedElectionContainerView from "./components/Election/CompletedElect
 import ProfileContainerView from "./components/Dashboard/ProfileContainerView";
 import VerifyEmailContainerView from "./components/User/VerifyEmailContainerView";
 import MyProfileContainerView from "./components/User/MyProfileContainerView";
+import PasswordResetContainerView from "./components/User/PasswordResetContainerView";
+import PasswordResetEmailContainerView from "./components/User/PasswordResetEmailContainerView";
 
 function App() {
   return (
@@ -20,7 +22,6 @@ function App() {
         <Route exact path="/" component={DashboardContainerView} />
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
-        <Route path="/verify-email" component={VerifyEmailContainerView} />
         <Route path="/admin" component={AdminDashboardContainerView} />
         <Route path="/election/:id" component={ElectionContainerView} />
         <Route path="/ongoing" component={OngoingElectionContainerView} />
@@ -28,6 +29,15 @@ function App() {
         <Route path="/completed" component={CompletedElectionContainerView} />
         <Route path="/profile/:username" component={ProfileContainerView} />
         <Route path="/myprofile" component={MyProfileContainerView} />
+        <Route
+          path="/password-reset-email"
+          component={PasswordResetEmailContainerView}
+        />
+        <Route path="/password-reset" component={PasswordResetContainerView} />
+        <Route
+          path="/verify-email/:token?"
+          component={VerifyEmailContainerView}
+        />
       </Switch>
     </Router>
   );
