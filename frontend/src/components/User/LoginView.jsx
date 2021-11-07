@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "./styles/LoginView.css";
+import "../styles/LoginView.css";
 import { Link } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import RegisterView from "./RegisterView";
-import axiosInstance from "../axios";
+import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
-import isAuthenticated from "./utils/authentication";
+import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
 
 class RegisterContainerView extends Component {

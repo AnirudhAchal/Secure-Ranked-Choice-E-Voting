@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
-import axiosInstance from "../axios";
-import isAuthenticated from "./utils/authentication";
-import getCurrentUserId from "./utils/user";
+import axiosInstance from "../../axios";
+import isAuthenticated from "../utils/authentication";
+import getCurrentUserId from "../utils/user";
 import MyProfileView from "./MyProfileView";
 
 class MyProfileContainerView extends Component {

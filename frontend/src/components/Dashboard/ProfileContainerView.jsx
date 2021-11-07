@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
-import axiosInstance from "../axios";
-import isAuthenticated from "./utils/authentication";
+import axiosInstance from "../../axios";
+import isAuthenticated from "../utils/authentication";
 import ProfileView from "./ProfileView";
 
 class ProfileContainerView extends Component {

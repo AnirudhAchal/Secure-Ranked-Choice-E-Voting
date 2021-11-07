@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axiosInstance from "../axios";
-import isAuthenticated from "./utils/authentication";
-import getCurrentUserId from "./utils/user";
+import axiosInstance from "../../axios";
+import isAuthenticated from "../utils/authentication";
+import getCurrentUserId from "../utils/user";
 import UpcomingElectionView from "./UpcomingElectionView";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 

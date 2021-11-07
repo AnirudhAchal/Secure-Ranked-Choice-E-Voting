@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import ongoing from "../images/ongoing.jpg";
-import upcoming from "../images/upcoming.jpg";
-import completed from "../images/completed.png";
+import ongoing from "../../images/ongoing.jpg";
+import upcoming from "../../images/upcoming.jpg";
+import completed from "../../images/completed.png";
 
 class DashboardView extends Component {
   render() {

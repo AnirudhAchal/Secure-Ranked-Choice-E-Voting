@@ -1,21 +1,22 @@
 import React, { Component } from "react";
-import axiosInstance from "../axios";
+import LoginView from "./LoginView";
+import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
-import isAuthenticated from "./utils/authentication";
+import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
-import VerifyEmailView from "./VerifyEmailView";
 
-class VerifyEmailContainerView extends Component {
+class LoginContainerView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
+      password: "",
       redirectToDashboard: false,
-      redirectToLogin: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,8 +29,8 @@ class VerifyEmailContainerView extends Component {
   }
 
   validateForm() {
-    const { email } = this.state;
-    return email.length > 0;
+    const { email, password } = this.state;
+    return email.length > 0 && password.length > 0;
   }
 
   handleEmailChange(email) {
@@ -38,53 +39,54 @@ class VerifyEmailContainerView extends Component {
     });
   }
 
+  handlePasswordChange(password) {
+    this.setState({
+      password,
+    });
+  }
+
   handleSubmit(event) {
-    const { email } = this.state;
+    const { email, password } = this.state;
     event.preventDefault();
 
     axiosInstance
-      .post("/authentication/resend-verification-email/", {
+      .post("token/", {
         email: email,
+        password: password,
       })
       .then((res) => {
+        localStorage.setItem("access_token", res.data.access);
+        localStorage.setItem("refresh_token", res.data.refresh);
+        axiosInstance.defaults.headers["Authorization"] =
+          "JWT " + localStorage.getItem("access_token");
         console.log(res);
-
         this.setState({
-          redirectToLogin: true,
+          redirectToDashboard: true,
         });
-
-        NotificationManager.success(
-          "A new verification link has been sent to your email.",
-          "Resend Successful",
-          5000
-        );
       })
       .catch((err) => {
         console.log(err);
-
-        const message = `${
-          err.response.data.error ? err.response.data.error : ""
-        } ${err.response.data.email ? err.response.data.email : ""}`;
-
-        NotificationManager.error(message, "Resend Failed", 5000);
+        NotificationManager.error(
+          err.response.data.detail,
+          "Login Failed",
+          5000
+        );
       });
   }
 
   render() {
-    const { email, redirectToDashboard, redirectToLogin } = this.state;
+    const { email, password, redirectToDashboard } = this.state;
 
     if (redirectToDashboard) {
       return <Redirect to="/" />;
     }
 
-    if (redirectToLogin) {
-      return <Redirect to="/login" />;
-    }
-
     return (
-      <VerifyEmailView
+      <LoginView
         email={email}
+        password={password}
         onEmailChange={this.handleEmailChange}
+        onPasswordChange={this.handlePasswordChange}
         validateForm={this.validateForm}
         onSubmit={this.handleSubmit}
       />
@@ -92,4 +94,4 @@ class VerifyEmailContainerView extends Component {
   }
 }
 
-export default VerifyEmailContainerView;
+export default LoginContainerView;
