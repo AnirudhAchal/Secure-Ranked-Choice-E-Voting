@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class MyProfileView extends Component {
   renderFirstName() {
@@ -142,6 +143,7 @@ class MyProfileView extends Component {
           {this.renderFirstName()}
           {this.renderLastName()}
           {this.renderAbout()}
+          <Link to="/password-reset">Reset Password</Link>
         </center>
       </div>
     );

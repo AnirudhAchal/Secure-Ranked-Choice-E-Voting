@@ -3,9 +3,9 @@ import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
 import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
-import VerifyEmailView from "./VerifyEmailView";
+import PasswordResetEmailView from "./PasswordResetEmailView";
 
-class VerifyEmailContainerView extends Component {
+class PasswordResetEmailContainerView extends Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,6 @@ class VerifyEmailContainerView extends Component {
       email: "",
       redirectToDashboard: false,
       redirectToLogin: false,
-      token: this.props.match.params.token,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -22,43 +21,10 @@ class VerifyEmailContainerView extends Component {
   }
 
   async componentDidMount() {
-    const { token } = this.state;
-
     if (isAuthenticated()) {
       this.setState({
         redirectToDashboard: true,
       });
-    }
-
-    if (token) {
-      axiosInstance
-        .get(`/authentication/verify-email/?token=${token}`)
-        .then((res) => {
-          console.log(res);
-
-          this.setState({
-            redirectToLogin: true,
-          });
-
-          NotificationManager.success(
-            res.data.message,
-            "Verification Successful",
-            5000
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-
-          NotificationManager.error(
-            err.response.data.error,
-            "Verification Failed",
-            5000
-          );
-
-          this.setState({
-            token: "",
-          });
-        });
     }
   }
 
@@ -78,7 +44,7 @@ class VerifyEmailContainerView extends Component {
     event.preventDefault();
 
     axiosInstance
-      .post("/authentication/resend-verification-email/", {
+      .post("/authentication/password-reset-email/", {
         email: email,
       })
       .then((res) => {
@@ -89,8 +55,8 @@ class VerifyEmailContainerView extends Component {
         });
 
         NotificationManager.success(
-          "A new verification link has been sent to your email.",
-          "Resend Successful",
+          "A temporary password has been sent to your email.",
+          "Successful",
           5000
         );
       })
@@ -101,7 +67,7 @@ class VerifyEmailContainerView extends Component {
           err.response.data.error ? err.response.data.error : ""
         } ${err.response.data.email ? err.response.data.email : ""}`;
 
-        NotificationManager.error(message, "Resend Failed", 5000);
+        NotificationManager.error(message, "Password Reset Failed", 5000);
       });
   }
 
@@ -117,7 +83,7 @@ class VerifyEmailContainerView extends Component {
     }
 
     return (
-      <VerifyEmailView
+      <PasswordResetEmailView
         email={email}
         onEmailChange={this.handleEmailChange}
         validateForm={this.validateForm}
@@ -127,4 +93,4 @@ class VerifyEmailContainerView extends Component {
   }
 }
 
-export default VerifyEmailContainerView;
+export default PasswordResetEmailContainerView;
