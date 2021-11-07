@@ -3,24 +3,13 @@ import { Link } from "react-router-dom";
 import ongoing from "../../images/ongoing.jpg";
 import upcoming from "../../images/upcoming.jpg";
 import completed from "../../images/completed.png";
+import NavbarContainerView from "./NavbarContainerView";
 
 class DashboardView extends Component {
   render() {
-    const { onLogout } = this.props;
-
     return (
       <div>
-        <nav className="navbar navbar-light bg-light">
-          <Link className="navbar-brand" to="/">
-            Dashboard
-          </Link>
-          <Link className="btn btn-light my-2 my-sm-0" to="/myprofile">
-            Profile
-          </Link>
-          <button className="btn btn-light my-2 my-sm-0" onClick={onLogout}>
-            Logout
-          </button>
-        </nav>
+        <NavbarContainerView />
         <div
           className="d-flex justify-content-center text-center mt-10"
           style={{ paddingTop: "10%" }}

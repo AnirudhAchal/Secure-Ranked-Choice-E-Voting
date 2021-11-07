@@ -1,17 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import NavbarContainerView from "../Dashboard/NavbarContainerView";
 
 export class CompletedElectionView extends Component {
   renderNavbar() {
-    return (
-      <div>
-        <nav className="navbar navbar-light bg-light">
-          <Link className="navbar-brand" to="/">
-            Dashboard
-          </Link>
-        </nav>
-      </div>
-    );
+    return <NavbarContainerView />;
   }
 
   renderWinner(election) {

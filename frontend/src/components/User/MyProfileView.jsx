@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import NavbarContainerView from "../Dashboard/NavbarContainerView";
 
 class MyProfileView extends Component {
   renderFirstName() {
@@ -135,6 +136,7 @@ class MyProfileView extends Component {
 
     return (
       <div>
+        <NavbarContainerView />
         <center>
           <h1>Profile Page</h1>
           {this.renderSearchBar()}

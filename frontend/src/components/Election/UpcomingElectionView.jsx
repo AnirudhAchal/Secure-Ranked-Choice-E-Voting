@@ -1,19 +1,11 @@
 import React, { Component } from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
-import { Link } from "react-router-dom";
 import Moment from "moment";
+import NavbarContainerView from "../Dashboard/NavbarContainerView";
 
 export class UpcomingElectionView extends Component {
   renderNavbar() {
-    return (
-      <div>
-        <nav className="navbar navbar-light bg-light">
-          <Link className="navbar-brand" to="/">
-            Dashboard
-          </Link>
-        </nav>
-      </div>
-    );
+    return <NavbarContainerView />;
   }
 
   renderButton(election) {

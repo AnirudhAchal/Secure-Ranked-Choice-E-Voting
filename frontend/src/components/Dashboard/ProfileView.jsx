@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NavbarContainerView from "./NavbarContainerView";
 
 class ProfileView extends Component {
   render() {
@@ -13,6 +14,7 @@ class ProfileView extends Component {
     console.log(user);
     return (
       <div>
+        <NavbarContainerView />
         <center>
           <h1>Profile Page</h1>
           <h2>{user.email}</h2>

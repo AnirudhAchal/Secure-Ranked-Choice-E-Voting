@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router";
 import axiosInstance from "../../axios";
-import isAuthenticated from "../utils/authentication";
 import ProfileView from "./ProfileView";
 
 class ProfileContainerView extends Component {
@@ -11,18 +9,11 @@ class ProfileContainerView extends Component {
     this.state = {
       user: {},
       userHasLoaded: true,
-      redirectToLogin: false,
       username: this.props.match.params.username,
     };
   }
 
   async componentDidMount() {
-    if (!isAuthenticated()) {
-      this.setState({
-        redirectToLogin: true,
-      });
-    }
-
     const { username } = this.state;
 
     axiosInstance
@@ -36,11 +27,7 @@ class ProfileContainerView extends Component {
   }
 
   render() {
-    const { redirectToLogin, user, userHasLoaded } = this.state;
-
-    if (redirectToLogin) {
-      return <Redirect to="/login" />;
-    }
+    const { user, userHasLoaded } = this.state;
 
     return <ProfileView userHasLoaded={userHasLoaded} user={user} />;
   }

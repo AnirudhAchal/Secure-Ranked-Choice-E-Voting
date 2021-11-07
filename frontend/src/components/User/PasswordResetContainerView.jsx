@@ -3,8 +3,6 @@ import axiosInstance from "../../axios";
 import { NotificationManager } from "react-notifications";
 import PasswordResetView from "./PasswordResetView";
 import getCurrentUserId from "../utils/user";
-import isAuthenticated from "../utils/authentication";
-import { Redirect } from "react-router";
 
 class PasswordResetContainerView extends Component {
   constructor(props) {
@@ -12,7 +10,6 @@ class PasswordResetContainerView extends Component {
     this.state = {
       password: "",
       confirmPassword: "",
-      redirectToLogin: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -20,14 +17,6 @@ class PasswordResetContainerView extends Component {
     this.handleConfirmPasswordChange =
       this.handleConfirmPasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async componentDidMount() {
-    if (!isAuthenticated()) {
-      this.setState({
-        redirectToLogin: true,
-      });
-    }
   }
 
   validateForm() {
@@ -74,11 +63,7 @@ class PasswordResetContainerView extends Component {
   }
 
   render() {
-    const { password, confirmPassword, redirectToLogin } = this.state;
-
-    if (redirectToLogin) {
-      return <Redirect to="/login" />;
-    }
+    const { password, confirmPassword } = this.state;
 
     return (
       <PasswordResetView

@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import NavbarContainerView from "../Dashboard/NavbarContainerView";
 
 export class OngoingElectionView extends Component {
   renderNavbar() {
-    return (
-      <div>
-        <nav className="navbar navbar-light bg-light">
-          <Link className="navbar-brand" to="/">
-            Dashboard
-          </Link>
-        </nav>
-      </div>
-    );
+    return <NavbarContainerView />;
   }
-  
+
   renderCurrent() {
     const { currentElections } = this.props;
 
@@ -26,10 +19,7 @@ export class OngoingElectionView extends Component {
               <p className="card-text">
                 Registered Voters: {election.voters.length}
               </p>
-              <Link
-                to={`/election/${election.id}/`}
-                className="btn btn-dark"
-              >
+              <Link to={`/election/${election.id}/`} className="btn btn-dark">
                 Vote
               </Link>
             </div>
@@ -38,7 +28,7 @@ export class OngoingElectionView extends Component {
       );
     });
   }
-  
+
   render() {
     return (
       <>
