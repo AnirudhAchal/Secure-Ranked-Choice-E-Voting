@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "./styles/Login.css";
+import "../styles/LoginView.css";
 import { Link } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
@@ -51,6 +51,8 @@ class LoginView extends Component {
             <Form.Group size="lg" controlId="register">
               <Form.Label>Don't have an account?&nbsp;</Form.Label>
               <Link to="/register">Register</Link>
+              <Form.Label>Activation link expired?&nbsp;</Form.Label>
+              <Link to="/verify-email">Resend link</Link>
             </Form.Group>
           </Form>
           <NotificationContainer />

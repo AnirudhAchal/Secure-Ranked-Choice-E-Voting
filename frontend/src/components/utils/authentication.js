@@ -26,6 +26,10 @@ const isAuthenticated = () => {
     }
   }
 
+  // Clear Existing tokens
+  localStorage.clear("access_token");
+  localStorage.clear("refresh_token");
+
   return false;
 };
 

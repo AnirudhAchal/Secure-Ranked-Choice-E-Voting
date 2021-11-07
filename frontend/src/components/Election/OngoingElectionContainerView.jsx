@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axiosInstance from "../axios";
+import axiosInstance from "../../axios";
 import OngoingElectionView from "./OngoingElectionView";
-import isAuthenticated from "./utils/authentication";
+import isAuthenticated from "../utils/authentication";
 
 class OngoingElectionContainerView extends Component {
   constructor(props) {
