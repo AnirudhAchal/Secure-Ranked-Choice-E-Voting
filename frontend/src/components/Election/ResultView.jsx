@@ -3,6 +3,7 @@ import { Bar, Doughnut } from "react-chartjs-2";
 
 function getRandomColor() {
   // return "#" + Math.random().toString(16).substr(2, 6); not so good
+  setTimeout(Math.random() * 100);
   var letters = "0123456789ABCDEF";
   var color = "#";
   for (var i = 0; i < 6; i++) {
