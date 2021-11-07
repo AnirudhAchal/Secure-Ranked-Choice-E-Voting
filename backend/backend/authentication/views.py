@@ -1,7 +1,7 @@
 from rest_framework import status, generics, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, EmailSerializer, ProfileSerializer
+from .serializers import UserSerializer, EmailSerializer, ProfileSerializer, PasswordSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
@@ -85,7 +85,6 @@ class ResendVerificationEmail(generics.GenericAPIView):
                         origin_site = request.META['HTTP_ORIGIN']
                         relative_link = '/verify-email/'
                         absolute_url = f'http://{origin_site}{relative_link}{str(token.access_token)}'
-                        print(absolute_url)
                         data = {
                             'domain': absolute_url,
                             'subject': 'Secure Rank Choice E-Voting - Verify your email',
@@ -117,3 +116,36 @@ class CurrentUserDetail(generics.RetrieveUpdateAPIView, CurrentUserDetailViewPer
     permission_classes = [permissions.IsAuthenticated, CurrentUserDetailViewPermission]
     serializer_class = ProfileSerializer
     queryset = User.objects.all()
+
+
+class PasswordReset(generics.UpdateAPIView,  CurrentUserDetailViewPermission):
+    permission_classes = [permissions.IsAuthenticated, CurrentUserDetailViewPermission]
+    serializer_class = PasswordSerializer
+    queryset = User.objects.all()
+
+
+class PasswordResetEmail(generics.GenericAPIView):
+    def post(self, request):
+        serializer = EmailSerializer(data=request.data)
+
+        if serializer.is_valid():
+            json = serializer.data
+            email = json['email']
+            if email:
+                try:
+                    user = User.objects.get(email=email)
+                    new_temporary_password = Util.get_random_password(10)
+                    user.set_password(new_temporary_password)
+                    user.save()
+                    data = {
+                        'subject': 'Secure Rank Choice E-Voting - Reset your password',
+                        'body': f'Hi {user.user_name},\nUse this temporary password to login to your account. '
+                                f'You can change your password once you login.\nPassword: {new_temporary_password}',
+                        'to_email': f'{user.email}',
+                    }
+                    Util.send_email(data)
+                    return Response({'message': 'Successfully sent'}, status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response({'error': 'No account exists with this email'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Email is a required field'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

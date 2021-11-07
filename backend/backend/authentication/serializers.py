@@ -5,13 +5,28 @@ from .models import User
 class ProfileSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(read_only=True)
     user_name = serializers.CharField(read_only=True)
-    first_name = serializers.CharField(required=False)
-    last_name = serializers.CharField(required=False)
-    about = serializers.CharField(required=False)
+    first_name = serializers.CharField(required=False, allow_blank=True)
+    last_name = serializers.CharField(required=False, allow_blank=True)
+    about = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = User
         fields = ('email', 'user_name', 'first_name', 'last_name', 'about')
+
+
+class PasswordSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(required=True, write_only=True, min_length=8)
+
+    class Meta:
+        model = User
+        fields =('password',)
+
+    def update(self, instance, validated_data):
+        if validated_data['password']:
+            instance.set_password(validated_data['password'])
+
+        instance.save()
+        return instance
 
 
 class UserSerializer(serializers.ModelSerializer):
