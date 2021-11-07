@@ -1,11 +1,9 @@
-from rest_framework import status
+from rest_framework import status, generics, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, EmailSerializer, ProfileSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny
 from django.contrib.sites.shortcuts import get_current_site
-from rest_framework import generics, permissions
 from django.urls import reverse
 from .models import User
 from .utils import Util
@@ -14,7 +12,7 @@ from django.conf import settings
 
 
 class UserCreate(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -27,6 +25,7 @@ class UserCreate(APIView):
                 user = User.objects.get(email=json['email'])
                 token = RefreshToken.for_user(user)
                 current_site = get_current_site(request)
+                print(request.META)
                 relative_link = reverse('authentication:verify_email')
                 absolute_url = f'http://{current_site.domain}{relative_link}?token={str(token.access_token)}'
                 data = {
@@ -42,7 +41,7 @@ class UserCreate(APIView):
 
 
 class BlacklistTokenUpdateView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         try:
