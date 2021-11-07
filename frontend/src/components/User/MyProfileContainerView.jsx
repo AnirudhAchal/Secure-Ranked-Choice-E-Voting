@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router";
 import axiosInstance from "../../axios";
-import isAuthenticated from "../utils/authentication";
 import getCurrentUserId from "../utils/user";
 import MyProfileView from "./MyProfileView";
 
@@ -18,7 +16,6 @@ class MyProfileContainerView extends Component {
       lastName: "",
       about: "",
       searchText: "",
-      redirectToLogin: false,
     };
 
     this.handleSaveFirstName = this.handleSaveFirstName.bind(this);
@@ -42,12 +39,6 @@ class MyProfileContainerView extends Component {
   }
 
   async componentDidMount() {
-    if (!isAuthenticated()) {
-      this.setState({
-        redirectToLogin: true,
-      });
-    }
-
     axiosInstance
       .get(`/authentication/current-user/${getCurrentUserId()}/`)
       .then((res) => {
@@ -188,7 +179,6 @@ class MyProfileContainerView extends Component {
 
   render() {
     const {
-      redirectToLogin,
       user,
       userHasLoaded,
       editingFirstName,
@@ -199,10 +189,6 @@ class MyProfileContainerView extends Component {
       about,
       searchText,
     } = this.state;
-
-    if (redirectToLogin) {
-      return <Redirect to="/login" />;
-    }
 
     return (
       <MyProfileView

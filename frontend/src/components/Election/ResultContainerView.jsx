@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ResultView from "./ResultView";
 import ResultStaticView from "./ResultStaticView";
+
 class ResultContainerView extends Component {
   constructor(props) {
     super(props);

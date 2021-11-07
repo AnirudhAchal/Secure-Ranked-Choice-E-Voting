@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
-// import "./styles/ResultView.css";
 
 function getRandomColor() {
   // return "#" + Math.random().toString(16).substr(2, 6); not so good

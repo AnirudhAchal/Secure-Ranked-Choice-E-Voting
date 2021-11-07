@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "../styles/PasswordResetView.css";
 import { NotificationContainer } from "react-notifications";
+import NavbarContainerView from "../Dashboard/NavbarContainerView";
 
 class PasswordResetView extends Component {
   render() {
@@ -17,6 +18,7 @@ class PasswordResetView extends Component {
 
     return (
       <div>
+        <NavbarContainerView />
         <h2 className="text-center" style={{ paddingTop: "60px" }}>
           Reset your password
         </h2>
