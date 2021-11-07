@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import DashboardView from "./DashboardView";
 import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
 import isAuthenticated from "../utils/authentication";
