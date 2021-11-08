@@ -43,14 +43,20 @@ export class CompletedElectionView extends Component {
   }
 
   render() {
+    const { completedElections } = this.props;
+    let msg = 'Completed Elections';
+
     return (
       <>
         <div>{this.renderNavbar()}</div>
         <div className="container">
           <h3 className="my-2 d-flex justify-content-center">
-            Completed Elections
+            {msg}
           </h3>
           <hr />
+          {completedElections.length === 0 &&
+            <center><h4><i><b> No Completed Elections </b></i></h4></center>
+          } 
           <div className="row">{this.renderCompleted()}</div>
         </div>
       </>

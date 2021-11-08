@@ -41,11 +41,7 @@ export class CompletedElectionView extends Component {
 
   render() {
     const { completedElections } = this.props;
-
     let msg = 'Completed Elections';
-    if (completedElections.length === 0) {
-      msg = 'No Completed Elections';
-    }
 
     return (
       <>
@@ -55,6 +51,9 @@ export class CompletedElectionView extends Component {
             {msg}
           </h3>
           <hr />
+          {completedElections.length === 0 &&
+            <center><h4><i><b> No Completed Elections </b></i></h4></center>
+          }
           <div className="row">{this.renderCompleted()}</div>
         </div>
       </>

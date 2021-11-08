@@ -31,11 +31,7 @@ export class OngoingElectionView extends Component {
 
   render() {
     const { currentElections } = this.props;
-
     let msg = 'Ongoing Elections';
-    if (currentElections.length === 0) {
-      msg = 'No Ongoing Elections';
-    }
 
     return (
       <>
@@ -45,6 +41,9 @@ export class OngoingElectionView extends Component {
             {msg}
           </h3>
           <hr />
+          {currentElections.length === 0 &&
+            <center><h4><i><b> No Ongoing Elections </b></i></h4></center>
+          }
           <div className="row">{this.renderCurrent()}</div>
         </div>
       </>

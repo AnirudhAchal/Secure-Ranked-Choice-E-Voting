@@ -56,11 +56,7 @@ export class UpcomingElectionView extends Component {
 
   render() {
     const { upcomingElections } = this.props;
-
     let msg = 'Upcoming Elections';
-    if (upcomingElections.length === 0) {
-      msg = 'No Upcoming Elections';
-    }
 
     return (
       <>
@@ -70,6 +66,9 @@ export class UpcomingElectionView extends Component {
             {msg}
           </h3>
           <hr />
+          {upcomingElections.length === 0 &&
+            <center><h4><i><b> No Upcoming Elections </b></i></h4></center>
+          } 
           <div className="row">{this.renderUpcoming()}</div>
         </div>
         <NotificationContainer />
