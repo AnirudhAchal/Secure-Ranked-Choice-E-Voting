@@ -83,7 +83,13 @@ class RegisterView extends Component {
                 onChange={(e) => onConfirmPasswordChange(e.target.value)}
               />
             </Form.Group>
-            <Button className="btn btn-dark" block size="lg" type="submit" disabled={!validateForm()}>
+            <Button
+              className="btn btn-dark"
+              block
+              size="lg"
+              type="submit"
+              disabled={!validateForm()}
+            >
               Register
             </Button>
           </Form>
