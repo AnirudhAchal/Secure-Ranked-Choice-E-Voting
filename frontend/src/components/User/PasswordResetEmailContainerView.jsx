@@ -14,6 +14,7 @@ class PasswordResetEmailContainerView extends Component {
       email: "",
       redirectToDashboard: false,
       redirectToLogin: false,
+      disableSubmit: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -30,8 +31,8 @@ class PasswordResetEmailContainerView extends Component {
   }
 
   validateForm() {
-    const { email } = this.state;
-    return email.length > 0;
+    const { email, disableSubmit } = this.state;
+    return email.length > 0 && !disableSubmit;
   }
 
   handleEmailChange(email) {
@@ -44,6 +45,10 @@ class PasswordResetEmailContainerView extends Component {
     const { email } = this.state;
     event.preventDefault();
 
+    this.setState({
+      disableSubmit: true,
+    });
+
     axiosInstance
       .post("/authentication/password-reset-email/", {
         email: email,
@@ -51,6 +56,7 @@ class PasswordResetEmailContainerView extends Component {
       .then((res) => {
         this.setState({
           redirectToLogin: true,
+          disableSubmit: false,
         });
 
         NotificationManager.success(
@@ -66,6 +72,9 @@ class PasswordResetEmailContainerView extends Component {
           "Password Reset Failed",
           5000
         );
+        this.setState({
+          disableSubmit: false,
+        });
       });
   }
 

@@ -14,6 +14,7 @@ class BallotContainerView extends Component {
       election: election,
       totalPreferences: election.candidates.length,
       tracker: new Array(election.candidates.length).fill(null),
+      disableSubmit: false,
     };
 
     this.handleChangeValue = this.handleChangeValue.bind(this);
@@ -35,7 +36,7 @@ class BallotContainerView extends Component {
   }
 
   validateBallot() {
-    const { totalPreferences, tracker } = this.state;
+    const { totalPreferences, tracker, disableSubmit } = this.state;
 
     var val = new Array(tracker.length).fill(null);
     for (let i = 0; i < val.length; i++) {
@@ -48,7 +49,7 @@ class BallotContainerView extends Component {
       }
     }
 
-    return true;
+    return true && !disableSubmit;
   }
 
   handleSubmit() {
@@ -59,6 +60,10 @@ class BallotContainerView extends Component {
     for (let i = 0; i < preferences.length; i++) {
       preferences[i] = election.candidates[tracker[i] - 1].id;
     }
+
+    this.setState({
+      disableSubmit: true,
+    });
 
     axiosInstance
       .post("/election/vote/", {
@@ -73,6 +78,9 @@ class BallotContainerView extends Component {
           "Submission Successful",
           5000
         );
+        this.setState({
+          disableSubmit: false,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +89,9 @@ class BallotContainerView extends Component {
           "Submission Failed",
           5000
         );
+        this.setState({
+          disableSubmit: false,
+        });
       });
   }
 

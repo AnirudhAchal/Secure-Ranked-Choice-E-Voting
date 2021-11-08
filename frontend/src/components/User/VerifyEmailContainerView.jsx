@@ -12,6 +12,7 @@ class VerifyEmailContainerView extends Component {
 
     this.state = {
       email: "",
+      disableSubmit: false,
       redirectToDashboard: false,
       redirectToLogin: false,
       token: this.props.match.params.token,
@@ -62,8 +63,8 @@ class VerifyEmailContainerView extends Component {
   }
 
   validateForm() {
-    const { email } = this.state;
-    return email.length > 0;
+    const { email, disableSubmit } = this.state;
+    return email.length > 0 && !disableSubmit;
   }
 
   handleEmailChange(email) {
@@ -76,6 +77,10 @@ class VerifyEmailContainerView extends Component {
     const { email } = this.state;
     event.preventDefault();
 
+    this.setState({
+      disableSubmit: true,
+    });
+
     axiosInstance
       .post("/authentication/resend-verification-email/", {
         email: email,
@@ -83,6 +88,7 @@ class VerifyEmailContainerView extends Component {
       .then((res) => {
         this.setState({
           redirectToLogin: true,
+          disableSubmit: false,
         });
 
         NotificationManager.success(
@@ -94,6 +100,9 @@ class VerifyEmailContainerView extends Component {
       .catch((err) => {
         console.log(err);
         NotificationManager.error(getErrorMessage(err), "Resend Failed", 5000);
+        this.setState({
+          disableSubmit: false,
+        });
       });
   }
 

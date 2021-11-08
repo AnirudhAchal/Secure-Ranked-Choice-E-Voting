@@ -12,14 +12,17 @@ class CreateElectionContainerView extends Component {
       electionName: "",
       startDate: "",
       endDate: "",
+      description: "",
       users: [],
       admins: [],
       voters: [],
+      disableSubmit: false,
     };
 
     this.handleChangeElectionName = this.handleChangeElectionName.bind(this);
     this.handleChangeStartDate = this.handleChangeStartDate.bind(this);
     this.handleChangeEndDate = this.handleChangeEndDate.bind(this);
+    this.handleChangeDescription = this.handleChangeDescription.bind(this);
     this.handleChangeAdmins = this.handleChangeAdmins.bind(this);
     this.handleChangeVoters = this.handleChangeVoters.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,6 +59,12 @@ class CreateElectionContainerView extends Component {
     });
   }
 
+  handleChangeDescription(description) {
+    this.setState({
+      description: description,
+    });
+  }
+
   handleChangeAdmins(options) {
     const { users } = this.state;
     const admins = [];
@@ -85,7 +94,12 @@ class CreateElectionContainerView extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { electionName, startDate, endDate, admins, voters } = this.state;
+    const { electionName, startDate, endDate, admins, voters, description } =
+      this.state;
+
+    this.setState({
+      disableSubmit: true,
+    });
 
     axiosInstance
       .post("/election/create/", {
@@ -94,18 +108,34 @@ class CreateElectionContainerView extends Component {
         end_date: endDate,
         admins: admins,
         voters: voters,
+        election_details: {
+          description: description,
+        },
       })
       .then((res) => {
         NotificationManager.success("Election Created", "Successful", 5000);
+        this.setState({
+          disableSubmit: false,
+        });
       })
       .catch((err) => {
         console.log(err);
         NotificationManager.error(getErrorMessage(err), "Error", 5000);
+        this.setState({
+          disableSubmit: false,
+        });
       });
   }
 
   render() {
-    const { users, electionName, startDate, endDate } = this.state;
+    const {
+      users,
+      electionName,
+      startDate,
+      endDate,
+      description,
+      disableSubmit,
+    } = this.state;
 
     return (
       <CreateElectionView
@@ -113,10 +143,13 @@ class CreateElectionContainerView extends Component {
         electionName={electionName}
         startDate={startDate}
         endDate={endDate}
+        description={description}
+        disableSubmit={disableSubmit}
         onSubmit={this.handleSubmit}
         onChangeElectionName={this.handleChangeElectionName}
         onChangeStartDate={this.handleChangeStartDate}
         onChangeEndDate={this.handleChangeEndDate}
+        onChangeDescription={this.handleChangeDescription}
         onChangeAdmins={this.handleChangeAdmins}
         onChangeVoters={this.handleChangeVoters}
       />

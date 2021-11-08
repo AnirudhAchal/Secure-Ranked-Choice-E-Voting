@@ -25,7 +25,13 @@ class VerifyEmailView extends Component {
               />
             </Form.Group>
             <Form.Group size="lg" controlId="resendLink">
-              <Button className="btn btn-dark" block size="lg" type="submit" disabled={!validateForm()}>
+              <Button
+                className="btn btn-dark"
+                block
+                size="lg"
+                type="submit"
+                disabled={!validateForm()}
+              >
                 Resend link
               </Button>
             </Form.Group>

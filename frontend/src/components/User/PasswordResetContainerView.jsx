@@ -11,6 +11,7 @@ class PasswordResetContainerView extends Component {
     this.state = {
       password: "",
       confirmPassword: "",
+      disableSubmit: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -21,8 +22,10 @@ class PasswordResetContainerView extends Component {
   }
 
   validateForm() {
-    const { password, confirmPassword } = this.state;
-    return password.length > 0 && confirmPassword === password;
+    const { password, confirmPassword, disableSubmit } = this.state;
+    return (
+      password.length > 0 && confirmPassword === password && !disableSubmit
+    );
   }
 
   handlePasswordChange(password) {
@@ -41,6 +44,10 @@ class PasswordResetContainerView extends Component {
     const { password } = this.state;
     event.preventDefault();
 
+    this.setState({
+      disableSubmit: true,
+    });
+
     axiosInstance
       .patch(`authentication/password-reset/${getCurrentUserId()}/`, {
         password: password,
@@ -51,10 +58,16 @@ class PasswordResetContainerView extends Component {
           "Reset Successful",
           5000
         );
+        this.setState({
+          disableSubmit: false,
+        });
       })
       .catch((err) => {
         console.log(err);
         NotificationManager.error(getErrorMessage(err), "Reset", 5000);
+        this.setState({
+          disableSubmit: false,
+        });
       });
   }
 
