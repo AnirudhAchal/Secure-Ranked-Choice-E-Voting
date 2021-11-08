@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
 class Election(models.Model):
@@ -19,6 +20,14 @@ class Election(models.Model):
         def get_queryset(self):
             current_date = timezone.now()
             return super().get_queryset().filter(start_date__gt=current_date)
+        
+    
+    class ElectionManager(models.Manager):
+        def create_election(self, name, date_posted, start_date, end_date, admins, voters,**other_fields):
+            election = self.model(name=name, date_posted=date_posted,
+                            start_date=start_date, end_date=end_date, admins=admins, voters=voters, **other_fields)
+            election.save()
+            return election
 
     name = models.CharField(max_length=100)
     date_posted = models.DateTimeField(default=timezone.now)

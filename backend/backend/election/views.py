@@ -5,6 +5,22 @@ from django.utils import timezone
 from .utils import Util
 from django.contrib.auth.forms import get_user_model
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+
+
+class ElectionCreate(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = ElectionSerializer(data=request.data)
+        if serializer.is_valid():
+            election = serializer.save()
+            if election:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ElectionDetailViewPermission(permissions.BasePermission):

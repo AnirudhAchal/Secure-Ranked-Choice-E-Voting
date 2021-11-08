@@ -4,6 +4,8 @@ import "../styles/CreateElectionView.css";
 import electionImage from "../styles/images/election_image.jpg";
 import NavbarContainerView from "../Dashboard/NavbarContainerView";
 import { Redirect } from "react-router";
+import axiosInstance from "../../axios";
+import {NotificationManager} from 'react-notifications';
 
 function CreateElection() {
   const [election, setElection] = useState({
@@ -64,8 +66,28 @@ function CreateElection() {
     e.preventDefault();
     // axios request here to post election data to server
     // and also redirect to admin dashboard once
+    axiosInstance
+      .post("election/createElection/", {
+        name: name,
+        date_posted: date_posted,
+        start_date: start_date,
+        end_date: end_date,
+        admins:admins,
+        voters: voters,
+      })
+      .then((res) => {
+        console.log(res);
+        <Redirect to="/"></Redirect>
+      })
+      .catch((err) => {
+        console.log(err);
+        NotificationManager.error(
+          err.response.data.detail,
+          "Election Creation Failed",
+          5000
+        );
+      });
     console.log(election);
-    <Redirect to="/"></Redirect>
   };
 
   return (

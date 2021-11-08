@@ -24,6 +24,11 @@ class ElectionSerializer(serializers.ModelSerializer):
         model = Election
         fields = '__all__'
 
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
 
 class CandidateSerializer(serializers.Serializer):
     candidate = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all())
