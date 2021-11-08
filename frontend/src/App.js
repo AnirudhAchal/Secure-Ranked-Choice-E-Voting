@@ -5,7 +5,7 @@ import DashboardContainerView from "./components/Dashboard/DashboardContainerVie
 import LoginContainerView from "./components/User/LoginContainerView";
 import RegisterContainerView from "./components/User/RegisterContainerView";
 import ElectionContainerView from "./components/Election/ElectionContainerView";
-import AdminDashboardContainerView from "./components/Admin/AdminDashboardContainerView";
+import CreateElection from "./components/Election/CreateElection";
 import OngoingElectionContainerView from "./components/Election/OngoingElectionContainerView";
 import UpcomingElectionContainerView from "./components/Election/UpcomingElectionContainerView";
 import CompletedElectionContainerView from "./components/Election/CompletedElectionContainerView";
@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/" component={DashboardContainerView} />
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
-        <Route path="/admin" component={AdminDashboardContainerView} />
+        <Route path="/createElection" component={CreateElection} />
         <Route path="/election/:id" component={ElectionContainerView} />
         <Route path="/ongoing" component={OngoingElectionContainerView} />
         <Route path="/upcoming" component={UpcomingElectionContainerView} />

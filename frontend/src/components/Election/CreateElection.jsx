@@ -2,28 +2,29 @@ import React, { useState, useEffect } from "react";
 import Image from "react-bootstrap/Image";
 import "../styles/CreateElectionView.css";
 import electionImage from "../styles/images/election_image.jpg";
+import NavbarContainerView from "../Dashboard/NavbarContainerView";
+import { Redirect } from "react-router";
 
 function CreateElection() {
   const [election, setElection] = useState({
-    electionName: "",
+    name: "",
     date_posted: "",
-    startDatetime: "",
-    endDatetime: "",
-    electionDescription: "",
+    start_date: "",
+    end_date: "",
     admins: [],
     voters: [],
     candidates: [],
-    ballotsList: [],
+    voted_voters: [],
     winner: "",
     history: [],
   });
 
   const {
-    electionName,
+    name,
     date_posted,
-    startDatetime,
-    endDatetime,
-    electionDescription,
+    start_date,
+    end_date,
+    admins,
     voters,
   } = election;
 
@@ -31,7 +32,20 @@ function CreateElection() {
   useEffect(() => {
     // will work as component did mount
     // do axios request here to get all the users of the website
-    setUsers(["Ram", "Shyam", "Lekhraj", "Anirudh"]);
+    setUsers([
+      {
+        _id: 1,
+        name : "Ram"
+      },
+      {
+        _id: 2,
+        name : "Shyam"
+      },
+      {
+        _id: 3,
+        name : "Anirudh"
+      },
+    ]);
   }, []);
 
   const handleChange = (e) => {
@@ -39,7 +53,7 @@ function CreateElection() {
     setElection((prev) => ({ ...prev, [name]: value }));
   };
 
-  const selectedVoters = (e) => {
+  const selectedPeople = (e) => {
     const name = e.target.name;
     let value = Array.from(e.target.selectedOptions, (option) => option.value);
     console.log(value);
@@ -51,10 +65,12 @@ function CreateElection() {
     // axios request here to post election data to server
     // and also redirect to admin dashboard once
     console.log(election);
+    <Redirect to="/"></Redirect>
   };
 
   return (
     <div>
+      <NavbarContainerView />
       <div className="CreateElection">
         <form onSubmit={handleSubmit}>
           <Image src={electionImage} fluid />
@@ -62,9 +78,9 @@ function CreateElection() {
             <label>Election Name</label>
             <input
               type="text"
-              name="electionName"
+              name="name"
               className="form-control"
-              value={electionName}
+              value={name}
               onChange={handleChange}
               required
             />
@@ -72,10 +88,10 @@ function CreateElection() {
           <div className="form-group">
             <label>Date Posted</label>
             <input
-              type="date"
+              type="datetime-local"
               className="form-control"
               name="date_posted"
-              placeholder="dd-mm-yyyy"
+              placeholder="dd-mm-yyyy --:--"
               value={date_posted}
               onChange={handleChange}
               required
@@ -87,9 +103,9 @@ function CreateElection() {
             <input
               type="datetime-local"
               className="form-control"
-              name="startDatetime"
+              name="start_date"
               placeholder="dd-mm-yyyy --:--"
-              value={startDatetime}
+              value={start_date}
               onChange={handleChange}
               required
             />
@@ -100,12 +116,26 @@ function CreateElection() {
             <input
               type="datetime-local"
               className="form-control"
-              name="endDatetime"
+              name="end_date"
               placeholder="dd-mm-yyyy --:--"
-              value={endDatetime}
+              value={end_date}
               onChange={handleChange}
               required
             />
+          </div>
+
+          <div className="form-group">
+            <label>Select Admins</label>
+            <select
+              multiple
+              className="form-control"
+              name="admins"
+              value={admins}
+              onChange={selectedPeople}
+              required
+            >
+              {users && users.map((user) => <option value= {user._id}>{user.name}</option>)}
+            </select>
           </div>
 
           <div className="form-group">
@@ -115,22 +145,11 @@ function CreateElection() {
               className="form-control"
               name="voters"
               value={voters}
-              onChange={selectedVoters}
-            >
-              {users && users.map((user) => <option>{user}</option>)}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Election Description</label>
-            <textarea
-              className="form-control"
-              name="electionDescription"
-              placeholder="Description about the election"
-              value={electionDescription}
-              onChange={handleChange}
+              onChange={selectedPeople}
               required
-            />
+            >
+              {users && users.map((user) => <option value= {user._id}>{user.name}</option>)}
+            </select>
           </div>
 
           <button class="btn btn-primary" type="submit">

@@ -6,14 +6,22 @@ class NavbarView extends Component {
     const { onLogout } = this.props;
 
     return (
-      <nav className="navbar navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/">
           Dashboard
         </Link>
-        <Link className="btn btn-light my-2 my-sm-0" to="/myprofile">
-          Profile
-        </Link>
-        <button className="btn btn-light my-2 my-sm-0" onClick={onLogout}>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/myprofile">Profile</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/createElection">Create Election</Link>
+            </li>
+          </ul>
+        </div>
+        <button className="btn btn-light navbar-right my-2 my-sm-0" onClick={onLogout}>
           Logout
         </button>
       </nav>
