@@ -16,13 +16,34 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ElectionSerializer(serializers.ModelSerializer):
     winner = UserSerializer(read_only=True)
-    admins = UserSerializer(read_only=True, many=True)
-    candidates = UserSerializer(read_only=True, many=True)
-    voters = UserSerializer(read_only=True, many=True)
+    admins = UserSerializer(required=False, many=True)
+    candidates = UserSerializer(required=False, many=True)
+    voters = UserSerializer(required=False, many=True)
 
     class Meta:
         model = Election
         fields = '__all__'
+
+    def create(self, validated_data):
+        admins = validated_data.pop('admins', None)
+        voters = validated_data.pop('voters', None)
+        candidates = validated_data.pop('candidates', None)
+
+        election = Election.objects.create(**validated_data)
+
+        if admins:
+            for admin_detail in admins:
+                election.admins.add(get_user_model().objects.get(email=admin_detail['email']))
+
+        if candidates:
+            for voter_detail in voters:
+                election.voters.add(get_user_model().objects.get(email=voter_detail['email']))
+
+        if voters:
+            for candidate_detail in candidates:
+                election.candidates.add(get_user_model().objects.get(email=candidate_detail['email']))
+
+        return election
 
 
 class CandidateSerializer(serializers.Serializer):

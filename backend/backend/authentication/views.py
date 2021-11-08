@@ -71,6 +71,8 @@ class VerifyEmail(generics.GenericAPIView):
 
 
 class ResendVerificationEmail(generics.GenericAPIView):
+    serializer_class = EmailSerializer
+
     def post(self, request):
         serializer = EmailSerializer(data=request.data)
 
@@ -126,6 +128,8 @@ class PasswordReset(generics.UpdateAPIView,  CurrentUserDetailViewPermission):
 
 
 class PasswordResetEmail(generics.GenericAPIView):
+    serializer_class = EmailSerializer
+
     def post(self, request):
         serializer = EmailSerializer(data=request.data)
 

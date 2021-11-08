@@ -12,6 +12,11 @@ class ElectionDetailViewPermission(permissions.BasePermission):
         return request.user in obj.voters.all()
 
 
+class AdminElectionDetailViewPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return request.user in obj.admins.all()
+
+
 class BallotCreateViewPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user in obj.election.voters.all()
@@ -39,6 +44,36 @@ class CompletedElectionList(generics.ListAPIView):
 
     def get_queryset(self):
         return Election.completedElectionObjects.filter(voters=self.request.user)
+
+
+class AdminCurrentElectionList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ElectionSerializer
+
+    def get_queryset(self):
+        return Election.currentElectionObjects.filter(admins=self.request.user)
+
+
+class AdminUpcomingElectionList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ElectionSerializer
+
+    def get_queryset(self):
+        return Election.upcomingElectionObjects.filter(admins=self.request.user)
+
+
+class AdminCompletedElectionList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ElectionSerializer
+
+    def get_queryset(self):
+        return Election.completedElectionObjects.filter(admins=self.request.user)
+
+
+class AdminElectionDetail(generics.RetrieveAPIView, AdminElectionDetailViewPermission):
+    permission_classes = [permissions.IsAuthenticated, AdminElectionDetailViewPermission]
+    serializer_class = ElectionSerializer
+    query_set = Election.objects.all()
 
 
 class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
@@ -73,6 +108,11 @@ class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
                 election.save()
 
         return Election.objects.all()
+
+
+class ElectionCreate(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ElectionSerializer
 
 
 class BallotCreate(generics.CreateAPIView, BallotCreateViewPermission):
