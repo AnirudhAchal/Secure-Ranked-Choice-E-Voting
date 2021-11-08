@@ -11,9 +11,9 @@ class AdminNavbarView extends Component {
           <Link className="navbar-brand" to="/">
             <i className="fa fa-chevron-circle-left"></i>
           </Link>
-          <div className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/admin">
             Admin Dashboard
-          </div>
+          </Link>
         </div>
         <div>
           <Link

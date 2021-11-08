@@ -83,6 +83,13 @@ class RegisterView extends Component {
                 onChange={(e) => onConfirmPasswordChange(e.target.value)}
               />
             </Form.Group>
+            <div className="row mb-4 my-3">
+              <div className="col">
+                <p className="small mb-0 text-muted">
+                  *Password must have atleast 8 characters
+                </p>
+              </div>
+            </div>
             <Button
               className="btn btn-dark"
               block

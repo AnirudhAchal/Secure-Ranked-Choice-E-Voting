@@ -8,7 +8,7 @@ class BallotView extends Component {
     rows.push(<th>ID</th>);
     rows.push(<th>Name</th>);
     for (var i = 1; i <= totalPreferences; i++) {
-      rows.push(<th>Preference {i}</th>);
+      rows.push(<th key={i}>Preference {i}</th>);
     }
     return <tr>{rows}</tr>;
   }

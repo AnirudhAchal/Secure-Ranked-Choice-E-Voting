@@ -75,7 +75,7 @@ class CreateElectionView extends Component {
                 onChange={(e) => onChangeAdmins(e.target.options)}
               >
                 {users &&
-                  users.map((user) => <option>{user.user_name}</option>)}
+                  users.map((user, index) => <option key={index}>{user.user_name}</option>)}
               </select>
             </div>
             <div className="form-group">
@@ -88,7 +88,7 @@ class CreateElectionView extends Component {
                 onChange={(e) => onChangeVoters(e.target.options)}
               >
                 {users &&
-                  users.map((user) => <option>{user.user_name}</option>)}
+                  users.map((user,index) => <option key={index}>{user.user_name}</option>)}
               </select>
             </div>
             <div className="form-group">

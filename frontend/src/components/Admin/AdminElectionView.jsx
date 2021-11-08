@@ -177,11 +177,11 @@ class AdminElectionView extends Component {
     for (var i = 0; i < election.admins.length; i++) {
       var mailt = "mailto:" + election.admins[i].email;
       mailtos.push(
-        <>
+        <span key={i}>
           {election.admins[i].user_name}:{" "}
           <a href={mailt}>{election.admins[i].email}</a>
           <br />
-        </>
+        </span>
       );
     }
 
