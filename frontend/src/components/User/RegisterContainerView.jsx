@@ -109,7 +109,7 @@ class RegisterContainerView extends Component {
         );
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
         let msg = "";
 
         for(const error in err.response.data){
