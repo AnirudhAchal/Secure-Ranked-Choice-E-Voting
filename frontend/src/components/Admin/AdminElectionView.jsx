@@ -85,7 +85,7 @@ class AdminElectionView extends Component {
 
     return (
       <div>
-        <h1 className="text-center display-4">Election Admins</h1>
+        <h1 className="text-center display-4 my-3">Election Admins</h1>
         <table className="table table-striped table-bordered text-center">
           <thead className="thead-dark">
             <tr>
@@ -108,7 +108,7 @@ class AdminElectionView extends Component {
 
     return (
       <div>
-        <h1 className="text-center display-4">Candidates</h1>
+        <h1 className="text-center display-4 my-3">Candidates</h1>
         <table className="table table-striped table-bordered text-center">
           <thead className="thead-dark">
             <tr>
@@ -131,7 +131,7 @@ class AdminElectionView extends Component {
 
     return (
       <div>
-        <h1 className="text-center display-4">Voters</h1>
+        <h1 className="text-center display-4 my-3">Voters</h1>
         <table className="table table-striped table-bordered text-center">
           <thead className="thead-dark">
             <tr>

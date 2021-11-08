@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import Image from "react-bootstrap/Image";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import "../styles/CreateElectionView.css";
-import electionImage from "../styles/images/election_image.jpg";
 import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
 class CreateElectionView extends Component {
@@ -25,9 +23,6 @@ class CreateElectionView extends Component {
         <AdminNavbarContainerView />
         <div className="CreateElection">
           <form>
-            <center>
-              <Image src={electionImage} fluid />
-            </center>
             <h3
               className="text-center"
               style={{ paddingTop: "60px", paddingBottom: "30px" }}
@@ -70,7 +65,7 @@ class CreateElectionView extends Component {
             <div className="form-group">
               <label>Admins</label>
               <select
-                multiple
+                multiple data-mdb-filter="true"
                 className="form-control"
                 name="admins"
                 onChange={(e) => onChangeAdmins(e.target.options)}
@@ -83,6 +78,7 @@ class CreateElectionView extends Component {
               <label>Voters</label>
               <select
                 multiple
+                data-mdb-filter="true"
                 className="form-control"
                 name="voters"
                 onChange={(e) => onChangeVoters(e.target.options)}
@@ -91,13 +87,15 @@ class CreateElectionView extends Component {
                   users.map((user) => <option>{user.user_name}</option>)}
               </select>
             </div>
+            <center>
             <button
-              className="btn btn-primary"
+              className="btn btn-dark"
               type="submit"
               onClick={(e) => onSubmit(e)}
             >
               Submit
             </button>
+            </center>
           </form>
         </div>
         <NotificationContainer />

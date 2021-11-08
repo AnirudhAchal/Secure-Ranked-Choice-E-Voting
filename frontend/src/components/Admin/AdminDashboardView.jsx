@@ -10,10 +10,7 @@ class AdminDashboardView extends Component {
     return (
       <div>
         <AdminNavbarContainerView />
-        {/* Add better title */}
-        <center>
-          <h1> Admin Dashboard </h1>{" "}
-        </center>
+        {/* <h1 className="text-center display-4 my-3" style={{ paddingTop: "2%" }}> Admin Dashboard </h1>{" "} */}
         <div
           className="d-flex justify-content-center text-center mt-10"
           style={{ paddingTop: "10%" }}

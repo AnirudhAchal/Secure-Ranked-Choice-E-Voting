@@ -9,8 +9,10 @@ class AdminNavbarView extends Component {
       <nav className="navbar navbar-light bg-light">
         <div>
           <Link className="navbar-brand" to="/">
-            Dashboard
+          <i className="fa fa-chevron-circle-left"></i>
+            
           </Link>
+          <div className="navbar-brand" to="/">Admin Dashboard</div>
         </div>
         <div>
           <Link
