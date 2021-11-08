@@ -3,6 +3,7 @@ from .models import Election, Ballot
 from .serializers import ElectionSerializer, BallotSerializer, CandidateSerializer
 from django.utils import timezone
 from .utils import Util
+from authentication.utils import Util as UserUtil
 from django.contrib.auth.forms import get_user_model
 from rest_framework.response import Response
 
@@ -138,6 +139,16 @@ class CandidateCreate(views.APIView):
                 if candidate not in election.candidates.all():
                     election.candidates.add(candidate)
                     election.save()
+
+                    # Send Email
+                    email_data = {
+                        'subject': 'Secure Rank Choice E-Voting - Candidate registration successful',
+                        'body': f'Hi {candidate.user_name},\nYou are now a candidate in Election: {election}\n'
+                                f'Good luck!',
+                        'to_email': f'{candidate.email}',
+                    }
+                    UserUtil.send_email(email_data)
+
                     return Response(json, status=status.HTTP_201_CREATED)
 
             return Response(json, status=status.HTTP_400_BAD_REQUEST)

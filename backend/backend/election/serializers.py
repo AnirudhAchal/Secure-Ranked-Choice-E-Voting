@@ -3,6 +3,7 @@ from .models import Election, Ballot
 from django.contrib.auth.forms import get_user_model
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from authentication.utils import Util
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -86,5 +87,13 @@ class BallotSerializer(serializers.ModelSerializer):
                 user = get_user_model().objects.get(pk=user.id)
                 election.voted_voters.add(user)
                 election.save()
+
+                # Send Email
+                email_data = {
+                    'subject': 'Secure Rank Choice E-Voting - Voting successful',
+                    'body': f'Hi {user.user_name},\nYour vote in Election: {election} has been successfully recorded.',
+                    'to_email': f'{user.email}',
+                }
+                Util.send_email(email_data)
 
         return data
