@@ -13,6 +13,7 @@ class LoginContainerView extends Component {
       email: "",
       password: "",
       redirectToDashboard: false,
+      disableSubmit: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -30,8 +31,8 @@ class LoginContainerView extends Component {
   }
 
   validateForm() {
-    const { email, password } = this.state;
-    return email.length > 0 && password.length > 0;
+    const { email, password, disableSubmit } = this.state;
+    return email.length > 0 && password.length > 0 && !disableSubmit;
   }
 
   handleEmailChange(email) {
@@ -50,6 +51,10 @@ class LoginContainerView extends Component {
     const { email, password } = this.state;
     event.preventDefault();
 
+    this.setState({
+      disableSubmit: true,
+    });
+
     axiosInstance
       .post("token/", {
         email: email,
@@ -62,11 +67,15 @@ class LoginContainerView extends Component {
           "JWT " + localStorage.getItem("access_token");
         this.setState({
           redirectToDashboard: true,
+          disableSubmit: false,
         });
       })
       .catch((err) => {
         console.log(err);
         NotificationManager.error(getErrorMessage(err), "Login Failed", 5000);
+        this.setState({
+          disableSubmit: false,
+        });
       });
   }
 

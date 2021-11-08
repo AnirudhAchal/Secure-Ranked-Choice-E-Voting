@@ -17,6 +17,7 @@ class RegisterContainerView extends Component {
       password: "",
       confirmPassword: "",
       redirectToLogin: false,
+      disableSubmit: false,
     };
 
     this.validateForm = this.validateForm.bind(this);
@@ -39,15 +40,24 @@ class RegisterContainerView extends Component {
   }
 
   validateForm() {
-    const { username, firstname, lastname, email, password, confirmPassword } =
-      this.state;
+    const {
+      username,
+      firstname,
+      lastname,
+      email,
+      password,
+      confirmPassword,
+      disableSubmit,
+    } = this.state;
+
     return (
       username.length > 0 &&
       firstname.length > 0 &&
       lastname.length > 0 &&
       email.length > 0 &&
       password.length > 0 &&
-      confirmPassword === password
+      confirmPassword === password &&
+      !disableSubmit
     );
   }
 
@@ -90,6 +100,11 @@ class RegisterContainerView extends Component {
   handleSubmit(event) {
     const { username, firstname, lastname, email, password } = this.state;
     event.preventDefault();
+
+    this.setState({
+      disableSubmit: true,
+    });
+
     axiosInstance
       .post("authentication/register/", {
         email: email,
@@ -101,6 +116,7 @@ class RegisterContainerView extends Component {
       .then((res) => {
         this.setState({
           redirectToLogin: true,
+          disableSubmit: false,
         });
         NotificationManager.success(
           "A verification link has been sent to your account.",
@@ -115,6 +131,9 @@ class RegisterContainerView extends Component {
           "Registration Failed",
           5000
         );
+        this.setState({
+          disableSubmit: false,
+        });
       });
   }
 

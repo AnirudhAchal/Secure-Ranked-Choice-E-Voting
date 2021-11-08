@@ -10,12 +10,15 @@ class CreateElectionView extends Component {
       electionName,
       startDate,
       endDate,
+      description,
+      disabledSubmit,
       onSubmit,
       onChangeElectionName,
       onChangeStartDate,
       onChangeEndDate,
       onChangeAdmins,
       onChangeVoters,
+      onChangeDescription,
     } = this.props;
 
     return (
@@ -88,11 +91,22 @@ class CreateElectionView extends Component {
                   users.map((user) => <option>{user.user_name}</option>)}
               </select>
             </div>
+            <div className="form-group">
+              <label>Election Description</label>
+              <textarea
+                className="form-control"
+                name="description"
+                value={description}
+                onChange={(e) => onChangeDescription(e.target.value)}
+                required
+              />
+            </div>
             <center>
               <button
                 className="btn btn-dark"
                 type="submit"
                 onClick={(e) => onSubmit(e)}
+                disabled={disabledSubmit}
               >
                 Submit
               </button>
