@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import NavbarContainerView from "../Dashboard/NavbarContainerView";
+import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
 export class CompletedElectionView extends Component {
   renderNavbar() {
-    return <NavbarContainerView />;
+    return <AdminNavbarContainerView />;
   }
 
   renderWinner(election) {
@@ -30,7 +30,7 @@ export class CompletedElectionView extends Component {
               </p>
               {this.renderWinner(election)}
               <Link
-                to={`/admin-election/${election.id}/`}
+                to={`/admin/election/${election.id}/`}
                 className="btn btn-dark"
               >
                 Full Results

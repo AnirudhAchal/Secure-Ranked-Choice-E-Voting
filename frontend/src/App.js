@@ -27,7 +27,6 @@ function App() {
         <Route exact path="/" component={DashboardContainerView} />
         <Route path="/login" component={LoginContainerView} />
         <Route path="/register" component={RegisterContainerView} />
-        <Route path="/admin" component={AdminDashboardContainerView} />
         <Route path="/election/:id" component={ElectionContainerView} />
         <Route path="/ongoing" component={OngoingElectionContainerView} />
         <Route path="/upcoming" component={UpcomingElectionContainerView} />
@@ -35,20 +34,24 @@ function App() {
         <Route path="/profile/:username" component={ProfileContainerView} />
         <Route path="/myprofile" component={MyProfileContainerView} />
         <Route
-          path="/admin-election/:id"
+          path="/admin/election/:id"
           component={AdminElectionContainerView}
         />
         <Route
-          path="/admin-ongoing"
+          path="/admin/ongoing"
           component={AdminOngoingElectionContainerView}
         />
         <Route
-          path="/admin-upcoming"
+          path="/admin/upcoming"
           component={AdminUpcomingElectionContainerView}
         />
         <Route
-          path="/admin-completed"
+          path="/admin/completed"
           component={AdminCompletedElectionContainerView}
+        />
+        <Route
+          path="/admin/create-election"
+          component={CreateElectionContainerView}
         />
         <Route
           path="/password-reset-email"
@@ -59,10 +62,7 @@ function App() {
           path="/verify-email/:token?"
           component={VerifyEmailContainerView}
         />
-        <Route
-          path="/create-election"
-          component={CreateElectionContainerView}
-        />
+        <Route path="/admin" component={AdminDashboardContainerView} />
       </Switch>
     </Router>
   );

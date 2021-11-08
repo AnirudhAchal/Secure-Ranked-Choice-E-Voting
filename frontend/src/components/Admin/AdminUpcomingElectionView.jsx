@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import Moment from "moment";
-import NavbarContainerView from "../Dashboard/NavbarContainerView";
 import { Link } from "react-router-dom";
+import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
 export class AdminUpcomingElectionView extends Component {
   renderNavbar() {
-    return <NavbarContainerView />;
+    return <AdminNavbarContainerView />;
   }
 
   renderUpcoming() {
@@ -30,7 +30,7 @@ export class AdminUpcomingElectionView extends Component {
                 {Moment(election.end_date).format("MMMM Do YYYY, h:mm:ss a")}
               </p>
               <Link
-                to={`/admin-election/${election.id}/`}
+                to={`/admin/election/${election.id}/`}
                 className="btn btn-dark"
               >
                 View Details

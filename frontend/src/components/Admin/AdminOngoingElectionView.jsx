@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import NavbarContainerView from "../Dashboard/NavbarContainerView";
+import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
 export class AdminOngoingElectionView extends Component {
   renderNavbar() {
-    return <NavbarContainerView />;
+    return <AdminNavbarContainerView />;
   }
 
   renderCurrent() {
@@ -20,7 +20,7 @@ export class AdminOngoingElectionView extends Component {
                 Registered Voters: {election.voters.length}
               </p>
               <Link
-                to={`/admin-election/${election.id}/`}
+                to={`/admin/election/${election.id}/`}
                 className="btn btn-dark"
               >
                 View Details

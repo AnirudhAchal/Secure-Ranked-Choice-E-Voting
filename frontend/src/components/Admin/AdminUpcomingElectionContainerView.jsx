@@ -14,7 +14,7 @@ export class AdminUpcomingElectionContainerView extends Component {
 
   async componentDidMount() {
     axiosInstance
-      .get("/election/admin-upcoming/")
+      .get("/election/admin/upcoming/")
       .then((res) => {
         this.setState({
           upcomingElections: res.data,

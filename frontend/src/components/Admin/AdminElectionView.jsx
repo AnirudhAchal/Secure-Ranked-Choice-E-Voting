@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Moment from "moment";
 import ResultContainerView from "../Election/ResultContainerView";
-import NavbarContainerView from "../Dashboard/NavbarContainerView";
+import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
 class AdminElectionView extends Component {
   renderNavbar() {
-    return <NavbarContainerView />;
+    return <AdminNavbarContainerView />;
   }
 
   renderHeader() {

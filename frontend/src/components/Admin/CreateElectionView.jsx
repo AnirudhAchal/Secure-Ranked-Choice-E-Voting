@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Image from "react-bootstrap/Image";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
-import NavbarContainerView from "../Dashboard/NavbarContainerView";
 import "../styles/CreateElectionView.css";
 import electionImage from "../styles/images/election_image.jpg";
+import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
 class CreateElectionView extends Component {
   render() {
@@ -22,7 +22,7 @@ class CreateElectionView extends Component {
 
     return (
       <div>
-        <NavbarContainerView />
+        <AdminNavbarContainerView />
         <div className="CreateElection">
           <form>
             <center>

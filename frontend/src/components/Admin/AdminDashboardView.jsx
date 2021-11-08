@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import ongoing from "../../images/ongoing.jpg";
 import upcoming from "../../images/upcoming.jpg";
 import completed from "../../images/completed.png";
-import NavbarContainerView from "../Dashboard/NavbarContainerView";
+import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
 class AdminDashboardView extends Component {
   render() {
     return (
       <div>
-        <NavbarContainerView />
+        <AdminNavbarContainerView />
         {/* Add better title */}
         <center>
           <h1> Admin Dashboard </h1>{" "}
@@ -27,7 +27,7 @@ class AdminDashboardView extends Component {
                 className="rounded mx-auto d-block card-img-top"
               />
               <div className="card-body ">
-                <Link to="/admin-upcoming" className="stretched-link text-dark">
+                <Link to="/admin/upcoming" className="stretched-link text-dark">
                   <h5 className="card-text ">Upcoming Elections</h5>
                 </Link>
               </div>
@@ -41,7 +41,7 @@ class AdminDashboardView extends Component {
                 className="rounded mx-auto d-block card-img-top"
               />
               <div className="card-body">
-                <Link to="/admin-ongoing" className="stretched-link text-dark">
+                <Link to="/admin/ongoing" className="stretched-link text-dark">
                   <h5 className="card-text">Ongoing Elections</h5>
                 </Link>
               </div>
@@ -56,7 +56,7 @@ class AdminDashboardView extends Component {
               />
               <div className="card-body">
                 <Link
-                  to="/admin-completed"
+                  to="/admin/completed"
                   className="stretched-link text-dark"
                 >
                   <h5 className="card-text">Completed Elections</h5>

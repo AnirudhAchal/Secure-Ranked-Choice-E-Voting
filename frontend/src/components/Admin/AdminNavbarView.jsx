@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class NavbarView extends Component {
+class AdminNavbarView extends Component {
   render() {
     const { onLogout } = this.props;
 
@@ -13,14 +13,14 @@ class NavbarView extends Component {
           </Link>
         </div>
         <div>
-          <Link className="btn btn-light my-2 my-sm-0 text-dark" to="/admin">
-            Admin
-          </Link>
           <Link
             className="btn btn-light my-2 my-sm-0 text-dark"
-            to="/myprofile"
+            to="/admin/create-election"
           >
-            Profile
+            Create Election
+          </Link>
+          <Link className="btn btn-light my-2 my-sm-0 text-dark" to="/admin">
+            Manage Elections
           </Link>
           <button className="btn btn-light my-2 my-sm-0" onClick={onLogout}>
             Logout
@@ -31,4 +31,4 @@ class NavbarView extends Component {
   }
 }
 
-export default NavbarView;
+export default AdminNavbarView;
