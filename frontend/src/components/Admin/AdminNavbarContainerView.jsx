@@ -27,9 +27,6 @@ class AdminNavbarContainerView extends Component {
       .post("authentication/logout/blacklist/", {
         refresh_token: localStorage.getItem("refresh_token"),
       })
-      .then((res) => {
-        console.log(res);
-      })
       .catch((err) => {
         console.log(err);
       });
