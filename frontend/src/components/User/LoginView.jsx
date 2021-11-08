@@ -44,7 +44,7 @@ class LoginView extends Component {
               />
             </Form.Group>
             <Form.Group size="lg" controlId="login">
-              <Button block size="lg" type="submit" disabled={!validateForm()}>
+              <Button className="btn btn-dark" block size="lg" type="submit" disabled={!validateForm()}>
                 Login
               </Button>
             </Form.Group>

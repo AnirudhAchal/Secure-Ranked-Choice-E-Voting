@@ -7,21 +7,31 @@ class NavbarView extends Component {
 
     return (
       <nav className="navbar navbar-light bg-light">
-        <Link className="navbar-brand" to="/">
-          Dashboard
-        </Link>
-        <Link className="btn btn-light my-2 my-sm-0" to="/create-election">
-          Create Election
-        </Link>
-        <Link className="btn btn-light my-2 my-sm-0" to="/admin">
-          Manage Elections
-        </Link>
-        <Link className="btn btn-light my-2 my-sm-0" to="/myprofile">
-          Profile
-        </Link>
-        <button className="btn btn-light my-2 my-sm-0" onClick={onLogout}>
-          Logout
-        </button>
+        <div>
+          <Link className="navbar-brand" to="/">
+            Dashboard
+          </Link>
+        </div>
+        <div>
+          <Link
+            className="btn btn-light my-2 my-sm-0 text-dark"
+            to="/create-election"
+          >
+            Create Election
+          </Link>
+          <Link className="btn btn-light my-2 my-sm-0 text-dark" to="/admin">
+            Manage Elections
+          </Link>
+          <Link
+            className="btn btn-light my-2 my-sm-0 text-dark"
+            to="/myprofile"
+          >
+            Profile
+          </Link>
+          <button className="btn btn-light my-2 my-sm-0" onClick={onLogout}>
+            Logout
+          </button>
+        </div>
       </nav>
     );
   }
