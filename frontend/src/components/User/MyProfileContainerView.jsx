@@ -9,26 +9,14 @@ class MyProfileContainerView extends Component {
     this.state = {
       user: {},
       userHasLoaded: true,
-      editingFirstName: false,
-      editingLastName: false,
-      editingAbout: false,
       firstName: "",
       lastName: "",
       about: "",
       searchText: "",
     };
 
-    this.handleSaveFirstName = this.handleSaveFirstName.bind(this);
-    this.handleSaveLastName = this.handleSaveLastName.bind(this);
-    this.handleSaveAbout = this.handleSaveAbout.bind(this);
+    this.handleSave = this.handleSave.bind(this);
 
-    this.handleEditFirstName = this.handleEditFirstName.bind(this);
-    this.handleEditLastName = this.handleEditLastName.bind(this);
-    this.handleEditAbout = this.handleEditAbout.bind(this);
-
-    this.handleCancelFirstName = this.handleCancelFirstName.bind(this);
-    this.handleCancelLastName = this.handleCancelLastName.bind(this);
-    this.handleCancelAbout = this.handleCancelAbout.bind(this);
 
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
     this.handleChangeLastName = this.handleChangeLastName.bind(this);
@@ -45,9 +33,6 @@ class MyProfileContainerView extends Component {
         this.setState({
           user: res.data,
           userHasLoaded: true,
-          firstName: res.data.first_name,
-          lastName: res.data.last_name,
-          about: res.data.about,
         });
       })
       .catch((err) => {
@@ -66,47 +51,6 @@ class MyProfileContainerView extends Component {
     window.location.href = `/profile/${searchText}`;
   }
 
-  handleEditFirstName() {
-    this.setState({
-      editingFirstName: true,
-    });
-  }
-
-  handleEditLastName() {
-    this.setState({
-      editingLastName: true,
-    });
-  }
-
-  handleEditAbout() {
-    this.setState({
-      editingAbout: true,
-    });
-  }
-
-  handleCancelFirstName() {
-    const { user } = this.state;
-    this.setState({
-      editingFirstName: false,
-      firstName: user.first_name,
-    });
-  }
-
-  handleCancelLastName() {
-    const { user } = this.state;
-    this.setState({
-      editingLastName: false,
-      lastName: user.last_name,
-    });
-  }
-
-  handleCancelAbout() {
-    const { user } = this.state;
-    this.setState({
-      editingAbout: false,
-      about: user.about,
-    });
-  }
 
   handleChangeFirstName(firstName) {
     this.setState({
@@ -126,9 +70,14 @@ class MyProfileContainerView extends Component {
     });
   }
 
-  handleSaveFirstName() {
-    const { user, firstName } = this.state;
-    user.first_name = firstName;
+  handleSave() {
+    const { user, firstName, lastName, about } = this.state;
+    if(firstName !== "")
+      user.first_name = firstName;
+    if(lastName !== "")
+      user.last_name = lastName;
+    if(about !== "")
+      user.about = about;
 
     axiosInstance
       .patch(`/authentication/current-user/${getCurrentUserId()}/`, user)
@@ -143,47 +92,10 @@ class MyProfileContainerView extends Component {
       });
   }
 
-  handleSaveLastName() {
-    const { user, lastName } = this.state;
-    user.last_name = lastName;
-
-    axiosInstance
-      .patch(`/authentication/current-user/${getCurrentUserId()}/`, user)
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          editingLastName: false,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  handleSaveAbout() {
-    const { user, about } = this.state;
-    user.about = about;
-
-    axiosInstance
-      .patch(`/authentication/current-user/${getCurrentUserId()}/`, user)
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          editingAbout: false,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   render() {
     const {
       user,
       userHasLoaded,
-      editingFirstName,
-      editingLastName,
-      editingAbout,
       firstName,
       lastName,
       about,
@@ -194,9 +106,6 @@ class MyProfileContainerView extends Component {
       <MyProfileView
         userHasLoaded={userHasLoaded}
         user={user}
-        editingFirstName={editingFirstName}
-        editingLastName={editingLastName}
-        editingAbout={editingAbout}
         firstName={firstName}
         lastName={lastName}
         about={about}
@@ -204,15 +113,7 @@ class MyProfileContainerView extends Component {
         onChangeFirstName={this.handleChangeFirstName}
         onChangeLastName={this.handleChangeLastName}
         onChangeAbout={this.handleChangeAbout}
-        onEditFirstName={this.handleEditFirstName}
-        onEditLastName={this.handleEditLastName}
-        onEditAbout={this.handleEditAbout}
-        onCancelFirstName={this.handleCancelFirstName}
-        onCancelLastName={this.handleCancelLastName}
-        onCancelAbout={this.handleCancelAbout}
-        onSaveFirstName={this.handleSaveFirstName}
-        onSaveLastName={this.handleSaveLastName}
-        onSaveAbout={this.handleSaveAbout}
+        onSave={this.handleSave}
         onChangeSearchText={this.handleChangeSearchText}
         onSearchProfile={this.handleSearchProfile}
       />
