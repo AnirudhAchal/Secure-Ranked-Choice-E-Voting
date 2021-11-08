@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axiosInstance from "../../axios";
 import CreateElectionView from "./CreateElectionView";
 import NotificationManager from "react-notifications/lib/NotificationManager";
+import getErrorMessage from "../utils/response";
 
 class CreateElectionContainerView extends Component {
   constructor(props) {
@@ -95,17 +96,11 @@ class CreateElectionContainerView extends Component {
         voters: voters,
       })
       .then((res) => {
-        console.log(res);
         NotificationManager.success("Election Created", "Successful", 5000);
       })
       .catch((err) => {
-        let message = "";
-
-        for (const error in err.response.data) {
-          message += ` ${err.response.data[error]}.`;
-        }
-
-        NotificationManager.error(message, "Error", 5000);
+        console.log(err);
+        NotificationManager.error(getErrorMessage(err), "Error", 5000);
       });
   }
 
