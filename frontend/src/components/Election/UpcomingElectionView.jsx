@@ -55,6 +55,8 @@ export class UpcomingElectionView extends Component {
   }
 
   render() {
+    const { upcomingElections } = this.props;
+
     return (
       <>
         <div>{this.renderNavbar()}</div>
@@ -63,6 +65,9 @@ export class UpcomingElectionView extends Component {
             Upcoming Elections
           </h3>
           <hr />
+          {upcomingElections.length === 0 &&
+            <center><h4><i><b> No Upcoming Elections </b></i></h4></center>
+          } 
           <div className="row">{this.renderUpcoming()}</div>
         </div>
         <NotificationContainer />

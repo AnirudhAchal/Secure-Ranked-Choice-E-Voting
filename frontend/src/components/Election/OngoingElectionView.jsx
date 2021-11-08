@@ -30,6 +30,8 @@ export class OngoingElectionView extends Component {
   }
 
   render() {
+    const { currentElections } = this.props;
+
     return (
       <>
         <div>{this.renderNavbar()}</div>
@@ -38,6 +40,9 @@ export class OngoingElectionView extends Component {
             Ongoing Elections
           </h3>
           <hr />
+          {currentElections.length === 0 &&
+            <center><h4><i><b> No Ongoing Elections </b></i></h4></center>
+          }
           <div className="row">{this.renderCurrent()}</div>
         </div>
       </>

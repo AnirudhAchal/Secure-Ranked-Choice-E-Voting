@@ -43,6 +43,8 @@ export class CompletedElectionView extends Component {
   }
 
   render() {
+    const { completedElections } = this.props;
+    
     return (
       <>
         <div>{this.renderNavbar()}</div>
@@ -51,6 +53,9 @@ export class CompletedElectionView extends Component {
             Completed Elections
           </h3>
           <hr />
+          {completedElections.length === 0 &&
+            <center><h4><i><b> No Completed Elections </b></i></h4></center>
+          } 
           <div className="row">{this.renderCompleted()}</div>
         </div>
       </>
