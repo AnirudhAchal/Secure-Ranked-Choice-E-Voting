@@ -65,7 +65,8 @@ class CreateElectionView extends Component {
             <div className="form-group">
               <label>Admins</label>
               <select
-                multiple data-mdb-filter="true"
+                multiple
+                data-mdb-filter="true"
                 className="form-control"
                 name="admins"
                 onChange={(e) => onChangeAdmins(e.target.options)}
@@ -88,13 +89,13 @@ class CreateElectionView extends Component {
               </select>
             </div>
             <center>
-            <button
-              className="btn btn-dark"
-              type="submit"
-              onClick={(e) => onSubmit(e)}
-            >
-              Submit
-            </button>
+              <button
+                className="btn btn-dark"
+                type="submit"
+                onClick={(e) => onSubmit(e)}
+              >
+                Submit
+              </button>
             </center>
           </form>
         </div>
