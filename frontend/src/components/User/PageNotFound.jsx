@@ -3,7 +3,7 @@ import lighthouse from "../styles/images/lighthouse.jpg"
 import "../styles/NotFoundPage.css";
 import NavbarContainerView from '../Dashboard/NavbarContainerView';
 
-function NotFoundPageView() {
+function PageNotFound() {
     return (
         <div>
              <NavbarContainerView />
@@ -21,4 +21,4 @@ function NotFoundPageView() {
     )
 }
 
-export default NotFoundPageView
+export default PageNotFound

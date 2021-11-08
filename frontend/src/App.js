@@ -19,7 +19,7 @@ import AdminElectionContainerView from "./components/Admin/AdminElectionContaine
 import AdminUpcomingElectionContainerView from "./components/Admin/AdminUpcomingElectionContainerView";
 import AdminCompletedElectionContainerView from "./components/Admin/AdminCompletedElectionContainerView";
 import CreateElectionContainerView from "./components/Admin/CreateElectionContainerView";
-import NotFoundPageView from "./components/User/NotFoundPageView";
+import PageNotFound from "./components/User/PageNotFound";
 
 function App() {
   return (
@@ -64,7 +64,7 @@ function App() {
           component={VerifyEmailContainerView}
         />
         <Route path="/admin" component={AdminDashboardContainerView} />
-        <Route path="/notFound" component={NotFoundPageView} />
+        <Route path="/pageNotFound" component={PageNotFound} />
         
       </Switch>
     </Router>
