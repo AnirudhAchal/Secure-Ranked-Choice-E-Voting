@@ -35,8 +35,6 @@ class VerifyEmailContainerView extends Component {
       axiosInstance
         .get(`/authentication/verify-email/?token=${token}`)
         .then((res) => {
-          console.log(res);
-
           this.setState({
             redirectToLogin: true,
           });
