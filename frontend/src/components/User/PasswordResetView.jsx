@@ -40,7 +40,20 @@ class PasswordResetView extends Component {
                 onChange={(e) => onConfirmPasswordChange(e.target.value)}
               />
             </Form.Group>
-            <Button block className="btn btn-dark" size="lg" type="submit" disabled={!validateForm()}>
+            <div className="row mb-4 my-3">
+              <div className="col">
+                <p className="small mb-0 text-muted">
+                  *Password must have atleast 8 characters
+                </p>
+              </div>
+            </div>
+            <Button
+              block
+              className="btn btn-dark"
+              size="lg"
+              type="submit"
+              disabled={!validateForm()}
+            >
               Reset
             </Button>
           </Form>
