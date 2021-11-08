@@ -2,20 +2,35 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import NavbarContainerView from "../Dashboard/NavbarContainerView";
 import Avatar from "react-avatar";
-
+import "../styles/MyProfileView.css";
 class MyProfileView extends Component {
   renderSearchBar() {
     const { onChangeSearchText, searchText, onSearchProfile } = this.props;
     return (
       <div>
-        <button onClick={onSearchProfile}>Search Profile</button>
-        <input
-          type="text"
-          id="searchBar"
-          name="searchBar"
-          value={searchText}
-          onChange={(e) => onChangeSearchText(e.target.value)}
-        />
+        <div className="container">
+          <div className="my-3 row float-right ">
+            <div className="col">
+              <div className="search">
+                {" "}
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search users..."
+                  value={searchText}
+                  onChange={(e) => onChangeSearchText(e.target.value)}
+                ></input>{" "}
+                <button
+                  type="submit"
+                  className="btn bg-transparent"
+                  onClick={onSearchProfile}
+                >
+                  <i className="fa fa-search"></i>
+                </button>{" "}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -40,7 +55,7 @@ class MyProfileView extends Component {
     return (
       <div>
         <NavbarContainerView />
-
+        <div align="right">{this.renderSearchBar()}</div>
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-lg-10 col-xl-8 mx-auto">

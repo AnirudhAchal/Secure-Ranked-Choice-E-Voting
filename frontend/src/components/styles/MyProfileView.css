@@ -1,0 +1,28 @@
+.search {
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+}
+
+.search input {
+  height: 50px;
+  border: 2px solid #d6d4d4;
+}
+
+.search input:focus {
+  box-shadow: none;
+  border: 2px solid dimgray;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 11px;
+  left: 23px;
+}
+
+.search button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 41px;
+  width: 50px;
+}
