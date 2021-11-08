@@ -64,12 +64,7 @@ function App() {
           component={VerifyEmailContainerView}
         />
         <Route path="/admin" component={AdminDashboardContainerView} />
-<<<<<<< HEAD
         <Route path="/pageNotFound" component={PageNotFound} />
-        
-=======
-        <Route path="/notFound" component={NotFoundPageView} />
->>>>>>> 68cd15d75ec982c7da287cbcb13c3b0fb0d3a096
       </Switch>
     </Router>
   );

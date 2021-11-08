@@ -1,5 +1,4 @@
 .center {
-<<<<<<< HEAD
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -8,32 +7,9 @@
   }
   
   
-  .notFound {
-      font-size:4rem;
-      font-family: Arial, Helvetica, sans-serif;
-      color: blue;
-      font-weight:bolder;
-  }
-=======
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  text-align: center;
-}
-
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 30%;
-  height: 30%;
-}
-
 .notFound {
-  font-size: 4rem;
-  font-family: Arial, Helvetica, sans-serif;
-  color: blue;
-  font-weight: bolder;
+    font-size:4rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+    font-weight:bolder;
 }
->>>>>>> 68cd15d75ec982c7da287cbcb13c3b0fb0d3a096
