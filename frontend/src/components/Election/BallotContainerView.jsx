@@ -27,7 +27,6 @@ class BallotContainerView extends Component {
 
     const { tracker } = this.state;
 
-    // if (pref === totalPreferences + 1) tracker[idx] = null;
     tracker[idx] = pref;
 
     this.setState({
