@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
 import PasswordResetEmailView from "./PasswordResetEmailView";
+import getErrorMessage from "../utils/response";
 
 class PasswordResetEmailContainerView extends Component {
   constructor(props) {
@@ -48,8 +49,6 @@ class PasswordResetEmailContainerView extends Component {
         email: email,
       })
       .then((res) => {
-        console.log(res);
-
         this.setState({
           redirectToLogin: true,
         });
@@ -62,12 +61,11 @@ class PasswordResetEmailContainerView extends Component {
       })
       .catch((err) => {
         console.log(err);
-
-        const message = `${
-          err.response.data.error ? err.response.data.error : ""
-        } ${err.response.data.email ? err.response.data.email : ""}`;
-
-        NotificationManager.error(message, "Password Reset Failed", 5000);
+        NotificationManager.error(
+          getErrorMessage(err),
+          "Password Reset Failed",
+          5000
+        );
       });
   }
 

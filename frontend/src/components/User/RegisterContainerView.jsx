@@ -4,6 +4,7 @@ import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
 import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
+import getErrorMessage from "../utils/response";
 
 class RegisterContainerView extends Component {
   constructor(props) {
@@ -98,7 +99,6 @@ class RegisterContainerView extends Component {
         password: password,
       })
       .then((res) => {
-        console.log(res);
         this.setState({
           redirectToLogin: true,
         });
@@ -110,13 +110,11 @@ class RegisterContainerView extends Component {
       })
       .catch((err) => {
         console.log(err);
-        let msg = "";
-
-        for (const error in err.response.data) {
-          msg += `${err.response.data[error]}.`;
-        }
-
-        NotificationManager.error(msg, "Registration Failed", 5000);
+        NotificationManager.error(
+          getErrorMessage(err),
+          "Registration Failed",
+          5000
+        );
       });
   }
 

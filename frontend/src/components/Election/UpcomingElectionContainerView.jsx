@@ -54,7 +54,6 @@ export class UpcomingElectionContainerView extends Component {
         election: election.id,
       })
       .then((res) => {
-        console.log(res);
         NotificationManager.success(
           "You are now a candidate!",
           "Request Approved",

@@ -17,7 +17,6 @@ class MyProfileContainerView extends Component {
 
     this.handleSave = this.handleSave.bind(this);
 
-
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
     this.handleChangeLastName = this.handleChangeLastName.bind(this);
     this.handleChangeAbout = this.handleChangeAbout.bind(this);
@@ -51,7 +50,6 @@ class MyProfileContainerView extends Component {
     window.location.href = `/profile/${searchText}`;
   }
 
-
   handleChangeFirstName(firstName) {
     this.setState({
       firstName: firstName,
@@ -72,17 +70,13 @@ class MyProfileContainerView extends Component {
 
   handleSave() {
     const { user, firstName, lastName, about } = this.state;
-    if(firstName !== "")
-      user.first_name = firstName;
-    if(lastName !== "")
-      user.last_name = lastName;
-    if(about !== "")
-      user.about = about;
+    if (firstName !== "") user.first_name = firstName;
+    if (lastName !== "") user.last_name = lastName;
+    if (about !== "") user.about = about;
 
     axiosInstance
       .patch(`/authentication/current-user/${getCurrentUserId()}/`, user)
       .then((res) => {
-        console.log(res);
         this.setState({
           editingFirstName: false,
         });
@@ -93,14 +87,8 @@ class MyProfileContainerView extends Component {
   }
 
   render() {
-    const {
-      user,
-      userHasLoaded,
-      firstName,
-      lastName,
-      about,
-      searchText,
-    } = this.state;
+    const { user, userHasLoaded, firstName, lastName, about, searchText } =
+      this.state;
 
     return (
       <MyProfileView

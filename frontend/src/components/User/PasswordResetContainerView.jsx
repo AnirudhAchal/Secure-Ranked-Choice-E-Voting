@@ -3,6 +3,7 @@ import axiosInstance from "../../axios";
 import { NotificationManager } from "react-notifications";
 import PasswordResetView from "./PasswordResetView";
 import getCurrentUserId from "../utils/user";
+import getErrorMessage from "../utils/response";
 
 class PasswordResetContainerView extends Component {
   constructor(props) {
@@ -45,7 +46,6 @@ class PasswordResetContainerView extends Component {
         password: password,
       })
       .then((res) => {
-        console.log(res);
         NotificationManager.success(
           "Your password has been successfully reset.",
           "Reset Successful",
@@ -54,11 +54,7 @@ class PasswordResetContainerView extends Component {
       })
       .catch((err) => {
         console.log(err);
-        NotificationManager.error(
-          "Try adding a stronger password.",
-          "Reset",
-          5000
-        );
+        NotificationManager.error(getErrorMessage(err), "Reset", 5000);
       });
   }
 

@@ -4,6 +4,7 @@ import axiosInstance from "../../axios";
 import { Redirect } from "react-router";
 import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
+import getErrorMessage from "../utils/response";
 
 class LoginContainerView extends Component {
   constructor(props) {
@@ -59,18 +60,13 @@ class LoginContainerView extends Component {
         localStorage.setItem("refresh_token", res.data.refresh);
         axiosInstance.defaults.headers["Authorization"] =
           "JWT " + localStorage.getItem("access_token");
-        console.log(res);
         this.setState({
           redirectToDashboard: true,
         });
       })
       .catch((err) => {
         console.log(err);
-        NotificationManager.error(
-          err.response.data.detail,
-          "Login Failed",
-          5000
-        );
+        NotificationManager.error(getErrorMessage(err), "Login Failed", 5000);
       });
   }
 

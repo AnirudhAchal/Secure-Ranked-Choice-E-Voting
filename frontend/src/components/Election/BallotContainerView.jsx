@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axiosInstance from "../../axios";
 import BallotView from "./BallotView";
 import NotificationManager from "react-notifications/lib/NotificationManager";
+import getErrorMessage from "../utils/response";
 
 class BallotContainerView extends Component {
   constructor(props) {
@@ -67,7 +68,6 @@ class BallotContainerView extends Component {
         },
       })
       .then((res) => {
-        console.log(res);
         NotificationManager.success(
           "Your vote has been submitted!",
           "Submission Successful",
@@ -75,8 +75,9 @@ class BallotContainerView extends Component {
         );
       })
       .catch((err) => {
+        console.log(err);
         NotificationManager.error(
-          err.response.data.non_field_errors[0],
+          getErrorMessage(err),
           "Submission Failed",
           5000
         );

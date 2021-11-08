@@ -91,11 +91,9 @@ class ResultView extends Component {
       timeout += 1500;
       graphData.datasets[0].borderColor = graphData.datasets[0].backgroundColor;
       this.updateChartDelayed(graphData, timeout);
-      console.log(graphData);
       var joined = this.state.graphDataOfAllRounds;
       joined.push(graphData);
       this.setState({ graphDataOfAllRounds: joined });
-      console.log(joined);
     }
   }
 
@@ -164,7 +162,6 @@ class ResultView extends Component {
         },
       },
     };
-    console.log(10, this.graphDataOfAllRounds);
 
     return (
       <div>
