@@ -14,6 +14,10 @@ import VerifyEmailContainerView from "./components/User/VerifyEmailContainerView
 import MyProfileContainerView from "./components/User/MyProfileContainerView";
 import PasswordResetContainerView from "./components/User/PasswordResetContainerView";
 import PasswordResetEmailContainerView from "./components/User/PasswordResetEmailContainerView";
+import AdminOngoingElectionContainerView from "./components/Admin/AdminOngoingElectionContainerView";
+import AdminElectionContainerView from "./components/Admin/AdminElectionContainerView";
+import AdminUpcomingElectionContainerView from "./components/Admin/AdminUpcomingElectionContainerView";
+import AdminCompletedElectionContainerView from "./components/Admin/AdminCompletedElectionContainerView";
 
 function App() {
   return (
@@ -29,6 +33,22 @@ function App() {
         <Route path="/completed" component={CompletedElectionContainerView} />
         <Route path="/profile/:username" component={ProfileContainerView} />
         <Route path="/myprofile" component={MyProfileContainerView} />
+        <Route
+          path="/admin-election/:id"
+          component={AdminElectionContainerView}
+        />
+        <Route
+          path="/admin-ongoing"
+          component={AdminOngoingElectionContainerView}
+        />
+        <Route
+          path="/admin-upcoming"
+          component={AdminUpcomingElectionContainerView}
+        />
+        <Route
+          path="/admin-completed"
+          component={AdminCompletedElectionContainerView}
+        />
         <Route
           path="/password-reset-email"
           component={PasswordResetEmailContainerView}

@@ -16,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ElectionSerializer(serializers.ModelSerializer):
     winner = UserSerializer(read_only=True)
+    voted_voters = UserSerializer(read_only=True, many=True)
     admins = UserSerializer(required=False, many=True)
     candidates = UserSerializer(required=False, many=True)
     voters = UserSerializer(required=False, many=True)

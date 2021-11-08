@@ -73,7 +73,7 @@ class AdminCompletedElectionList(generics.ListAPIView):
 class AdminElectionDetail(generics.RetrieveAPIView, AdminElectionDetailViewPermission):
     permission_classes = [permissions.IsAuthenticated, AdminElectionDetailViewPermission]
     serializer_class = ElectionSerializer
-    query_set = Election.objects.all()
+    queryset = Election.objects.all()
 
 
 class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
