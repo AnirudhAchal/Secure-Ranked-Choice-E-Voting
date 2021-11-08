@@ -152,8 +152,6 @@ class AdminElectionView extends Component {
   }
 
   renderDetails() {
-    const { election } = this.props;
-    console.log(election);
     return (
       <div className="mt-4 container">
         {this.renderAdminDetails()}

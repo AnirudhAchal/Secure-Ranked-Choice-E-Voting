@@ -18,6 +18,7 @@ import AdminOngoingElectionContainerView from "./components/Admin/AdminOngoingEl
 import AdminElectionContainerView from "./components/Admin/AdminElectionContainerView";
 import AdminUpcomingElectionContainerView from "./components/Admin/AdminUpcomingElectionContainerView";
 import AdminCompletedElectionContainerView from "./components/Admin/AdminCompletedElectionContainerView";
+import CreateElectionContainerView from "./components/Admin/CreateElectionContainerView";
 
 function App() {
   return (
@@ -57,6 +58,10 @@ function App() {
         <Route
           path="/verify-email/:token?"
           component={VerifyEmailContainerView}
+        />
+        <Route
+          path="/create-election"
+          component={CreateElectionContainerView}
         />
       </Switch>
     </Router>

@@ -110,6 +110,12 @@ class UserDetail(generics.RetrieveAPIView):
     lookup_field = 'user_name'
 
 
+class UserList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+
+
 class CurrentUserDetailViewPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user == obj

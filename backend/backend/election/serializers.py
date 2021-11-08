@@ -17,13 +17,22 @@ class UserSerializer(serializers.ModelSerializer):
 class ElectionSerializer(serializers.ModelSerializer):
     winner = UserSerializer(read_only=True)
     voted_voters = UserSerializer(read_only=True, many=True)
-    admins = UserSerializer(required=False, many=True)
+    admins = UserSerializer(required=True, many=True)
     candidates = UserSerializer(required=False, many=True)
     voters = UserSerializer(required=False, many=True)
 
     class Meta:
         model = Election
         fields = '__all__'
+
+    def validate(self, data):
+        if data['start_date'] > data['end_date']:
+            raise ValidationError("Start date must be less than End date")
+
+        if len(data['admins']) == 0:
+            raise ValidationError("Elections must have one or more admins")
+
+        return data
 
     def create(self, validated_data):
         admins = validated_data.pop('admins', None)
@@ -35,12 +44,14 @@ class ElectionSerializer(serializers.ModelSerializer):
         if admins:
             for admin_detail in admins:
                 election.admins.add(get_user_model().objects.get(email=admin_detail['email']))
+        else:
+            raise ValidationError
 
-        if candidates:
+        if voters:
             for voter_detail in voters:
                 election.voters.add(get_user_model().objects.get(email=voter_detail['email']))
 
-        if voters:
+        if candidates:
             for candidate_detail in candidates:
                 election.candidates.add(get_user_model().objects.get(email=candidate_detail['email']))
 

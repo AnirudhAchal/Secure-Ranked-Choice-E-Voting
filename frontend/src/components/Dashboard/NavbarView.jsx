@@ -10,6 +10,9 @@ class NavbarView extends Component {
         <Link className="navbar-brand" to="/">
           Dashboard
         </Link>
+        <Link className="btn btn-light my-2 my-sm-0" to="/create-election">
+          Create Election
+        </Link>
         <Link className="btn btn-light my-2 my-sm-0" to="/admin">
           Manage Elections
         </Link>

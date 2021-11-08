@@ -111,7 +111,7 @@ class ElectionDetail(generics.RetrieveAPIView, ElectionDetailViewPermission):
 
 
 class ElectionCreate(generics.CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     serializer_class = ElectionSerializer
 
 
