@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User
+from django.core.exceptions import ValidationError
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -49,6 +50,15 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+    
+    def validate(self, data):
+        email = data.get('email')
+        user_name = data.get('user_name')
+        if User.objects.filter(email = email).exists():
+            raise ValidationError(f"Email is already in use")
+        if User.objects.filter(user_name = user_name).exists():
+            raise ValidationError(f"Username is already in use")
+        return data
 
 
 class EmailSerializer(serializers.Serializer):

@@ -109,11 +109,14 @@ class RegisterContainerView extends Component {
         );
       })
       .catch((err) => {
-        NotificationManager.error(
-          err.response.data.detail,
-          "Registration Failed",
-          5000
-        );
+        console.log(err);
+        let msg = "";
+
+        for (const error in err.response.data) {
+          msg += `${err.response.data[error]}.`;
+        }
+
+        NotificationManager.error(msg, "Registration Failed", 5000);
       });
   }
 
