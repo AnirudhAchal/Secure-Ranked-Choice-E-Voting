@@ -44,14 +44,13 @@ export class AdminUpcomingElectionView extends Component {
 
   render() {
     const { upcomingElections } = this.props;
-    let msg = 'Upcoming Elections';
 
     return (
       <>
         <div>{this.renderNavbar()}</div>
         <div className="container">
           <h3 className="my-2 d-flex justify-content-center">
-            {msg}
+            Upcoming Elections
           </h3>
           <hr />
           {upcomingElections.length === 0 &&

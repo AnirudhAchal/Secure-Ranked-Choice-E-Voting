@@ -31,14 +31,13 @@ export class OngoingElectionView extends Component {
 
   render() {
     const { currentElections } = this.props;
-    let msg = 'Ongoing Elections';
 
     return (
       <>
         <div>{this.renderNavbar()}</div>
         <div className="container">
           <h3 className="my-2 d-flex justify-content-center">
-            {msg}
+            Ongoing Elections
           </h3>
           <hr />
           {currentElections.length === 0 &&
