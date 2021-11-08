@@ -1,116 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import NavbarContainerView from "../Dashboard/NavbarContainerView";
+import Avatar from "react-avatar";
 
 class MyProfileView extends Component {
-  renderFirstName() {
-    const {
-      user,
-      firstName,
-      editingFirstName,
-      onChangeFirstName,
-      onSaveFirstName,
-      onCancelFirstName,
-      onEditFirstName,
-    } = this.props;
-
-    if (editingFirstName) {
-      return (
-        <div>
-          <button onClick={onSaveFirstName}>Save</button>
-          <button onClick={onCancelFirstName}>Cancel</button>
-
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={firstName}
-            onChange={(e) => onChangeFirstName(e.target.value)}
-          />
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        <button onClick={(e) => onEditFirstName(e)}>Edit</button>
-        <h3>First Name: {user.first_name}</h3>
-      </div>
-    );
-  }
-
-  renderLastName() {
-    const {
-      user,
-      lastName,
-      editingLastName,
-      onChangeLastName,
-      onSaveLastName,
-      onCancelLastName,
-      onEditLastName,
-    } = this.props;
-
-    if (editingLastName) {
-      return (
-        <div>
-          <button onClick={onSaveLastName}>Save</button>
-          <button onClick={onCancelLastName}>Cancel</button>
-
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={lastName}
-            onChange={(e) => onChangeLastName(e.target.value)}
-          />
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        <button onClick={(e) => onEditLastName(e)}>Edit</button>
-        <h3>Last Name: {user.last_name}</h3>
-      </div>
-    );
-  }
-
-  renderAbout() {
-    const {
-      user,
-      about,
-      editingAbout,
-      onChangeAbout,
-      onSaveAbout,
-      onCancelAbout,
-      onEditAbout,
-    } = this.props;
-
-    if (editingAbout) {
-      return (
-        <div>
-          <button onClick={onSaveAbout}>Save</button>
-          <button onClick={onCancelAbout}>Cancel</button>
-
-          <input
-            type="text"
-            id="about"
-            name="about"
-            value={about}
-            onChange={(e) => onChangeAbout(e.target.value)}
-          />
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        <button onClick={(e) => onEditAbout(e)}>Edit</button>
-        <h3>About: {user.about}</h3>
-      </div>
-    );
-  }
-
   renderSearchBar() {
     const { onChangeSearchText, searchText, onSearchProfile } = this.props;
     return (
@@ -128,25 +21,105 @@ class MyProfileView extends Component {
   }
 
   render() {
-    const { user, userHasLoaded } = this.props;
-
+    const {
+      user,
+      userHasLoaded,
+      onChangeFirstName,
+      onChangeLastName,
+      onChangeAbout,
+      onSave,
+      firstName,
+      lastName,
+      about,
+    } = this.props;
+    let av;
+    av = user.first_name + " " + user.last_name;
     if (!userHasLoaded) {
       return null;
     }
-
+    console.log(user);
     return (
       <div>
         <NavbarContainerView />
-        <center>
-          <h1>Profile Page</h1>
-          {this.renderSearchBar()}
-          <h3>Email: {user.email}</h3>
-          <h3>Username: {user.user_name}</h3>
-          {this.renderFirstName()}
-          {this.renderLastName()}
-          {this.renderAbout()}
-          <Link to="/password-reset">Reset Password</Link>
-        </center>
+
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+              <div class="my-4">
+                <form>
+                  <div class="row mt-5 align-items-center">
+                    <div class="col">
+                      <div class="row align-items-center">
+                        <Avatar color="#404040" round="true" name={av} />
+                        <div class="col-md-7">
+                          <h4 class="mb-1">
+                            {user.first_name} {user.last_name}
+                          </h4>
+                        </div>
+                      </div>
+                      <div class="row mb-4 my-3">
+                        <div class="col-md-7">
+                          <p class="text-muted">{user.about}</p>
+                        </div>
+                        <div class="col">
+                          <p class="small mb-0 text-muted">
+                            Username: {user.user_name}
+                          </p>
+                          <p class="small mb-0 text-muted">
+                            Email: {user.email}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-4" />
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="firstname">Firstname</label>
+                      <input
+                        type="text"
+                        id="firstname"
+                        class="form-control"
+                        placeholder={user.first_name}
+                        value={firstName}
+                        onChange={(e) => onChangeFirstName(e.target.value)}
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="lastname">Lastname</label>
+                      <input
+                        type="text"
+                        id="lastname"
+                        class="form-control"
+                        placeholder={user.last_name}
+                        value={lastName}
+                        onChange={(e) => onChangeLastName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress5">About</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputAddress5"
+                      placeholder={user.about}
+                      value={about}
+                      onChange={(e) => onChangeAbout(e.target.value)}
+                    />
+                  </div>
+                  <hr class="my-4" />
+                  <button type="submit" class="btn btn-dark" onClick={onSave}>
+                    Save Changes
+                  </button>
+                  <Link class="btn btn-dark mx-3" to="/password-reset">
+                    Reset Password
+                  </Link>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
