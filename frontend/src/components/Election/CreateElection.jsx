@@ -156,7 +156,7 @@ function CreateElection() {
               onChange={selectedPeople}
               required
             >
-              {users && users.map((user) => <option value= {user._id}>{user.name}</option>)}
+              {users && users.map((user) => <option key={user._id} value= {user._id}>{user.name}</option>)}
             </select>
           </div>
 
@@ -170,11 +170,11 @@ function CreateElection() {
               onChange={selectedPeople}
               required
             >
-              {users && users.map((user) => <option value= {user._id}>{user.name}</option>)}
+              {users && users.map((user) => <option key={user._id} value= {user._id}>{user.name}</option>)}
             </select>
           </div>
 
-          <button class="btn btn-primary" type="submit">
+          <button className="btn btn-primary" type="submit">
             Submit
           </button>
         </form>

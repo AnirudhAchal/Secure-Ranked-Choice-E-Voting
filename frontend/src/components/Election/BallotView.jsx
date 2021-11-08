@@ -8,7 +8,7 @@ class BallotView extends Component {
     rows.push(<th>ID</th>);
     rows.push(<th>Name</th>);
     for (var i = 1; i <= totalPreferences; i++) {
-      rows.push(<th>Preference {i}</th>);
+      rows.push(<th key={i}>Preference {i}</th>);
     }
     return <tr>{rows}</tr>;
   }
@@ -21,7 +21,7 @@ class BallotView extends Component {
       var cols = [];
       for (let i = 1; i <= totalPreferences; i++) {
         cols.push(
-          <td>
+          <td key={index}>
             <input type="radio" key={i * 100} value={i} name={index + 1} />
           </td>
         );
