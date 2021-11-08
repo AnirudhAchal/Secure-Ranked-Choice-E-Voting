@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import isAuthenticated from "../utils/authentication";
 import { NotificationManager } from "react-notifications";
 import VerifyEmailView from "./VerifyEmailView";
+import getErrorMessage from "../utils/response";
 
 class VerifyEmailContainerView extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class VerifyEmailContainerView extends Component {
           console.log(err);
 
           NotificationManager.error(
-            err.response.data.error,
+            getErrorMessage(err),
             "Verification Failed",
             5000
           );
@@ -82,8 +83,6 @@ class VerifyEmailContainerView extends Component {
         email: email,
       })
       .then((res) => {
-        console.log(res);
-
         this.setState({
           redirectToLogin: true,
         });
@@ -96,12 +95,7 @@ class VerifyEmailContainerView extends Component {
       })
       .catch((err) => {
         console.log(err);
-
-        const message = `${
-          err.response.data.error ? err.response.data.error : ""
-        } ${err.response.data.email ? err.response.data.email : ""}`;
-
-        NotificationManager.error(message, "Resend Failed", 5000);
+        NotificationManager.error(getErrorMessage(err), "Resend Failed", 5000);
       });
   }
 
