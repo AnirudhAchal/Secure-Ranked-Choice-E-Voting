@@ -30,12 +30,19 @@ export class OngoingElectionView extends Component {
   }
 
   render() {
+    const { currentElections } = this.props;
+
+    let msg = 'Ongoing Elections';
+    if (currentElections.length === 0) {
+      msg = 'No Ongoing Elections';
+    }
+
     return (
       <>
         <div>{this.renderNavbar()}</div>
         <div className="container">
           <h3 className="my-2 d-flex justify-content-center">
-            Ongoing Elections
+            {msg}
           </h3>
           <hr />
           <div className="row">{this.renderCurrent()}</div>

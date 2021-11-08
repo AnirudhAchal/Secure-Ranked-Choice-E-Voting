@@ -55,12 +55,19 @@ export class UpcomingElectionView extends Component {
   }
 
   render() {
+    const { upcomingElections } = this.props;
+
+    let msg = 'Upcoming Elections';
+    if (upcomingElections.length === 0) {
+      msg = 'No Upcoming Elections';
+    }
+
     return (
       <>
         <div>{this.renderNavbar()}</div>
         <div className="container">
           <h3 className="my-2 d-flex justify-content-center">
-            Upcoming Elections
+            {msg}
           </h3>
           <hr />
           <div className="row">{this.renderUpcoming()}</div>
