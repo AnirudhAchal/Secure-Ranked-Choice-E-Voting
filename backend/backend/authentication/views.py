@@ -71,6 +71,8 @@ class VerifyEmail(generics.GenericAPIView):
 
 
 class ResendVerificationEmail(generics.GenericAPIView):
+    serializer_class = EmailSerializer
+
     def post(self, request):
         serializer = EmailSerializer(data=request.data)
 
@@ -108,6 +110,12 @@ class UserDetail(generics.RetrieveAPIView):
     lookup_field = 'user_name'
 
 
+class UserList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+
+
 class CurrentUserDetailViewPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user == obj
@@ -126,6 +134,8 @@ class PasswordReset(generics.UpdateAPIView,  CurrentUserDetailViewPermission):
 
 
 class PasswordResetEmail(generics.GenericAPIView):
+    serializer_class = EmailSerializer
+
     def post(self, request):
         serializer = EmailSerializer(data=request.data)
 
