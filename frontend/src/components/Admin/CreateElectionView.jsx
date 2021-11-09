@@ -26,10 +26,7 @@ class CreateElectionView extends Component {
         <AdminNavbarContainerView />
         <div className="CreateElection">
           <form>
-            <h3
-              className="text-center"
-              style={{ paddingTop: "60px", paddingBottom: "30px" }}
-            >
+            <h3 className="text-center" style={{ paddingBottom: "30px" }}>
               Create a new election
             </h3>
             <div className="form-group">
@@ -75,7 +72,9 @@ class CreateElectionView extends Component {
                 onChange={(e) => onChangeAdmins(e.target.options)}
               >
                 {users &&
-                  users.map((user, index) => <option key={index}>{user.user_name}</option>)}
+                  users.map((user, index) => (
+                    <option key={index}>{user.user_name}</option>
+                  ))}
               </select>
             </div>
             <div className="form-group">
@@ -88,7 +87,9 @@ class CreateElectionView extends Component {
                 onChange={(e) => onChangeVoters(e.target.options)}
               >
                 {users &&
-                  users.map((user,index) => <option key={index}>{user.user_name}</option>)}
+                  users.map((user, index) => (
+                    <option key={index}>{user.user_name}</option>
+                  ))}
               </select>
             </div>
             <div className="form-group">

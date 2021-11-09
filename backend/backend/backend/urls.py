@@ -13,5 +13,5 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/election/', include('election.urls', namespace='election')),
-    path('', include_docs_urls(title='API')),
+    path('', include_docs_urls(title='Secure Rank Choice E-Voting API')),
 ]
