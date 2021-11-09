@@ -24,9 +24,9 @@ class UserCreate(APIView):
                 # Email verification
                 user = User.objects.get(email=json['email'])
                 token = RefreshToken.for_user(user)
-                current_site = get_current_site(request)
-                relative_link = reverse('authentication:verify_email')
-                absolute_url = f'http://{current_site.domain}{relative_link}?token={str(token.access_token)}'
+                origin_site = request.META['HTTP_ORIGIN']
+                relative_link = '/verify-email/'
+                absolute_url = f'{origin_site}{relative_link}{str(token.access_token)}'
                 data = {
                     'domain': absolute_url,
                     'subject': 'Secure Rank Choice E-Voting - Verify your email',
@@ -87,7 +87,7 @@ class ResendVerificationEmail(generics.GenericAPIView):
                         token = RefreshToken.for_user(user)
                         origin_site = request.META['HTTP_ORIGIN']
                         relative_link = '/verify-email/'
-                        absolute_url = f'http://{origin_site}{relative_link}{str(token.access_token)}'
+                        absolute_url = f'{origin_site}{relative_link}{str(token.access_token)}'
                         data = {
                             'domain': absolute_url,
                             'subject': 'Secure Rank Choice E-Voting - Verify your email',
