@@ -12,7 +12,7 @@ class AdminNavbarView extends Component {
             className="navbar-brand"
             data-toggle="tooltip"
             data-placement="bottom"
-            title="Dashboard"
+            title="User Dashboard"
             to="/"
           >
             <i className="fa fa-chevron-circle-left"></i>
