@@ -8,6 +8,12 @@ The goal of this project is to build and deploy a robust, secure, reliable and u
 
 Note: All screenshots can be found in the screenshots directory.
 
+# Tech Stack
+
+- Frontend: React
+- Backend: Django Rest Framework
+- Database: PostgreSQL
+
 # Project Structure
 
 ```
