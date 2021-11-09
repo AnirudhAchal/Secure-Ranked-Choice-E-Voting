@@ -213,7 +213,7 @@ npm start
 - Create a new local PostgreSQL database using PgAdmin
 - Add all required environment variables in the .env file using the .env.example file as reference
 
-# Resourcess
+# Resources
 
 - [Django Rest Framework](https://www.django-rest-framework.org/)
 - [React](https://reactjs.org/tutorial/tutorial.html)
