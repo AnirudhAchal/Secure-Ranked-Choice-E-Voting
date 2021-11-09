@@ -12,6 +12,7 @@ Note: All screenshots can be found in the screenshots directory.
 
 ```
 .
+├── Final Report.pdf
 ├── README.md
 ├── backend
 │   ├── backend
@@ -131,10 +132,9 @@ Note: All screenshots can be found in the screenshots directory.
 │       │   ├── ongoing.jpg
 │       │   └── upcoming.jpg
 │       └── index.js
-├── reports
 └── screenshots
 
-20 directories, 137 files
+19 directories, 138 files
 ```
 
 # Backend Setup
@@ -207,7 +207,7 @@ npm start
 - Create a new local PostgreSQL database using PgAdmin
 - Add all required environment variables in the .env file using the .env.example file as reference
 
-# Resources
+# Resourcess
 
 - [Django Rest Framework](https://www.django-rest-framework.org/)
 - [React](https://reactjs.org/tutorial/tutorial.html)
