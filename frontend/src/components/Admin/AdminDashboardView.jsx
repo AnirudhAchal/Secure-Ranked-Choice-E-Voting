@@ -1,88 +1,69 @@
-import React, { useState, useEffect } from "react";
-import Elections from "./Elections";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import ongoing from "../../images/ongoing.jpg";
+import upcoming from "../../images/upcoming.jpg";
+import completed from "../../images/completed.png";
+import AdminNavbarContainerView from "./AdminNavbarContainerView";
 
-function AdminDashboardView() {
-  const [upcomingElections, setUpcomingElections] = useState([]);
-  const [currentElections, setCurrentElections] = useState([]);
-  const [pastElections, setPastElections] = useState([]);
+class AdminDashboardView extends Component {
+  render() {
+    return (
+      <div>
+        <AdminNavbarContainerView />
+        <div
+          className="d-flex justify-content-center text-center mt-10"
+          style={{ paddingTop: "10%" }}
+        >
+          <div className="card-deck">
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={upcoming}
+                alt="Upcoming"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block card-img-top"
+              />
+              <div className="card-body ">
+                <Link to="/admin/upcoming" className="stretched-link text-dark">
+                  <h5 className="card-text ">Upcoming Elections</h5>
+                </Link>
+              </div>
+            </div>
 
-  useEffect(() => {
-    // to axios requests here to get the data about the elections
-    setUpcomingElections([
-      {
-        electionName: "Student Elections",
-        electionDesc: "CSE CR Elections",
-      },
-      {
-        electionName: "Hostel Committee",
-        electionDesc: "General Secretary Elections",
-      },
-    ]);
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={ongoing}
+                alt="Ongoing"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block card-img-top"
+              />
+              <div className="card-body">
+                <Link to="/admin/ongoing" className="stretched-link text-dark">
+                  <h5 className="card-text">Ongoing Elections</h5>
+                </Link>
+              </div>
+            </div>
 
-    setCurrentElections([
-      {
-        electionName: "Hostel 1 Mess Counsellor",
-        electionDesc: "CSE CR Elections",
-        votesYet: 120,
-        votesTotal: 240,
-      },
-      {
-        electionName: "Sports Co-ordinator",
-        electionDesc: "General Secretary Elections",
-        votesYet: 500,
-        votesTotal: 740,
-      },
-    ]);
-
-    setPastElections([
-      {
-        electionName: "Communist House",
-        electionDesc: "House Committee President Elections",
-        votesCast: 400,
-        votesTotal: 840,
-      },
-    ]);
-  }, []);
-
-  return (
-    <div>
-      <div className="container">
-        <h3 className="my-2 d-flex justify-content-center">
-          Ongoing Elections
-        </h3>
-        <hr />
-        <div className="row">
-          {currentElections.map((election) => (
-            <Elections election={election} />
-          ))}
+            <div className="mx-5 my-3 card" style={{ width: "400px" }}>
+              <img
+                src={completed}
+                alt="Completed"
+                style={{ width: "300px" }}
+                className="rounded mx-auto d-block"
+              />
+              <div className="card-body">
+                <Link
+                  to="/admin/completed"
+                  className="stretched-link text-dark"
+                >
+                  <h5 className="card-text">Completed Elections</h5>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <hr />
-      <div className="container">
-        <h3 className="my-2 d-flex justify-content-center">
-          Upcoming Elections
-        </h3>
-        <hr />
-        <div className="row">
-          {upcomingElections.map((election) => (
-            <Elections election={election} />
-          ))}
-        </div>
-      </div>
-      <hr />
-      <div className="container">
-        <h3 className="my-2 d-flex justify-content-center">
-          Completed Elections
-        </h3>
-        <hr />
-        <div className="row">
-          {pastElections.map((election) => (
-            <Elections election={election} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default AdminDashboardView;

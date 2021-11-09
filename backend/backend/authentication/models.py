@@ -37,10 +37,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(max_length=250, unique=True)
     user_name = models.CharField(max_length=150, unique=True)
-    first_name = models.CharField(max_length=150, blank=True)
-    last_name = models.CharField(max_length=150, blank=True)
-    start_date = models.DateTimeField(default=timezone.now)
-    about = models.TextField(max_length=500, blank=True)
+    first_name = models.CharField(max_length=150, null=True, blank=True)
+    last_name = models.CharField(max_length=150, null=True, blank=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    about = models.TextField(max_length=500, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
