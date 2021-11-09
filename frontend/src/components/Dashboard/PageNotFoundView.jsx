@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import lighthouse from "../styles/images/lighthouse.jpg";
+import lighthouse from "../../images/lighthouse.jpg";
 import "../styles/PageNotFound.css";
-import NavbarContainerView from "../Dashboard/NavbarContainerView";
+import NavbarContainerView from "./NavbarContainerView";
 
 class PageNotFoundView extends Component {
   render() {

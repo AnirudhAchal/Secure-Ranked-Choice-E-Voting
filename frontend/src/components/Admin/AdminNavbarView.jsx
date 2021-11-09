@@ -8,7 +8,13 @@ class AdminNavbarView extends Component {
     return (
       <nav className="navbar navbar-light bg-light">
         <div>
-          <Link className="navbar-brand" to="/">
+          <Link
+            className="navbar-brand"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="User Dashboard"
+            to="/"
+          >
             <i className="fa fa-chevron-circle-left"></i>
           </Link>
           <Link className="navbar-brand" to="/admin">
