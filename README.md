@@ -1,4 +1,4 @@
-# Secure-Rank-Choice-E-Voting
+# Secure-Ranked-Choice-E-Voting
 
 Secure Ranked Choice E-Voting is a web application that provides an easy-to-use method of collecting encrypted ballots that is secure against malicious actors, and capable of authenticating voters properly. Additionally, the web interface allows the tabulation of election results and the public posting of those results. The elections will follow ranked choice voting which has become more popular than single choice voting.
 
